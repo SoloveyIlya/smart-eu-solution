@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggle = (open) => {
       burger.classList.toggle('active', open);
       nav.classList.toggle('active', open);
+      header.classList.toggle('menu-open', open);
       document.body.style.overflow = open ? 'hidden' : '';
     };
     burger.addEventListener('click', () => toggle(!burger.classList.contains('active')));
