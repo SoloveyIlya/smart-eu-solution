@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Smart EU Solution — Премиальное резидентство в ЕС</title>
   <meta name="color-scheme" content="light" />
-  
+
   <!-- Премиальные шрифты по ТЗ -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"></noscript>
-  
+
   <!-- Подключение внешних стилей -->
   <link rel="stylesheet" href="style.css">
 </head>
@@ -46,7 +46,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Плавающая стрелочка -->
     <a href="#problems" class="scroll-arrow">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,46 +58,217 @@
   <!-- Градиентный разделитель -->
   <div class="section-divider"></div>
 
-  <!-- Секция проблем -->
-  <section id="problems" class="problems-section">
+  <!-- Секция проблем (ИНТЕГРИРОВАННЫЙ БЛОК) -->
+  <section id="problems" class="challenges-section" aria-labelledby="challenges-title">
     <div class="container">
-      <h2 class="section-title">Ключевые вызовы</h2>
-      <div class="problems-grid">
-      <div class="problem-card fade-in">
-        <h3>Ограничения визового режима</h3>
-        <p>Инициативы по запрету выдачи виз странами Шенгенского соглашения создают серьезные препятствия для свободного передвижения</p>
+      <div class="challenges-header">
+        <h2 id="challenges-title">С чем сталкиваются наши клиенты</h2>
+        <div class="title-underline" aria-hidden="true"></div>
+        <p class="challenges-sub">Актуальные вызовы, требующие деликатного подхода и глубокого профессионализма. Мы создаём индивидуальные дорожные карты для безопасной и бесшовной интеграции в Евросоюз.</p>
       </div>
-      
-      <div class="problem-card fade-in">
-        <h3>Сложности длительного проживания</h3>
-        <p>Проблемы с получением и продлением видов на жительство, а также с легализацией пребывания в странах ЕС</p>
+
+      <div class="challenges-grid">
+        <!-- 1 -->
+        <article class="challenge-item">
+          <div class="icon-circle" aria-hidden="true">
+            <!-- Иконка: паспорт с глобусом -->
+             <img src="img/free-icon-passport-4560316.png" alt="" class="challenge-icon">
+              <title>Запрет виз</title>
+              <rect x="3" y="4" width="14" height="16" rx="1.5"></rect>
+              <path d="M7 8h6M7 11.5h6M7 15h4"></path>
+              <circle cx="18.5" cy="8.5" r="3"></circle>
+              <path d="M16.2 7.2c.5.5.8 1.2.8 1.9 0 .7-.3 1.4-.8 1.9M20.8 7.2c-.5.5-.8 1.2-.8 1.9 0 .7.3 1.4.8 1.9"></path>
+            </svg>
+          </div>
+          <div class="challenge-content">
+            <h3>Рост визовых ограничений</h3>
+            <p>Инициативы по запрету выдачи виз странами Шенгенского соглашения</p>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="challenge-item">
+          <div class="icon-circle" aria-hidden="true">
+              <img src="img/apartment_13534337.png"  alt="" class="challenge-icon">
+              <title>Длительное проживание</title>
+              <path d="M3 11.5L12 4l9 7.5"></path>
+              <path d="M7 21V12h10v9"></path>
+              <path d="M12.5 16a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"></path>
+              <path d="M14.5 17.5l3 1.5"></path>
+            </svg>
+          </div>
+          <div class="challenge-content">
+            <h3>Сложности при длительном проживании</h3>
+            <p>Трудности с получением и продлением ВНЖ, интеграцией и подтверждением легального статуса при долгосрочных планах на проживание.</p>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="challenge-item">
+          <div class="icon-circle" aria-hidden="true">
+            <!-- Иконка: круговые стрелки + календарь (нестабильность) -->
+            <img src="img/bar-chart_935680.png"  alt="" class="challenge-icon">
+              <title>Нестабильность программ</title>
+              <rect x="3" y="5" width="14" height="12" rx="1.2"></rect>
+              <path d="M8 3v3M12 3v3"></path>
+              <path d="M7 16a5 5 0 1 1 7.07-7.07"></path>
+              <polyline points="16 6 19 6 19 9"></polyline>
+            </svg>
+          </div>
+          <div class="challenge-content">
+            <h3>Шаткость статусов</h3>
+            <p>Шаткость статусов и неустойчивость массовых эмиграционных программ (отменяются, закрываются, изменение требований)</p>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="challenge-item">
+          <div class="icon-circle" aria-hidden="true">
+            <!-- Иконка: герб/штамп с крестом (отзыв схем) -->
+            <img src="img/chat_3631565.png"  alt="" class="challenge-icon">
+              <title>Отзыв схем</title>
+              <path d="M6 8h10v8H6z"></path>
+              <path d="M9 11l6 6M15 11l-6 6"></path>
+              <circle cx="17" cy="6" r="2"></circle>
+            </svg>
+          </div>
+          <div class="challenge-content">
+            <h3>Отзыв инвестиционных схем</h3>
+            <p>Отзыв «золотых паспортов» Мальтой и Кипром</p>
+          </div>
+        </article>
+
+       <!-- 5 -->
+        <article class="challenge-item">
+          <div class="icon-circle" aria-hidden="true">
+            <!-- Иконка: банк/сейф + щит (уязвимость активов) -->
+              <img src="img/material_5821254.png"  alt="" class="challenge-icon">
+              <title>Уязвимость активов</title>
+              <path d="M3 10h18v7H3z"></path>
+              <path d="M5 10V7a7 7 0 0 1 14 0v3"></path>
+              <rect x="10" y="12" width="4" height="4" rx="0.8"></rect>
+              <path d="M19 8c0 1.8-1.2 3.2-2.8 3.8"></path>
+              <path d="M19 4v2"></path>
+            </svg>
+          </div>
+          <div class="challenge-content">
+            <h3>Уязвимость активов</h3>
+            <p>Уязвимость активов (европейские, а также часто азиатские банки не хотят иметь дело с обладателями российского паспорта, в отдельных случаях активы замораживаются)</p>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="challenge-item">
+          <div class="icon-circle" aria-hidden="true">
+            <!-- Иконка: карта/маршрут с флагом (дефицит решений) -->
+            <img src="img/delivery-failed_2497875.png"  alt="" class="challenge-icon">
+              <title>Дефицит решений</title>
+              <path d="M3 6l5-2 5 2 5-2v14l-5 2-5-2-5 2z"></path>
+              <path d="M8 4v14"></path>
+              <path d="M16 6v6"></path>
+              <path d="M18 6l2-1v4l-2 1"></path>
+            </svg>
+          </div>
+          <div class="challenge-content">
+            <h3>Отсутствие рыночных программ</h3>
+            <p>Дефицит эффективных решений (нет общеизвестных рыночных программ, позволяющих полноценную интеграцию в ЕС)</p>
+          </div>
+        </article>
+
       </div>
-      
-      <div class="problem-card fade-in">
-        <h3>Нестабильность программ</h3>
-        <p>Шаткость статусов и неустойчивость массовых эмиграционных программ, которые часто отменяются или изменяются</p>
-      </div>
-      
-      <div class="problem-card fade-in">
-        <h3>Отзыв инвестиционных программ</h3>
-        <p>Прекращение действия «золотых паспортов» Мальтой и Кипром ограничивает доступные варианты</p>
-      </div>
-      
-      <div class="problem-card fade-in">
-        <h3>Уязвимость активов</h3>
-        <p>Европейские и азиатские банки часто отказываются работать с обладателями российских паспортов</p>
-      </div>
-      
-      <div class="problem-card fade-in">
-        <h3>Дефицит эффективных решений</h3>
-        <p>Отсутствие общеизвестных рыночных программ для полноценной интеграции в ЕС</p>
-      </div>
-      </div>
+      <a href="#solution" class="scroll-arrow company-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
   </section>
 
   <!-- Градиентный разделитель -->
   <div class="section-divider"></div>
+
+  <!-- Секция о компании -->
+  <section class="company-section">
+    <div class="container">
+      <div class="company-content">
+        <div class="company-text">
+          <h2>О нашей компании</h2>
+          <div class="title-underline" aria-hidden="true"></div>
+          <p>Наши партнеры разработали для наших клиентов эффективное решение, это конфиденциальная программа, отсутствующая на открытом рынке.</p>
+          <p>Подробные условия мы открываем исключительно лично соискателям после того, как убедимся в серьезности их намерений и в том, что они удовлетворяют критериям программы.</p>
+        </div>
+        <div class="company-image">
+          <img src="img/henrique-ferreira-omiTbS-nb_M-unsplash.jpg" alt="Конфиденциальность и доверие" loading="lazy">
+        </div>
+      </div>
+      <!-- Стрелочка вниз -->
+      <a href="#solution" class="scroll-arrow company-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+
+ <!-- Секция преимуществ программы -->
+<!-- Секция преимуществ программы -->
+<section class="advantages-section">
+  <div class="container">
+    <div class="advantages-header">
+      <h2>Основные преимущества программы</h2>
+    </div>
+    
+    <div class="advantages-row">
+      <!-- Преимущество 1 -->
+      <div class="advantage-column">
+        <div class="advantage-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="var(--accent-green)" stroke-width="1.5"/>
+            <polyline points="14,2 14,8 20,8" stroke="var(--accent-green)" stroke-width="1.5"/>
+            <path d="M16 13H8" stroke="var(--accent-green)" stroke-width="1.5"/>
+            <path d="M16 17H8" stroke="var(--accent-green)" stroke-width="1.5"/>
+            <path d="M10 9H8" stroke="var(--accent-green)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="advantage-content">
+          <h3>Официальный договор</h3>
+          <p>Полная юридическая защита и прозрачность всех условий</p>
+        </div>
+      </div>
+
+      <!-- Преимущество 2 -->
+      <div class="advantage-column">
+        <div class="advantage-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="6" width="20" height="12" rx="2" stroke="var(--accent-green)" stroke-width="1.5"/>
+            <path d="M6 12h12" stroke="var(--accent-green)" stroke-width="1.5"/>
+            <path d="M12 6v12" stroke="var(--accent-green)" stroke-width="1.5"/>
+            <circle cx="12" cy="12" r="1" fill="var(--accent-green)"/>
+          </svg>
+        </div>
+        <div class="advantage-content">
+          <h3>Гибкая оплата</h3>
+          <p>Безналичный расчет внутри и вовне РФ</p>
+        </div>
+      </div>
+
+      <!-- Преимущество 3 -->
+      <div class="advantage-column">
+        <div class="advantage-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="var(--accent-green)" stroke-width="1.5"/>
+            <path d="M9 12l2 2 4-4" stroke="var(--accent-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="advantage-content">
+          <h3>Гарантия возврата</h3>
+          <p>Полная финансовая безопасность инвестиций</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
   <!-- Секция решения -->
   <section id="solution" class="solution-section">
