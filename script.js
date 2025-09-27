@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggle = (open) => {
       burger.classList.toggle('active', open);
       nav.classList.toggle('active', open);
+      header.classList.toggle('menu-open', open);
       document.body.style.overflow = open ? 'hidden' : '';
     };
     burger.addEventListener('click', () => toggle(!burger.classList.contains('active')));
@@ -40,4 +41,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     window.addEventListener('resize', () => { if (window.innerWidth > 768) toggle(false); });
   }
+});
+// --- accessibility: tabindex + focus styles for challenge items ---
+document.addEventListener('DOMContentLoaded', () => {
+  const items = document.querySelectorAll('.challenge-item');
+  items.forEach(item => {
+    // если tabindex уже есть — не перезаписываем
+    if (!item.hasAttribute('tabindex')) item.setAttribute('tabindex', '0');
+
+    item.addEventListener('focus', () => item.classList.add('focused'));
+    item.addEventListener('blur', () => item.classList.remove('focused'));
+
+    // allow Enter/Space to trigger the same visual focus (usability on keyboard)
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        item.classList.add('focused');
+        setTimeout(() => item.classList.remove('focused'), 250);
+      }
+    });
+  });
 });
