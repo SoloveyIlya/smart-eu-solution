@@ -16,25 +16,50 @@
 </head>
 <body>
   <!-- Шапка в стиле Old Money -->
-  <header class="site-header" id="main-header">
-    <div class="container">
-      <div class="header-inner">
-        <a href="#" class="brand">Smart EU Solution</a>
-        <nav class="nav">
-          <ul class="nav-links">
-            <li><a href="#problems">Актуальные проблемы</a></li>
-            <li><a href="#solution">Наше решение</a></li>
-            <li><a href="#contacts" class="nav-phone">+7 (495) 123-45-67</a></li>
-          </ul>
-        </nav>
-        <button class="burger-menu" aria-label="Открыть меню">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
+<header class="site-header" id="main-header">
+  <div class="container">
+    <div class="header-inner">
+      <!-- Логотип -->
+      <a href="#" class="brand">Smart EU Solution</a>
+      
+      <!-- Номер телефона -->
+      <a href="tel:+74951234567" class="header-phone">+7 (495) 123-45-67</a>
+      
+      <!-- Бургер меню -->
+      <button class="burger-menu" aria-label="Открыть меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <!-- Основное меню -->
+      <nav class="main-nav">
+        <ul class="nav-links">
+          <li><a href="#problems">Актуальные проблемы</a></li>
+          <li><a href="#company-section">О компании</a></li>
+          <li><a href="#solution">Преимущества</a></li>
+          <li><a href="#calculator">Калькулятор стоимости</a></li>
+          <li><a href="#benefits">Что вы получаете</a></li>
+          <li><a href="#criteria">Критерии</a></li>
+          <li><a href="#contacts">Обратная связь</a></li>
+        </ul>
+        
+        <!-- Номер телефона в меню -->
+        <div class="nav-footer">
+          <a href="tel:+74951234567" class="nav-phone">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            +7 (495) 123-45-67
+          </a>
+        </div>
+      </nav>
+      
+      <!-- Оверлей для меню -->
+      <div class="nav-overlay"></div>
     </div>
-  </header>
+  </div>
+</header>
 
   <!-- Главный экран по ТЗ -->
   <section class="hero">
@@ -48,7 +73,7 @@
     </div>
 
     <!-- Плавающая стрелочка -->
-    <a href="#problems" class="scroll-arrow">
+    <a  id = "problems "href="#problems" class="scroll-arrow">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -72,7 +97,7 @@
         <article class="challenge-item">
           <div class="icon-circle" aria-hidden="true">
             <!-- Иконка: паспорт с глобусом -->
-             <img src="img/free-icon-passport-4560316.png" alt="" class="challenge-icon">
+             <img src="img/icons8-паспорт-50.png" alt="" class="challenge-icon">
               <title>Запрет виз</title>
               <rect x="3" y="4" width="14" height="16" rx="1.5"></rect>
               <path d="M7 8h6M7 11.5h6M7 15h4"></path>
@@ -89,7 +114,7 @@
         <!-- 2 -->
         <article class="challenge-item">
           <div class="icon-circle" aria-hidden="true">
-              <img src="img/apartment_13534337.png"  alt="" class="challenge-icon">
+              <img src="img/homeownership_17063425.png"  alt="" class="challenge-icon">
               <title>Длительное проживание</title>
               <path d="M3 11.5L12 4l9 7.5"></path>
               <path d="M7 21V12h10v9"></path>
@@ -107,7 +132,7 @@
         <article class="challenge-item">
           <div class="icon-circle" aria-hidden="true">
             <!-- Иконка: круговые стрелки + календарь (нестабильность) -->
-            <img src="img/bar-chart_935680.png"  alt="" class="challenge-icon">
+            <img src="img/line-graph_584733.png"  alt="" class="challenge-icon">
               <title>Нестабильность программ</title>
               <rect x="3" y="5" width="14" height="12" rx="1.2"></rect>
               <path d="M8 3v3M12 3v3"></path>
@@ -125,7 +150,7 @@
         <article class="challenge-item">
           <div class="icon-circle" aria-hidden="true">
             <!-- Иконка: герб/штамп с крестом (отзыв схем) -->
-            <img src="img/chat_3631565.png"  alt="" class="challenge-icon">
+            <img src="img/strategy_13495986.png"  alt="" class="challenge-icon">
               <title>Отзыв схем</title>
               <path d="M6 8h10v8H6z"></path>
               <path d="M9 11l6 6M15 11l-6 6"></path>
@@ -142,7 +167,7 @@
         <article class="challenge-item">
           <div class="icon-circle" aria-hidden="true">
             <!-- Иконка: банк/сейф + щит (уязвимость активов) -->
-              <img src="img/material_5821254.png"  alt="" class="challenge-icon">
+              <img src="img/bug-report_10266826.png"  alt="" class="challenge-icon">
               <title>Уязвимость активов</title>
               <path d="M3 10h18v7H3z"></path>
               <path d="M5 10V7a7 7 0 0 1 14 0v3"></path>
@@ -161,7 +186,7 @@
         <article class="challenge-item">
           <div class="icon-circle" aria-hidden="true">
             <!-- Иконка: карта/маршрут с флагом (дефицит решений) -->
-            <img src="img/delivery-failed_2497875.png"  alt="" class="challenge-icon">
+            <img src="img/monitor_17164879.png"  alt="" class="challenge-icon">
               <title>Дефицит решений</title>
               <path d="M3 6l5-2 5 2 5-2v14l-5 2-5-2-5 2z"></path>
               <path d="M8 4v14"></path>
@@ -174,21 +199,18 @@
             <p>Дефицит эффективных решений (нет общеизвестных рыночных программ, позволяющих полноценную интеграцию в ЕС)</p>
           </div>
         </article>
-
       </div>
-      <a href="#solution" class="scroll-arrow company-arrow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
     </div>
   </section>
 
   <!-- Градиентный разделитель -->
   <div class="section-divider"></div>
 
+  <!-- Новый контейнер для угла -->
+  <div class="divider-triangle"></div>
+
   <!-- Секция о компании -->
-  <section class="company-section">
+  <section id="company-section" class="company-section">
     <div class="container">
       <div class="company-content">
         <div class="company-text">
@@ -198,22 +220,16 @@
           <p>Подробные условия мы открываем исключительно лично соискателям после того, как убедимся в серьезности их намерений и в том, что они удовлетворяют критериям программы.</p>
         </div>
         <div class="company-image">
-          <img src="img/henrique-ferreira-omiTbS-nb_M-unsplash.jpg" alt="Конфиденциальность и доверие" loading="lazy">
+          <img src="img/herry-sutanto-VvoN0E597iI-unsplash.jpg" alt="Конфиденциальность и доверие" loading="lazy">
         </div>
       </div>
-      <!-- Стрелочка вниз -->
-      <a href="#solution" class="scroll-arrow company-arrow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
     </div>
   </section>
 
 
  <!-- Секция преимуществ программы -->
 <!-- Секция преимуществ программы -->
-<section class="advantages-section">
+<section id="solution" class="advantages-section">
   <div class="container">
     <div class="advantages-header">
       <h2>Основные преимущества программы</h2>
@@ -270,26 +286,391 @@
   </div>
 </section>
 
-  <!-- Секция решения -->
-  <section id="solution" class="solution-section">
-    <div class="container">
-      <div class="solution-content fade-in">
-        <h2 class="section-title">Эксклюзивное решение</h2>
-        <p>Мы предлагаем индивидуальную программу резидентства, разработанную с учетом текущих геополитических реалий. Наш подход сочетает юридическую надежность, конфиденциальность и глубокое понимание европейского законодательства.</p>
-        <a href="#contacts" class="btn btn-primary">Обсудить вашу ситуацию</a>
+
+<!-- Секция калькулятора -->
+<section id="calculator" class="calculator-section">
+  <div class="container">
+    <div class="calculator-header">
+      <h2>Цена вопроса?</h2>
+      <p class="calculator-subtitle"> Калькулятор примерной стоимости услуги, выбор категорий</p>
+    </div>
+    
+    <div class="calculator-wrapper">
+      <div class="calculator-card">
+        <div class="calculator-form-side">
+          <!-- Шаг 1 - Выбор программы -->
+          <div class="form-step active" data-step="1">
+            <div class="step-indicator">
+              <div class="step-dot active"></div>
+              <div class="step-line"></div>
+              <div class="step-dot"></div>
+              <div class="step-line"></div>
+              <div class="step-dot"></div>
+            </div>
+            
+            <div class="step-header">
+              <div class="step-number">01</div>
+              <h3>Вид программы</h3>
+              <p class="step-description">Выберите подходящий вариант оформления</p>
+            </div>
+            
+            <div class="program-options">
+              <div class="program-option" data-value="150">
+                <div class="option-card">
+                  <div class="option-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                  </div>
+                  <div class="option-content">
+                    <h4>Обычная программа</h4>
+                    <p>Стандартные сроки оформления документов</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="program-option" data-value="200">
+                <div class="option-card">
+                  <div class="option-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                  <div class="option-content">
+                    <h4>Ускоренная программа</h4>
+                    <p>Приоритетное рассмотрение заявки</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="step-actions">
+              <button class="btn-next" disabled>
+                <span>Продолжить</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 8h14M8 1l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Шаг 2 - Количество детей -->
+          <div class="form-step" data-step="2">
+            <div class="step-indicator">
+              <div class="step-dot completed"></div>
+              <div class="step-line active"></div>
+              <div class="step-dot active"></div>
+              <div class="step-line"></div>
+              <div class="step-dot"></div>
+            </div>
+            
+            <div class="step-header">
+              <div class="step-number">02</div>
+              <h3>Состав семьи</h3>
+              <p class="step-description">Укажите количество детей до 16 лет</p>
+            </div>
+            
+            <div class="children-section">
+              <div class="children-counter">
+                <button type="button" class="counter-btn minus" aria-label="Уменьшить">
+                  <svg width="16" height="2" viewBox="0 0 16 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                
+                <div class="counter-display">
+                  <span class="counter-value">0</span>
+                  <span class="counter-label">детей</span>
+                </div>
+                
+                <button type="button" class="counter-btn plus" aria-label="Увеличить">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+              
+              <div class="children-note">
+              </div>
+            </div>
+            
+            <div class="step-actions">
+              <button class="btn-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15 8H1M8 15L1 8l7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Назад</span>
+              </button>
+              <button class="btn-calculate">
+                <span>Получить стоимость</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 8h14M8 1l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Шаг 3 - Результат -->
+          <div class="form-step" data-step="3">
+            <div class="step-indicator">
+              <div class="step-dot completed"></div>
+              <div class="step-line completed"></div>
+              <div class="step-dot completed"></div>
+              <div class="step-line active"></div>
+              <div class="step-dot active"></div>
+            </div>
+            
+            <div class="step-header">
+              <div class="step-number">03</div>
+              <h3>Расчет готов</h3>
+              <p class="step-description">Примерная стоимость вашей программы</p>
+            </div>
+            
+            <div class="result-summary">
+              <div class="summary-item">
+                <span class="summary-label">Программа</span>
+                <span class="summary-value" id="summary-program">—</span>
+              </div>
+              <div class="summary-item">
+                <span class="summary-label">Дети до 16 лет</span>
+                <span class="summary-value" id="summary-children">0</span>
+              </div>
+            </div>
+            
+            <div class="step-actions">
+              <button class="btn-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15 8H1M8 15L1 8l7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Изменить данные</span>
+              </button>
+              <button class="btn-consultation">
+                <span>Получить консультацию</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 8h10M8 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="calculator-result-side">
+          <div class="result-visual">
+            <div class="result-placeholder">
+              <div class="placeholder-animation">
+                <div class="animation-circle"></div>
+                <div class="animation-circle delay-1"></div>
+                <div class="animation-circle delay-2"></div>
+              </div>
+              <h4>Расчет стоимости</h4>
+              <p>Заполните параметры для получения точного расчета</p>
+            </div>
+            
+            <div class="result-active" style="display: none;">
+              <div class="result-graphic">
+                <div class="graphic-circle">
+                  <svg width="120" height="120" viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(193, 156, 111, 0.1)" stroke-width="4"/>
+                    <circle cx="60" cy="60" r="54" fill="none" stroke="var(--accent-green)" stroke-width="4" stroke-dasharray="339.292" stroke-dashoffset="339.292" class="circle-progress"/>
+                  </svg>
+                  <div class="graphic-content">
+                    <span class="result-amount">0</span>
+                    <span class="currency">€</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="result-details">
+                <div class="detail-item">
+                  <span class="detail-label">Базовая программа</span>
+                  <span class="detail-value" id="detail-base">0 €</span>
+                </div>
+                <div class="detail-item">
+                  <span class="detail-label">Доплата за детей</span>
+                  <span class="detail-value" id="detail-children">0 €</span>
+                </div>
+                <div class="detail-divider"></div>
+                <div class="detail-total">
+                  <span class="total-label">Итого</span>
+                  <span class="total-value" id="detail-total">0 €</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Футер -->
-  <footer id="contacts" class="site-footer">
-    <div class="container">
-      <div class="footer-content">
-        <p>© 2025 Smart EU Solution. Все права защищены.</p>
-        <p class="contact-info">Конфиденциальность и надежность — принципы старой школы</p>
+<!-- Секция "Что Вы получаете?" -->
+<section id="benefits" class="benefits-section">
+  <div class="container">
+    <div class="benefits-content">
+      <div class="benefits-image">
+        <img src="img/ilia-bronskiy-cwhMg9g-KJE-unsplash.jpg" alt="Преимущества резидентства в ЕС" loading="lazy">
       </div>
+      <div class="benefits-right">
+        <div class="benefits-text">
+          <h2>Что Вы получаете?</h2>
+          <ul class="benefits-list">
+            <li>Возможность жить и инвестировать в любой стране ЕС возможен (полный комплект документов, ID, возможно вод. права и проч.)</li>
+            <li>Надежный банкинг в Европе без ограничений, связанных с российским гражданством.</li>
+            <li>Возможности легальной налоговой оптимизации в ЕС.</li>
+          </ul>
+        </div>
+        
+        <div class="benefits-subtext">
+          <p class="muted-text">А так же:</p>
+          <ul class="subtext-list">
+            <li>Для детей – возможность обучаться в ВУЗах ЕС на условиях для граждан ЕС.</li>
+            <li>Отсутствие необходимости отказа от российского гражданства.</li>
+            <li>Отсутствие требования выражать отношение к СВО.</li>
+            <li>Отсутствие требований по знанию европейских языков (и экзамена).</li>
+            <li>Полная конфиденциальность.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Секция критериев соискателя -->
+<section id="criteria" class="criteria-section">
+  <div class="container">
+    <div class="criteria-content">
+      <div class="criteria-header">
+        <h2>Каким критериям должен соответствовать соискатель</h2>
+        <div class="title-underline" aria-hidden="true"></div>
+      </div>
+      
+      <ul class="criteria-list">
+        <li class="criteria-item">
+          <div class="checkmark">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="criteria-text">Платежеспособность</span>
+        </li>
+        <li class="criteria-item">
+          <div class="checkmark">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="criteria-text">Отсутствие судимости за тяжкие преступления</span>
+        </li>
+        <li class="criteria-item">
+          <div class="checkmark">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="criteria-text">Не находиться под санкциями лично, а также не быть родственником такого человека</span>
+        </li>
+        <li class="criteria-item">
+          <div class="checkmark">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="criteria-text">Не занимать государственные посты в РФ, а также не быть родственником такого человека</span>
+        </li>
+        <li class="criteria-item">
+          <div class="checkmark">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="criteria-text">Пройти проверку на возможность оказания услуги (нулевой этап заключения договора)</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Секция конфиденциальности с параллаксом -->
+<section class="confidential-section">
+  <div class="parallax-bg"></div>
+  <div class="container">
+    <div class="confidential-content">
+      <div class="confidential-text">
+        <p class="confidential-primary">
+          Если Вам показалось, что в нашем описании недостает подробностей, то Вам не показалось, это так и есть, и это потому, что программа является конфиденциальной и подробности могут быть открыты только в личном общении с заинтересованными потенциальными клиентами.
+        </p>
+        <p class="confidential-secondary">
+          Такой подход позволяет наилучшим образом обеспечить как работоспособность программы, так и защитить интересы уже воспользовавшихся ею клиентов.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Добавьте этот код после секции конфиденциальности и перед футером -->
+
+<!-- Секция "Станьте одним из них!" -->
+<section class="feedback-section">
+  <div class="container">
+    <div class="feedback-content">
+      <div class="feedback-header">
+        <h2>Станьте одним из них!</h2>
+        <div class="title-underline" aria-hidden="true"></div>
+        <p class="feedback-subtitle">Присоединитесь к нашим клиентам, которые уже получили резидентство в ЕС</p>
+      </div>
+      
+      <form class="feedback-form">
+        <div class="form-group">
+          <input type="tel" name="phone" placeholder="Телефон*" required>
+        </div>
+        
+        <div class="form-group">
+          <textarea name="message" placeholder="написать письмо" rows="4"></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary feedback-btn">
+          <span>Форма обратной связи</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 8h14M8 1l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+  <footer id="contacts" class="site-footer">
+    <div class="container footer-grid">
+      <!-- Бренд -->
+      <div class="footer-brand">
+        <h3>Smart EU Solution</h3>
+        <p>Конфиденциальные решения для резидентства в ЕС</p>
+      </div>
+  
+      <!-- Навигация -->
+      <div class="footer-nav">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="#problems">Актуальные проблемы</a></li>
+          <li><a href="#solution">Наше решение</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </div>
+  
+      <!-- Контакты -->
+      <div class="footer-contacts">
+        <h4>Свяжитесь с нами</h4>
+        <p>📞 +7 (495) 123-45-67</p>
+        <p>✉️ info@smarteu.com</p>
+      </div>
+    </div>
+  
+    <!-- Нижняя полоса -->
+    <div class="footer-bottom">
+      <p>© 2025 Smart EU Solution. Все права защищены.</p>
     </div>
   </footer>
+  
 
   <!-- Подключение внешнего JavaScript -->
   <script src="script.js"></script>
