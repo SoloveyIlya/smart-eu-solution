@@ -311,9 +311,20 @@ h1, h2, h3, h4 {
 
 /* Адаптивность */
 @media (max-width: 768px) {
-  .header-phone {
-    display: none;
+  .site-header.menu-open .brand {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
   }
+  .site-header:not(.menu-open) .brand {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .brand {
+    font-size: 1.5rem; /* Промежуточный размер для планшетов */
+  }
+}
   
   .main-nav {
     max-width: 320px;
@@ -335,12 +346,13 @@ h1, h2, h3, h4 {
   .nav-footer {
     padding: 15px 25px;
   }
-}
+
 
 @media (max-width: 480px) {
   .brand {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Размер для мобильных по ТЗ */
   }
+}
   
   .main-nav {
     max-width: 280px;
@@ -370,7 +382,13 @@ h1, h2, h3, h4 {
   .burger-menu.active span:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
   }
-}
+
+
+  @media (max-width: 380px) {
+    .brand {
+      font-size: 1.55rem; /* Еще меньше для очень маленьких экранов */
+    }
+  }
 
 /* ---------- ГЛАВНЫЙ ЭКРАН ПО ТЗ ---------- */
 .hero {
@@ -855,7 +873,7 @@ h1, h2, h3, h4 {
 }
 
    .challenges-section {
-    padding: 6.25rem 0;
+    padding: 1.1rem 0;
     background: var(--bg-light);
     position: relative;
   }
@@ -2859,3 +2877,4 @@ h1, h2, h3, h4 {
     padding: 1rem 1.2rem;
   }
 }
+
