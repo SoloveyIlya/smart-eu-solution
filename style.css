@@ -2878,3 +2878,15 @@ h1, h2, h3, h4 {
   }
 }
 
+/* Базовое состояние */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+/* Когда видно на экране */
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
