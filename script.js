@@ -283,7 +283,29 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Очищаем форму
       feedbackForm.reset();
+    }); }
+});
+
+// --- Анимация появления карточек при скролле ---
+document.addEventListener('DOMContentLoaded', () => {
+  const animatedElements = document.querySelectorAll(
+    '.challenge-item, .advantage-column, .program-option, .criteria-item, .benefits-list li, .subtext-list li'
+  );
+
+  // Добавляем класс "animate-on-scroll" для подготовки
+  animatedElements.forEach(el => el.classList.add('animate-on-scroll'));
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // Анимация один раз
+      }
     });
-  }
+  }, {
+    threshold: 0.2 // процент появления на экране
+  });
+
+  animatedElements.forEach(el => observer.observe(el));
 });
 
