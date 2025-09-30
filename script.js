@@ -1,101 +1,105 @@
 // Header + menu logic (robust)
-document.addEventListener('DOMContentLoaded', function() {
-  const header = document.getElementById('main-header');
+document.addEventListener('DOMContentLoaded', () => {
+  const header = document.querySelector('.site-header');
   const burger = document.querySelector('.burger-menu');
   const mainNav = document.querySelector('.main-nav');
   const navOverlay = document.querySelector('.nav-overlay');
   const navLinks = document.querySelectorAll('.nav-links a');
-  const headerPhone = document.querySelector('.header-phone');
+  const menuCloseBtn = document.querySelector('.menu-close-btn');
 
-  if (!header) {
-    console.warn('Header element not found (#main-header).');
-    return;
+  if (!header) { console.warn('Header .site-header not found'); return; }
+
+  // Универсальный getter скролла
+  function getScrollTop() {
+    return window.pageYOffset
+        ?? document.documentElement.scrollTop
+        ?? document.body.scrollTop
+        ?? 0;
   }
 
-  // Ensure initial state
-  function applyScrolledState() {
-    if (window.scrollY > 50) {
-      if (!header.classList.contains('scrolled')) header.classList.add('scrolled');
-      // as a fallback ensure computed style visible
-      header.style.backgroundColor = header.style.backgroundColor || '';
-    } else {
-      header.classList.remove('scrolled');
-      header.style.backgroundColor = '';
+  function checkScroll() {
+    const y = getScrollTop();
+    header.classList.toggle('scrolled', y > 50);
+  }
+
+  // rAF-троттлинг
+  let ticking = false;
+  function onAnyScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        checkScroll();
+        ticking = false;
+      });
+      ticking = true;
     }
   }
 
-  // run on load and scroll
-  applyScrolledState();
-  window.addEventListener('scroll', applyScrolledState);
+  // Подвешиваемся только к window - это основной источник скролла
+  window.addEventListener('scroll', onAnyScroll, { passive: true });
+  
+  // Дополнительно слушаем на document для подстраховки
+  document.addEventListener('scroll', onAnyScroll, { passive: true, capture: true });
+  
+  // Также слушаем на documentElement для старых браузеров
+  document.documentElement.addEventListener('scroll', onAnyScroll, { passive: true });
 
-  // Menu open/close
+  // Первичный вызов
+  checkScroll();
+
+  // --- Меню ---
   function openMenu() {
-    burger.classList.add('active');
-    mainNav.classList.add('active');
-    navOverlay.classList.add('active');
+    burger?.classList.add('active');
+    mainNav?.classList.add('active');
+    navOverlay?.classList.add('active');
     header.classList.add('menu-open');
     document.body.style.overflow = 'hidden';
   }
-
   function closeMenu() {
-    burger.classList.remove('active');
-    mainNav.classList.remove('active');
-    navOverlay.classList.remove('active');
+    burger?.classList.remove('active');
+    mainNav?.classList.remove('active');
+    navOverlay?.classList.remove('active');
     header.classList.remove('menu-open');
     document.body.style.overflow = '';
   }
 
-  burger.addEventListener('click', function() {
-    if (burger.classList.contains('active')) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+  burger?.addEventListener('click', () => {
+    burger.classList.contains('active') ? closeMenu() : openMenu();
   });
+  menuCloseBtn?.addEventListener('click', closeMenu);
+  navOverlay?.addEventListener('click', closeMenu);
 
-  navOverlay.addEventListener('click', closeMenu);
-
-  // Clean link handling:
   navLinks.forEach(link => {
     link.addEventListener('click', function(e) {
       const href = this.getAttribute('href') || '';
-
-      // If it's an in-page anchor (#...), handle smooth scroll.
       if (href.startsWith('#')) {
         e.preventDefault();
         const targetId = href;
         closeMenu();
-
-        // Wait until menu closed animation finished (match CSS transition ~300-400ms)
         setTimeout(() => {
           const target = document.querySelector(targetId);
           if (target) {
             const navHeight = header.offsetHeight || 0;
-            const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 8; // -8 px для отступа
+            const top = target.getBoundingClientRect().top + (window.pageYOffset || 0) - navHeight - 8;
             window.scrollTo({ top, behavior: 'smooth' });
           } else {
-            // если цель не найдена — просто скроллим наверх или логируем
             console.warn('Anchor target not found:', targetId);
           }
-        }, 340); // соответствует transition в CSS
-      } else {
-        // Для внешних ссылок/tel/mailto — пусть работают по умолчанию
-        // Ничего не делаем
+        }, 340);
       }
     });
   });
 
-  // Закрыть Escape
-  document.addEventListener('keydown', function(e) {
+  // Один resize-хендлер
+  window.addEventListener('resize', () => {
+    checkScroll();
+    if (window.innerWidth > 768) closeMenu();
+  }, { passive: true });
+
+  // Esc закрывает меню
+  document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeMenu();
   });
-
-  // На ресайзе — если экран широкий — закрываем мобильное меню
-  window.addEventListener('resize', function() {
-    if (window.innerWidth > 768) closeMenu();
-  });
 });
-
 
 // --- ПРЕМИАЛЬНЫЙ КАЛЬКУЛЯТОР С КНОПКОЙ И ОТКАТОМ ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -286,14 +290,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }); }
 });
 
-// --- Анимация появления карточек при скролле ---
+// --- Reveal Up анимация при скролле ---
 document.addEventListener('DOMContentLoaded', () => {
-  const animatedElements = document.querySelectorAll(
-    '.challenge-item, .advantage-column, .program-option, .criteria-item, .benefits-list li, .subtext-list li'
+  // Элементы для анимации с разными эффектами
+  const revealUpElements = document.querySelectorAll(
+    '.challenge-item, .advantage-column, .program-option, .criteria-item'
+  );
+  
+  const revealUpSoftElements = document.querySelectorAll(
+    '.benefits-list li, .subtext-list li'
   );
 
-  // Добавляем класс "animate-on-scroll" для подготовки
-  animatedElements.forEach(el => el.classList.add('animate-on-scroll'));
+  // Добавляем классы reveal up с задержками для создания каскадного эффекта
+  revealUpElements.forEach((el, index) => {
+    el.classList.add('reveal-up');
+    
+    // Добавляем задержки для создания волнового эффекта
+    if (index % 3 === 1) el.classList.add('delay-1');
+    if (index % 3 === 2) el.classList.add('delay-2');
+  });
+
+  // Мягкая анимация для текстовых элементов
+  revealUpSoftElements.forEach((el, index) => {
+    el.classList.add('reveal-up-soft');
+    
+    // Добавляем небольшие задержки
+    if (index % 2 === 1) el.classList.add('delay-1');
+  });
 
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
@@ -303,9 +326,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, {
-    threshold: 0.2 // процент появления на экране
+    threshold: 0.15, // элемент должен быть виден на 15%
+    rootMargin: '0px 0px -50px 0px' // анимация начинается немного раньше
   });
 
-  animatedElements.forEach(el => observer.observe(el));
+  // Наблюдаем за всеми элементами
+  [...revealUpElements, ...revealUpSoftElements].forEach(el => observer.observe(el));
 });
 
