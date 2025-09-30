@@ -187,9 +187,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  btnConsultation.addEventListener('click', () => {
-    // Здесь можно добавить логику для открытия формы консультации
-    alert('Спасибо за интерес! С вами свяжется наш специалист для консультации.');
+  btnConsultation.addEventListener('click', (e) => {
+    e.preventDefault(); // Предотвращаем стандартное поведение ссылки
+    
+    // Плавная прокрутка к секции feedback-section
+    const feedbackSection = document.getElementById('contacts');
+    if (feedbackSection) {
+      const header = document.querySelector('.site-header');
+      const navHeight = header ? header.offsetHeight : 0;
+      const targetPosition = feedbackSection.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
   });
   
   // Функции
