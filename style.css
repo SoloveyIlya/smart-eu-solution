@@ -1,14 +1,15 @@
 :root {
   /* Новая цветовая палитра */
-  --bg-light: #F2E9D5;          /* Фон страницы */
-  --bg-card: #E8D9C3;           /* Вторичные фоновые элементы / карточки / секции */
-  --text-dark: #4A3F35;         /* Основной текст */
-  --text-muted: #797066;        /* Подзаголовки и вспомогательный текст */
-  --accent-green: #C19C6F;      /* Акцентные элементы / кнопки / важные ссылки */
-  --accent-red: #A67C52;        /* Hover / активные состояния */
-  --gold: #C19C6F;              /* Акцентные элементы */
-  --gold-light: #A67C52;        /* Hover состояния */
-  --border-light: #3E3428;      /* Рамки, линии, тени */
+  --bg-light: #F2E9D5;
+  --bg-card: #E8D9C3;
+  --text-dark: #3A2F25; /* Более насыщенный цвет для текста */
+  --text-muted: #695D52; /* Более контрастный muted цвет */
+  --accent-green: #B08D5F; /* Более насыщенный акцент */
+  --accent-red: #8B6B4D; /* Более глубокий красный для ховеров */
+  --gold: #C19C6F;
+  --gold-light: #A67C52;
+  --border-light: #3E3428;
+  --accent-bright: #D4AF37; /* Новый яркий акцент для цифр */
 }
 
 * {
@@ -53,36 +54,42 @@ img, svg, video {
 body {
   background: var(--bg-light);
   color: var(--text-dark);
-  font-family: 'Lato', 'Helvetica Neue', sans-serif;
+  font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.7; /* Увеличили межстрочный интервал */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 1.05rem; /* Немного увеличили базовый размер */
 }
+
 
 /* ---------- ТИПОГРАФИЯ ПО ТЗ ---------- */
 h1, h2, h3, h4 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-weight: 700; /* Более жирное начертание */
+  line-height: 1.15; /* Более плотный межстрочный */
+  letter-spacing: -0.02em; /* Увеличили кернинг */
+  color: var(--text-dark);
 }
 
 .hero-title {
-  font-size: clamp(2.8rem, 5vw, 4.2rem);
+  font-size: clamp(3rem, 6vw, 4.5rem); /* Увеличили размер */
   margin-bottom: 1.5rem;
   color: var(--bg-light);
-  font-weight: 700;
+  font-weight: 800; /* Супержирный для главного заголовка */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Добавили тень для контраста */
+  letter-spacing: -0.03em;
 }
 
 .hero-subtitle {
-  font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+  font-size: clamp(1.3rem, 3vw, 1.6rem); /* Увеличили размер */
   color: var(--bg-light);
   margin-bottom: 2.5rem;
-  font-weight: 300;
+  font-weight: 400; /* Нормальное начертание для контраста */
   max-width: 600px;
-  line-height: 1.5;
-  opacity: 0.9;
+  line-height: 1.6;
+  opacity: 0.95; /* Меньше прозрачности */
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* ========== HEADER STYLES ========== */
@@ -505,18 +512,18 @@ h1, h2, h3, h4 {
 }
 
 .btn {
-  padding: 1.2rem 3rem;
+  padding: 1.3rem 3.5rem; /* Увеличили паддинг */
   border: none;
   border-radius: 0;
   font-family: 'Lato', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 400;
+  font-size: 1.15rem; /* Увеличили размер шрифта */
+  font-weight: 600; /* Более жирный текст */
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease; /* Более плавный переход */
   cursor: pointer;
   display: inline-block;
   text-align: center;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px; /* Увеличили межбуквенный */
   position: relative;
   overflow: hidden;
 }
@@ -525,15 +532,17 @@ h1, h2, h3, h4 {
   background: var(--accent-green);
   color: var(--bg-light);
   border: 1px solid var(--accent-green);
+  box-shadow: 0 4px 15px rgba(193, 156, 111, 0.3); /* Добавили тень */
 }
 
 .btn-primary:hover {
   background: var(--accent-red);
   color: var(--bg-light);
   border-color: var(--accent-red);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(193, 156, 111, 0.2);
+  transform: translateY(-3px) scale(1.05); /* Более выраженный ховер */
+  box-shadow: 0 15px 40px rgba(193, 156, 111, 0.4);
 }
+
 
 .btn-secondary {
   background: transparent;
@@ -569,23 +578,25 @@ h1, h2, h3, h4 {
 
 .section-title {
   text-align: center;
-  font-size: 3rem;
+  font-size: 3.2rem; /* Увеличили размер */
   margin-bottom: 4rem;
   color: var(--text-dark);
   position: relative;
-  font-weight: 600;
+  font-weight: 700; /* Более жирный */
   z-index: 2;
+  letter-spacing: -0.03em;
 }
 
 .section-title::after {
   content: '';
   position: absolute;
-  bottom: -15px;
+  bottom: -20px; /* Увеличили отступ */
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
-  height: 2px;
-  background: var(--gold);
+  width: 100px; /* Шире линия */
+  height: 3px; /* Толще линия */
+  background: linear-gradient(90deg, var(--gold), var(--accent-red));
+  border-radius: 2px;
 }
 
 .problems-grid {
@@ -627,23 +638,24 @@ h1, h2, h3, h4 {
 }
 
 .problem-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px) scale(1.02); /* Более выраженный ховер */
   border-color: var(--gold);
-  box-shadow: 0 20px 40px rgba(62, 52, 40, 0.1);
+  box-shadow: 0 25px 50px rgba(62, 52, 40, 0.15);
 }
 
 .problem-card h3 {
   color: var(--text-dark);
   margin-bottom: 1rem;
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-size: 1.5rem; /* Увеличили размер */
+  font-weight: 700; /* Более жирный */
+  letter-spacing: -0.01em;
 }
 
 .problem-card p {
   color: var(--text-muted);
-  line-height: 1.6;
-  font-size: 1.1rem;
-  font-weight: 300;
+  line-height: 1.7; /* Увеличили межстрочный */
+  font-size: 1.15rem; /* Увеличили размер */
+  font-weight: 400;
 }
 
 /* ---------- ФУТЕР В СТИЛЕ OLD MONEY ---------- */
@@ -930,10 +942,11 @@ h1, h2, h3, h4 {
   
   .challenges-header h2 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.6rem;
+    font-size: 2.8rem; /* Увеличили размер */
     color: var(--text-dark);
     margin: 0;
-    font-weight: 600;
+    font-weight: 700; /* Более жирный */
+    letter-spacing: -0.02em;
   }
   
   .title-underline {
@@ -964,33 +977,35 @@ h1, h2, h3, h4 {
   .challenge-item {
     display: flex;
     gap: 1.25rem;
-    align-items: center; /* вертикальное центрирование (иконка + контент) */
+    align-items: center;
     background: linear-gradient(180deg, rgba(255,255,255,0.98), var(--bg-card));
-    padding: 1.6rem;
+    padding: 1.2rem; /* Увеличили паддинг */
     border-radius: 12px;
     border: 1px solid rgba(62,52,40,0.08);
-    box-shadow: 0 10px 28px rgba(62,52,40,0.07);
-    transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s ease;
-    min-height: 110px;
+    box-shadow: 0 12px 35px rgba(62,52,40,0.1); /* Более выраженная тень */
+    transition: transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .35s ease;
+    min-height: 90px; /* Увеличили высоту */
   }
   
   /* Hover / фокус */
   .challenge-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 26px 60px rgba(62,52,40,0.14);
+    transform: translateY(-10px) scale(1.03); /* Более выраженный ховер */
+    box-shadow: 0 30px 70px rgba(62,52,40,0.18);
   }
+  
   
   /* Круглая иконка */
   .icon-circle {
-    flex: 0 0 76px;
-    height: 76px;
+    flex: 0 0 84px; /* Увеличили размер */
+    height: 84px;
     border-radius: 999px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(180deg, #ffffff, rgba(245,240,233,0.95));
-    border: 1px solid rgba(62,52,40,0.06);
-    box-shadow: 0 8px 22px rgba(193,156,111,0.08);
+    border: 2px solid rgba(62,52,40,0.08); /* Более толстая рамка */
+    box-shadow: 0 10px 30px rgba(193,156,111,0.12); /* Более выраженная тень */
+    transition: all 0.3s ease;
   }
   
   /* Принудительно делаем иконки тёмными для лучшего контраста */
@@ -1024,18 +1039,18 @@ h1, h2, h3, h4 {
   .challenge-content h3 {
     font-family: 'Playfair Display', serif;
     margin: 0;
-    font-size: 1.06rem;
+    font-size: 1.15rem; /* Увеличили размер */
     color: var(--text-dark);
     letter-spacing: -0.01em;
-    font-weight: 600;
+    font-weight: 700; /* Более жирный */
+    line-height: 1.3;
   }
   
-  /* Текст — тёмнее для лучшей читаемости */
   .challenge-content p {
     margin: 0;
-    color: rgba(62,52,40,0.9); /* более тёмный, лучше читается */
-    font-size: 1rem;
-    line-height: 1.55;
+    color: var(--text-muted);
+    font-size: 1.05rem; /* Увеличили размер */
+    line-height: 1.6; /* Увеличили межстрочный */
     font-weight: 400;
     max-width: 48rem;
   }
@@ -1636,7 +1651,7 @@ h1, h2, h3, h4 {
 }
 /* ---------- СЕКЦИЯ КАЛЬКУЛЯТОРА В СТИЛЕ OLD MONEY ---------- */
 .calculator-section {
-  padding: 8rem 0;
+  padding: 4rem 0;
   background: linear-gradient(135deg, #F5F0E8 0%, #E8DFD1 100%);
   position: relative;
 }
@@ -1656,64 +1671,69 @@ h1, h2, h3, h4 {
 
 .calculator-header {
   text-align: center;
-  margin-bottom: 6rem;
+  margin-bottom: 3rem;
+  padding: 0 1rem;
 }
 
 .calculator-header h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-size: 2.2rem;
   color: var(--text-dark);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
   font-weight: 600;
   letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .calculator-subtitle {
   color: var(--text-muted);
-  font-size: 1.2rem;
+  font-size: 1rem;
   max-width: 500px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.4;
   font-weight: 300;
 }
 
 .calculator-wrapper {
   max-width: 1000px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .calculator-card {
   display: grid;
-  grid-template-columns: 1fr 400px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
+  grid-template-columns: 1fr 380px;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: 
-    0 25px 60px rgba(62, 52, 40, 0.12),
-    0 0 0 1px rgba(193, 156, 111, 0.1);
+    0 15px 35px rgba(62, 52, 40, 0.08),
+    0 0 0 1px rgba(193, 156, 111, 0.06);
   backdrop-filter: blur(10px);
-  min-height: 600px;
+  min-height: 460px;
+  position: relative;
 }
 
-/* Левая часть - форма */
+/* Убираем полоску и заменяем на более тонкое разделение */
 .calculator-form-side {
-  padding: 3rem;
+  padding: 2.5rem;
   background: rgba(255, 255, 255, 0.98);
-  border-right: 1px solid rgba(193, 156, 111, 0.1);
+  position: relative;
+  border-right: 1px solid rgba(193, 156, 111, 0.08);
 }
 
-/* Индикатор шагов */
+/* Индикатор шагов - делаем еще компактнее */
 .step-indicator {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 3rem;
-  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  gap: 0.25rem;
 }
 
 .step-dot {
-  width: 8px;
-  height: 8px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: rgba(62, 52, 40, 0.2);
   transition: all 0.3s ease;
@@ -1721,7 +1741,7 @@ h1, h2, h3, h4 {
 
 .step-dot.active {
   background: var(--accent-green);
-  transform: scale(1.2);
+  transform: scale(1.3);
 }
 
 .step-dot.completed {
@@ -1732,7 +1752,7 @@ h1, h2, h3, h4 {
   flex: 1;
   height: 1px;
   background: rgba(62, 52, 40, 0.1);
-  max-width: 40px;
+  max-width: 25px;
   transition: all 0.3s ease;
 }
 
@@ -1747,42 +1767,44 @@ h1, h2, h3, h4 {
 
 .form-step.active {
   display: block;
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp 0.4s ease-out;
 }
 
 .step-header {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .step-number {
   font-family: 'Playfair Display', serif;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: var(--accent-green);
   font-weight: 600;
-  letter-spacing: 1px;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
 }
 
 .step-header h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   color: var(--text-dark);
   font-weight: 600;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
 }
 
 .step-description {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: 0.85rem;
   margin: 0;
+  line-height: 1.3;
 }
 
-/* Опции программ */
+/* Опции программ - еще компактнее */
 .program-options {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 3rem;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
 }
 
 .program-option {
@@ -1792,36 +1814,38 @@ h1, h2, h3, h4 {
 .option-card {
   display: flex;
   align-items: center;
-  padding: 1.5rem;
-  border: 2px solid rgba(62, 52, 40, 0.1);
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  padding: 1rem;
+  border: 1.5px solid rgba(62, 52, 40, 0.1);
+  border-radius: 8px;
+  transition: all 0.2s ease;
   position: relative;
   background: rgba(255, 255, 255, 0.8);
+  min-height: 60px;
 }
 
 .option-card:hover {
   border-color: rgba(193, 156, 111, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(193, 156, 111, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(193, 156, 111, 0.08);
 }
 
 .option-card.selected {
   border-color: var(--accent-green);
-  background: linear-gradient(135deg, rgba(193, 156, 111, 0.05) 0%, transparent 100%);
+  background: linear-gradient(135deg, rgba(193, 156, 111, 0.03) 0%, transparent 100%);
 }
 
 .option-icon {
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(193, 156, 111, 0.1);
-  border-radius: 10px;
-  margin-right: 1.5rem;
+  background: rgba(193, 156, 111, 0.08);
+  border-radius: 6px;
+  margin-right: 1rem;
   color: var(--accent-green);
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .option-card.selected .option-icon {
@@ -1835,63 +1859,50 @@ h1, h2, h3, h4 {
 
 .option-content h4 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
+  font-size: 0.95rem;
   color: var(--text-dark);
-  margin: 0 0 0.3rem 0;
+  margin: 0 0 0.15rem 0;
   font-weight: 600;
+  line-height: 1.2;
 }
 
 .option-content p {
   color: var(--text-muted);
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
 }
 
-.option-badge {
-  position: absolute;
-  top: -6px;
-  right: 1rem;
-  background: var(--accent-green);
-  color: white;
-  padding: 0.3rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
-.option-badge.premium {
-  background: linear-gradient(135deg, var(--accent-green), var(--accent-red));
-}
-
-/* Секция детей */
+/* Секция детей - компактнее */
 .children-section {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
 }
 
 .children-counter {
   display: inline-flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.2rem;
   background: rgba(255, 255, 255, 0.8);
-  padding: 2rem 3rem;
-  border-radius: 16px;
-  border: 2px solid rgba(193, 156, 111, 0.1);
-  margin-bottom: 1.5rem;
+  padding: 1.2rem 1.5rem;
+  border-radius: 10px;
+  border: 1.5px solid rgba(193, 156, 111, 0.1);
+  margin-bottom: 0.8rem;
 }
 
 .counter-btn {
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--accent-green);
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .counter-btn:hover {
@@ -1900,7 +1911,7 @@ h1, h2, h3, h4 {
 }
 
 .counter-btn:disabled {
-  background: rgba(62, 52, 40, 0.1);
+  background: rgba(62, 52, 40, 0.08);
   color: rgba(62, 52, 40, 0.3);
   cursor: not-allowed;
   transform: none;
@@ -1908,86 +1919,79 @@ h1, h2, h3, h4 {
 
 .counter-display {
   text-align: center;
-  min-width: 120px;
+  min-width: 70px;
 }
 
 .counter-value {
   font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  font-weight: 600;
+  font-size: 2rem; /* Увеличили размер */
+  font-weight: 700; /* Более жирный */
   color: var(--text-dark);
   display: block;
   line-height: 1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .counter-label {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
-  margin-top: 0.3rem;
+  margin-top: 0.15rem;
   display: block;
-}
-
-.children-note {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  background: rgba(193, 156, 111, 0.05);
-  padding: 0.8rem 1.2rem;
-  border-radius: 8px;
 }
 
 /* Сводка результатов */
 .result-summary {
-  background: rgba(193, 156, 111, 0.05);
-  border: 1px solid rgba(193, 156, 111, 0.1);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 3rem;
+  background: rgba(193, 156, 111, 0.03);
+  border: 1px solid rgba(193, 156, 111, 0.08);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .summary-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 0;
+  padding: 0.5rem 0;
 }
 
 .summary-item:not(:last-child) {
-  border-bottom: 1px solid rgba(193, 156, 111, 0.1);
+  border-bottom: 1px solid rgba(193, 156, 111, 0.08);
 }
 
 .summary-label {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.8rem;
 }
 
 .summary-value {
   font-weight: 600;
   color: var(--text-dark);
+  font-size: 0.85rem;
 }
 
 /* Кнопки действий */
 .step-actions {
   display: flex;
-  gap: 1rem;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
 }
 
 .step-actions button {
   flex: 1;
-  padding: 1.2rem 2rem;
+  padding: 0.9rem 1.2rem;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   font-family: 'Lato', sans-serif;
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
+  gap: 0.5rem;
+  min-height: 42px;
 }
 
 .btn-next,
@@ -2001,12 +2005,12 @@ h1, h2, h3, h4 {
 .btn-calculate:hover,
 .btn-consultation:hover {
   background: var(--accent-red);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(193, 156, 111, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(193, 156, 111, 0.25);
 }
 
 .btn-next:disabled {
-  background: rgba(62, 52, 40, 0.1);
+  background: rgba(62, 52, 40, 0.08);
   color: rgba(62, 52, 40, 0.3);
   cursor: not-allowed;
   transform: none;
@@ -2016,11 +2020,11 @@ h1, h2, h3, h4 {
 .btn-back {
   background: transparent;
   color: var(--text-muted);
-  border: 1px solid rgba(62, 52, 40, 0.2) !important;
+  border: 1px solid rgba(62, 52, 40, 0.15) !important;
 }
 
 .btn-back:hover {
-  background: rgba(62, 52, 40, 0.05);
+  background: rgba(62, 52, 40, 0.03);
   border-color: var(--accent-green) !important;
   color: var(--accent-green);
 }
@@ -2028,7 +2032,7 @@ h1, h2, h3, h4 {
 /* Правая часть - результат */
 .calculator-result-side {
   background: linear-gradient(135deg, #3E3428 0%, #2A231C 100%);
-  padding: 3rem;
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -2043,8 +2047,8 @@ h1, h2, h3, h4 {
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 20% 80%, rgba(193, 156, 111, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(166, 124, 82, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 20% 80%, rgba(193, 156, 111, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(166, 124, 82, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -2054,12 +2058,32 @@ h1, h2, h3, h4 {
   text-align: center;
 }
 
-/* Анимация плейсхолдера */
+/* Улучшаем видимость плейсхолдера */
+.result-placeholder {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.result-placeholder h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.result-placeholder p {
+  font-size: 1rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+/* Улучшаем анимацию плейсхолдера */
 .placeholder-animation {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 2rem;
+  display: none;
 }
 
 .animation-circle {
@@ -2068,17 +2092,19 @@ h1, h2, h3, h4 {
   left: 0;
   right: 0;
   bottom: 0;
-  border: 2px solid rgba(193, 156, 111, 0.3);
+  border: 2px solid rgba(193, 156, 111, 0.4);
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
 }
 
 .animation-circle.delay-1 {
   animation-delay: 0.3s;
+  border-color: rgba(193, 156, 111, 0.3);
 }
 
 .animation-circle.delay-2 {
   animation-delay: 0.6s;
+  border-color: rgba(193, 156, 111, 0.2);
 }
 
 @keyframes pulse {
@@ -2088,45 +2114,269 @@ h1, h2, h3, h4 {
   }
   50% {
     transform: scale(1.1);
-    opacity: 0.5;
+    opacity: 0.7;
   }
-}
-
-.result-placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.result-placeholder h4 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.result-placeholder p {
-  font-size: 1rem;
-  margin: 0;
 }
 
 /* Активный результат */
 .result-active {
   color: white;
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp 0.4s ease-out;
+}
+.result-active .result-graphic {
+  margin-bottom: 2rem;
+  padding: 1rem 0;
 }
 
 .result-graphic {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.graphic-circle {
+  display: none;
+}
+
+.circle-progress {
+  transition: stroke-dashoffset 1.2s ease-in-out;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+.graphic-content {
+  position: static;
+  transform: none;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.result-amount {
+  font-size: 3rem !important; /* Увеличиваем размер цифр */
+  font-weight: 800 !important;
+  color: var(--accent-bright) !important;
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.currency {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.result-details {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+}
+
+.detail-item:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.detail-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.detail-value {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.detail-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(193, 156, 111, 0.4), transparent);
+  margin: 0.8rem 0;
+}
+
+.detail-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+}
+
+.total-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem !important; /* Увеличили размер */
+  font-weight: 800 !important; /* Супержирный */
+  color: var(--accent-bright) !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Анимации */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ ---------- */
+
+@media (max-width: 768px) {
+  .calculator-result-side {
+    padding: 2rem 1.5rem;
+    min-height: 220px; /* Увеличиваем минимальную высоту для лучшей читаемости */
+  }
+
+  .result-placeholder h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .result-placeholder p {
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+
+  .placeholder-animation {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .graphic-circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .result-amount {
+    font-size: 1.6rem;
+  }
+
+  .result-details {
+    padding: 1rem;
+  }
+
+  .detail-label {
+    font-size: 0.82rem;
+  }
+
+  .detail-value {
+    font-size: 0.85rem;
+  }
+
+  .total-value {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculator-result-side {
+    padding: 1.8rem 1rem;
+    min-height: 200px;
+  }
+
+  .result-placeholder h4 {
+    font-size: 1.2rem;
+  }
+
+  .result-placeholder p {
+    font-size: 0.9rem;
+  }
+
+  .placeholder-animation {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 1.2rem;
+  }
+
+  .result-amount {
+    font-size: 1.5rem;
+  }
+
+  .total-value {
+    font-size: 1.1rem;
+  }
+}
+
+/* Для очень маленьких экранов (iPhone SE и подобные) */
+@media (max-width: 375px) {
+  .calculator-result-side {
+    padding: 1.5rem 0.8rem;
+    min-height: 180px;
+  }
+
+  .result-placeholder h4 {
+    font-size: 1.1rem;
+  }
+
+  .result-placeholder p {
+    font-size: 0.85rem;
+  }
+
+  .placeholder-animation {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+  }
+}
+
+/* Улучшение читаемости на темном фоне */
+.calculator-result-side * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Улучшение контрастности для лучшей читаемости */
+.result-visual {
+  filter: contrast(1.05);
+}
+
+/* Исправление для iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .calculator-result-side {
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  .result-details {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Активный результат */
+.result-active {
+  color: white;
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.result-graphic {
+  margin-bottom: 1.5rem;
 }
 
 .graphic-circle {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 90px;
+  height: 90px;
   margin: 0 auto;
 }
 
 .circle-progress {
-  transition: stroke-dashoffset 1.5s ease-in-out;
+  transition: stroke-dashoffset 1.2s ease-in-out;
   transform: rotate(-90deg);
   transform-origin: center;
 }
@@ -2141,7 +2391,7 @@ h1, h2, h3, h4 {
 
 .result-amount {
   font-family: 'Playfair Display', serif;
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: var(--accent-green);
   display: block;
@@ -2149,42 +2399,43 @@ h1, h2, h3, h4 {
 }
 
 .currency {
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.7);
 }
 
 .result-details {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .detail-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8rem 0;
+  padding: 0.5rem 0;
 }
 
 .detail-item:not(:last-child) {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .detail-label {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 0.95rem;
+  font-size: 0.8rem;
 }
 
 .detail-value {
   color: rgba(255, 255, 255, 0.9);
   font-weight: 500;
+  font-size: 0.85rem;
 }
 
 .detail-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(193, 156, 111, 0.3), transparent);
-  margin: 1rem 0;
+  background: linear-gradient(90deg, transparent, rgba(193, 156, 111, 0.2), transparent);
+  margin: 0.7rem 0;
 }
 
 .detail-total {
@@ -2195,13 +2446,13 @@ h1, h2, h3, h4 {
 
 .total-label {
   font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.9);
 }
 
 .total-value {
   font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: var(--accent-green);
 }
@@ -2210,7 +2461,7 @@ h1, h2, h3, h4 {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(15px);
   }
   to {
     opacity: 1;
@@ -2218,8 +2469,279 @@ h1, h2, h3, h4 {
   }
 }
 
-/* Адаптивность */
+/* ---------- АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ ---------- */
+
 @media (max-width: 1024px) {
+  .calculator-card {
+    grid-template-columns: 1fr 340px;
+  }
+  
+  .calculator-form-side {
+    padding: 2rem;
+  }
+  
+  .calculator-result-side {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .calculator-section {
+    padding: 3rem 0;
+  }
+  
+  .calculator-header {
+    margin-bottom: 2.5rem;
+  }
+  
+  .calculator-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .calculator-subtitle {
+    font-size: 0.95rem;
+  }
+  
+  .calculator-wrapper {
+    padding: 0 0.5rem;
+  }
+  
+  .calculator-card {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    margin: 0 auto;
+  }
+  
+  .calculator-form-side {
+    padding: 2rem 1.5rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(193, 156, 111, 0.08);
+    order: 2; /* Форма идет после результата */
+  }
+  
+  .calculator-result-side {
+    padding: 2rem 1.5rem;
+    order: 1; /* Результат показывается первым на мобильных */
+    min-height: 200px; /* Гарантируем достаточную высоту */
+  }
+  
+  /* Убедимся, что результат виден сразу */
+  .calculator-wrapper {
+    max-height: none;
+    overflow: visible;
+  }
+  
+  .option-card {
+    min-height: 55px;
+    padding: 0.9rem;
+  }
+  
+  .option-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 0.9rem;
+  }
+  
+  .option-content h4 {
+    font-size: 0.9rem;
+  }
+  
+  .option-content p {
+    font-size: 0.78rem;
+  }
+  
+  .children-counter {
+    padding: 1rem 1.2rem;
+    gap: 1rem;
+  }
+  
+  .counter-btn {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .counter-value {
+    font-size: 1.6rem;
+  }
+  
+  .step-actions {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  
+  .step-actions button {
+    min-height: 40px;
+    font-size: 0.83rem;
+  }
+  
+  .graphic-circle {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .result-amount {
+    font-size: 1.4rem;
+  }
+  
+  .total-value {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .calculator-section {
+    padding: 2.5rem 0;
+  }
+  
+  .calculator-header {
+    margin-bottom: 2rem;
+  }
+  
+  .calculator-header h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .calculator-subtitle {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+  
+  .calculator-card {
+    margin: 0 0.25rem;
+    border-radius: 12px;
+  }
+  
+  .calculator-form-side {
+    padding: 1.5rem 1rem;
+  }
+  
+  .calculator-result-side {
+    padding: 1.5rem 1rem;
+    min-height: 180px;
+  }
+  
+  .step-header {
+    margin-bottom: 1.2rem;
+  }
+  
+  .step-header h3 {
+    font-size: 1.2rem;
+  }
+  
+  .step-description {
+    font-size: 0.82rem;
+  }
+  
+  .program-options {
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .option-card {
+    padding: 0.8rem;
+    min-height: 50px;
+  }
+  
+  .option-icon {
+    width: 28px;
+    height: 28px;
+    margin-right: 0.8rem;
+    border-radius: 5px;
+  }
+  
+  .option-content h4 {
+    font-size: 0.85rem;
+  }
+  
+  .option-content p {
+    font-size: 0.75rem;
+  }
+  
+  .children-counter {
+    padding: 0.9rem 1rem;
+    gap: 0.8rem;
+  }
+  
+  .counter-display {
+    min-width: 60px;
+  }
+  
+  .counter-value {
+    font-size: 1.5rem;
+  }
+  
+  .counter-label {
+    font-size: 0.7rem;
+  }
+  
+  .result-summary {
+    padding: 0.9rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .result-details {
+    padding: 0.9rem;
+  }
+  
+  .total-value {
+    font-size: 1rem;
+  }
+  
+  .step-actions button {
+    padding: 0.8rem 1rem;
+    font-size: 0.8rem;
+    min-height: 38px;
+  }
+}
+
+/* Для очень маленьких экранов (iPhone SE и подобные) */
+@media (max-width: 375px) {
+  .calculator-section {
+    padding: 2rem 0;
+  }
+  
+  .calculator-header h2 {
+    font-size: 1.4rem;
+  }
+  
+  .calculator-subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .calculator-form-side,
+  .calculator-result-side {
+    padding: 1.2rem 0.8rem;
+  }
+  
+  .step-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .option-card {
+    padding: 0.7rem;
+  }
+  
+  .children-counter {
+    padding: 0.8rem;
+  }
+  
+  .counter-value {
+    font-size: 1.4rem;
+  }
+  
+  .graphic-circle {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .result-amount {
+    font-size: 1.2rem;
+  }
+}
+
+/* Для планшетов в портретной ориентации */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
   .calculator-card {
     grid-template-columns: 1fr;
     max-width: 600px;
@@ -2227,67 +2749,43 @@ h1, h2, h3, h4 {
   }
   
   .calculator-result-side {
-    padding: 2.5rem;
+    order: 1;
+    border-bottom: 1px solid rgba(193, 156, 111, 0.08);
+    min-height: 180px;
+  }
+  
+  .calculator-form-side {
+    order: 2;
   }
 }
 
+/* Улучшение читаемости на темном фоне */
+.calculator-result-side * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Исправление для iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .calculator-card {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Гарантируем, что результат всегда виден на мобильных */
 @media (max-width: 768px) {
   .calculator-section {
-    padding: 6rem 0;
+    min-height: auto;
   }
   
-  .calculator-header h2 {
-    font-size: 2.5rem;
+  .calculator-card {
+    max-height: none;
   }
   
-  .calculator-form-side {
-    padding: 2rem;
-  }
-  
-  .calculator-result-side {
-    padding: 2rem;
-  }
-  
-  .option-card {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
-  }
-  
-  .option-icon {
-    margin-right: 0;
-  }
-  
-  .children-counter {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1.5rem;
-  }
-  
-  .step-actions {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 480px) {
-  .calculator-section {
-    padding: 4rem 0;
-  }
-  
-  .calculator-header h2 {
-    font-size: 2rem;
-  }
-  
-  .calculator-form-side {
-    padding: 1.5rem;
-  }
-  
-  .calculator-result-side {
-    padding: 1.5rem;
-  }
-  
-  .result-amount {
-    font-size: 1.8rem;
+  /* Убедимся, что на маленьких экранах виден и результат и начало формы */
+  body {
+    overflow-x: hidden;
   }
 }
 
@@ -2394,9 +2892,9 @@ h1, h2, h3, h4 {
   padding-left: 2.5rem;
   margin-bottom: 1.5rem;
   color: var(--text-dark);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  font-weight: 400;
+  font-size: 1.15rem; /* Увеличили размер */
+  line-height: 1.7; /* Увеличили межстрочный */
+  font-weight: 500; /* Средняя жирность для лучшей читаемости */
 }
 
 .benefits-list li::before {
@@ -3005,4 +3503,28 @@ h1, h2, h3, h4 {
 .reveal-up-soft.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.accent-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3em; /* Увеличиваем относительно контекста */
+  font-weight: 700;
+  color: var(--accent-bright);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.accent-total {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem !important;
+  font-weight: 800 !important;
+  color: var(--accent-bright) !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.accent-highlight {
+  background: linear-gradient(120deg, rgba(193, 156, 111, 0.15) 0%, transparent 50%);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  font-weight: 600;
+  color: var(--text-dark);
 }
