@@ -273,8 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Добавьте этот код в ваш script.js для обработки формы
-
 // Обработчик формы обратной связи
 document.addEventListener('DOMContentLoaded', () => {
   const feedbackForm = document.querySelector('.feedback-form');
@@ -346,3 +344,42 @@ document.addEventListener('DOMContentLoaded', () => {
   [...revealUpElements, ...revealUpSoftElements].forEach(el => observer.observe(el));
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.challenge-content p').forEach(p => {
+    const regex = /\((.*?)\)/;
+    const match = p.textContent.match(regex);
+
+    if (match) {
+      const hiddenText = match[1];
+
+      // основной текст без скобок
+      p.innerHTML = p.textContent.replace(regex, '').trim();
+
+      // скрытый блок
+      const extra = document.createElement('span');
+      extra.textContent = ' ' + hiddenText;
+      extra.style.display = 'none';
+      extra.classList.add('extra-text');
+      p.appendChild(extra);
+
+      // контейнер для текста + стрелки
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('challenge-row');
+      p.parentNode.insertBefore(wrapper, p);
+      wrapper.appendChild(p);
+
+      // кнопка-стрелка
+      const btn = document.createElement('button');
+      btn.innerHTML = '›'; // изначально вправо
+      btn.classList.add('toggle-arrow');
+
+      btn.addEventListener('click', () => {
+        const isVisible = extra.style.display === 'inline';
+        extra.style.display = isVisible ? 'none' : 'inline';
+        btn.innerHTML = isVisible ? '›' : '⌄'; // вправо / вниз
+      });
+
+      wrapper.appendChild(btn);
+    }
+  });
+});
