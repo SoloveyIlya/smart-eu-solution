@@ -387,3 +387,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Плавная прокрутка для стрелочки
+document.addEventListener('DOMContentLoaded', () => {
+  const scrollArrow = document.querySelector('.scroll-arrow');
+  
+  if (scrollArrow) {
+    scrollArrow.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href');
+      const target = document.querySelector(targetId);
+      
+      if (target) {
+        const header = document.querySelector('.site-header');
+        const navHeight = header ? header.offsetHeight : 0;
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  }
+});

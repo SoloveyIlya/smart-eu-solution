@@ -472,6 +472,7 @@ h1, h2, h3, h4 {
 
 /* ---------- ПЛАВАЮЩАЯ СТРЕЛОЧКА ---------- */
 .scroll-arrow {
+  /* существующие стили */
   position: absolute;
   bottom: 2rem;
   left: 50%;
@@ -490,6 +491,14 @@ h1, h2, h3, h4 {
   background: rgba(193, 156, 111, 0.1);
   backdrop-filter: blur(10px);
   animation: float 3s ease-in-out infinite;
+  
+  /* новые стили для анимации клика */
+  cursor: pointer;
+}
+
+.scroll-arrow:active {
+  transform: translateX(-50%) scale(0.95);
+  background: rgba(193, 156, 111, 0.2);
 }
 
 .scroll-arrow:hover {
@@ -498,6 +507,16 @@ h1, h2, h3, h4 {
   background: rgba(166, 124, 82, 0.2);
   transform: translateX(-50%) translateY(-5px);
   box-shadow: 0 10px 30px rgba(193, 156, 111, 0.3);
+}
+
+/* Анимация плаваения */
+@keyframes float {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
 }
 
 .scroll-arrow svg {
