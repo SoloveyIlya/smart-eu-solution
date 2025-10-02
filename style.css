@@ -10,6 +10,39 @@
   --gold-light: #A67C52;
   --border-light: #3E3428;
   --accent-bright: #D4AF37; /* Новый яркий акцент для цифр */
+  
+  /* Унифицированная система отступов */
+  /* Базовые отступы */
+  --spacing-xs: 0.5rem;    /* 8px */
+  --spacing-sm: 1rem;      /* 16px */
+  --spacing-md: 1.5rem;    /* 24px */
+  --spacing-lg: 2rem;      /* 32px */
+  --spacing-xl: 3rem;      /* 48px */
+  --spacing-xxl: 4rem;     /* 64px */
+  --spacing-xxxl: 6rem;    /* 96px */
+  --spacing-huge: 8rem;    /* 128px */
+  
+  /* Отступы для мобильных устройств */
+  --spacing-xs-mobile: 0.4rem;    /* 6.4px */
+  --spacing-sm-mobile: 0.8rem;    /* 12.8px */
+  --spacing-md-mobile: 1.2rem;    /* 19.2px */
+  --spacing-lg-mobile: 1.5rem;    /* 24px */
+  --spacing-xl-mobile: 2rem;      /* 32px */
+  --spacing-xxl-mobile: 2.5rem;   /* 40px */
+  --spacing-xxxl-mobile: 3rem;    /* 48px */
+  --spacing-huge-mobile: 4rem;    /* 64px */
+  
+  /* Специальные отступы для секций */
+  --section-padding: var(--spacing-xxxl) 0;
+  --section-padding-mobile: var(--spacing-xxxl-mobile) 0;
+  
+  /* Отступы для карточек */
+  --card-padding: var(--spacing-xl);
+  --card-padding-mobile: var(--spacing-lg);
+  
+  /* Отступы между элементами */
+  --element-gap: var(--spacing-lg);
+  --element-gap-mobile: var(--spacing-md);
 }
 
 * {
@@ -63,17 +96,59 @@ body {
 }
 
 
-/* ---------- ТИПОГРАФИЯ ПО ТЗ ---------- */
+/* ---------- УНИФИЦИРОВАННАЯ ТИПОГРАФИЯ ---------- */
+
+/* Базовые размеры для трех типов текста */
+:root {
+  /* Заголовки - крупные, жирные */
+  --text-heading-size: 2.2rem;
+  --text-heading-size-mobile: 1.8rem;
+  --text-heading-weight: 700;
+  --text-heading-line-height: 1.2;
+  
+  /* Подзаголовки - средние, полужирные */
+  --text-subheading-size: 1.4rem;
+  --text-subheading-size-mobile: 1.2rem;
+  --text-subheading-weight: 600;
+  --text-subheading-line-height: 1.3;
+  
+  /* Основной текст - читаемый, нормальный */
+  --text-body-size: 1.2rem;
+  --text-body-size-mobile: 1.1rem;
+  --text-body-weight: 400;
+  --text-body-line-height: 1.6;
+}
+
+/* Заголовки */
 h1, h2, h3, h4 {
   font-family: 'Playfair Display', 'Georgia', serif;
-  font-weight: 700; /* Более жирное начертание */
-  line-height: 1.15; /* Более плотный межстрочный */
-  letter-spacing: -0.02em; /* Увеличили кернинг */
+  font-size: var(--text-heading-size);
+  font-weight: var(--text-heading-weight);
+  line-height: var(--text-heading-line-height);
+  letter-spacing: -0.02em;
+  color: var(--text-dark);
+}
+
+/* Подзаголовки */
+.subheading, .section-subtitle, .step-header h3, .challenge-content h3, .advantage-content h3, .option-content h4 {
+  font-family: 'Playfair Display', 'Georgia', serif;
+  font-size: var(--text-subheading-size);
+  font-weight: var(--text-subheading-weight);
+  line-height: var(--text-subheading-line-height);
+  color: var(--text-dark);
+}
+
+/* Основной текст */
+p, .text-body, .step-description, .challenge-content p, .advantage-content p, .option-content p, .criteria-text, .benefits-list li, .subtext-list li {
+  font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+  font-size: var(--text-body-size);
+  font-weight: var(--text-body-weight);
+  line-height: var(--text-body-line-height);
   color: var(--text-dark);
 }
 
 .hero-title {
-  font-size: clamp(3rem, 6vw, 4.5rem); /* Увеличили размер */
+  font-size: clamp(3.5rem, 5vw, 5rem); /* Еще больше для главного заголовка */
   margin-bottom: 11rem;
   color: var(--bg-light);
   font-weight: 800; /* Супержирный для главного заголовка */
@@ -82,7 +157,7 @@ h1, h2, h3, h4 {
 }
 
 .hero-subtitle {
-  font-size: clamp(1.3rem, 3vw, 1.6rem); /* Увеличили размер */
+  font-size: clamp(1.5rem, 3.5vw, 1.8rem); /* Увеличили размер подзаголовка */
   color: var(--bg-light);
   margin-bottom: 2.5rem;
   font-weight: 400; /* Нормальное начертание для контраста */
@@ -526,16 +601,16 @@ h1, h2, h3, h4 {
 
 .cta-buttons {
   display: flex;
-  gap: 1.5rem;
+  gap: var(--spacing-md);
   flex-wrap: wrap;
 }
 
 .btn {
-  padding: 1.3rem 3.5rem; /* Увеличили паддинг */
+  padding: var(--spacing-md) var(--spacing-xl); /* Используем унифицированные отступы */
   border: none;
   border-radius: 0;
   font-family: 'Lato', sans-serif;
-  font-size: 1.15rem; /* Увеличили размер шрифта */
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
   font-weight: 600; /* Более жирный текст */
   text-decoration: none;
   transition: all 0.4s ease; /* Более плавный переход */
@@ -578,7 +653,7 @@ h1, h2, h3, h4 {
 
 /* ---------- КАРТОЧКИ ПРОБЛЕМ В СТИЛЕ MINIMALISM ---------- */
 .problems-section {
-  padding: 8rem 0;
+  padding: var(--section-padding);
   background: var(--bg-light);
   position: relative;
 }
@@ -597,8 +672,8 @@ h1, h2, h3, h4 {
 
 .section-title {
   text-align: center;
-  font-size: 3.2rem; /* Увеличили размер */
-  margin-bottom: 4rem;
+  font-size: 3.5rem; /* Еще больше для секционных заголовков */
+  margin-bottom: var(--spacing-xxl);
   color: var(--text-dark);
   position: relative;
   font-weight: 700; /* Более жирный */
@@ -621,7 +696,7 @@ h1, h2, h3, h4 {
 .problems-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.5rem;
+  gap: var(--spacing-xl);
   position: relative;
   z-index: 2;
   width: 100%;
@@ -629,7 +704,7 @@ h1, h2, h3, h4 {
 
 .problem-card {
   background: var(--bg-card);
-  padding: 3rem 2.5rem;
+  padding: var(--card-padding);
   border: 1px solid var(--border-light);
   transition: all 0.4s ease;
   position: relative;
@@ -668,19 +743,19 @@ h1, h2, h3, h4 {
   padding: 0 1rem;
 }
 
-.challenges-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-  color: var(--text-dark);
-  margin-bottom: 1.0rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-  text-align: center;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .challenges-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; /* Увеличили размер заголовка секции */
+    color: var(--text-dark);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 700; /* Более жирный */
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    text-align: center;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
 .title-underline {
   width: 120px;
@@ -703,23 +778,23 @@ h1, h2, h3, h4 {
 
 .problem-card h3 {
   color: var(--text-dark);
-  margin-bottom: 1rem;
-  font-size: 1.5rem; /* Увеличили размер */
-  font-weight: 700; /* Более жирный */
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--text-subheading-size); /* Используем унифицированный размер */
+  font-weight: var(--text-subheading-weight);
   letter-spacing: -0.01em;
 }
 
 .problem-card p {
   color: var(--text-muted);
-  line-height: 1.7; /* Увеличили межстрочный */
-  font-size: 1.15rem; /* Увеличили размер */
-  font-weight: 400;
+  line-height: var(--text-body-line-height);
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
+  font-weight: var(--text-body-weight);
 }
 
 /* ---------- ФУТЕР В СТИЛЕ OLD MONEY ---------- */
 .site-footer {
   background: linear-gradient(180deg, #3E3428 0%, #2A231C 100%);
-  padding: 4rem 2rem 2rem;
+  padding: var(--spacing-xxl) var(--spacing-lg) var(--spacing-lg);
   color: var(--bg-light);
   position: relative;
 }
@@ -727,20 +802,20 @@ h1, h2, h3, h4 {
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  gap: var(--spacing-xl);
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .footer-brand h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  margin-bottom: 0.8rem;
+  font-size: var(--text-heading-size); /* Используем унифицированный размер */
+  margin-bottom: var(--spacing-xs);
   color: var(--gold);
 }
 
 .footer-brand p {
-  font-size: 1rem;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
   color: var(--text-muted);
   max-width: 260px;
 }
@@ -748,8 +823,8 @@ h1, h2, h3, h4 {
 .footer-nav h4,
 .footer-contacts h4 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-size: var(--text-subheading-size); /* Используем унифицированный размер */
+  margin-bottom: var(--spacing-sm);
   color: var(--gold);
 }
 
@@ -760,13 +835,13 @@ h1, h2, h3, h4 {
 }
 
 .footer-nav li {
-  margin-bottom: 0.6rem;
+  margin-bottom: var(--spacing-xs);
 }
 
 .footer-nav a {
   color: var(--bg-light);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
   transition: all 0.3s ease;
   position: relative;
 }
@@ -791,33 +866,120 @@ h1, h2, h3, h4 {
 }
 
 .footer-contacts p {
-  margin: 0.4rem 0;
-  font-size: 1rem;
+  margin: var(--spacing-xs) 0;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
   color: var(--bg-light);
 }
 
 .footer-bottom {
   text-align: center;
-  margin-top: 3rem;
-  padding-top: 1rem;
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-sm);
   border-top: 1px solid rgba(193, 156, 111, 0.3);
 }
 
 .footer-bottom p {
-  font-size: 0.9rem;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
   color: var(--text-muted);
 }
 
-/* Адаптивность */
+/* Адаптивные размеры для мобильных устройств */
 @media (max-width: 768px) {
+  /* Заголовки на мобильных */
+  h1, h2, h3, h4 {
+    font-size: var(--text-heading-size-mobile);
+  }
+  
+  /* Подзаголовки на мобильных */
+  .subheading, .section-subtitle, .step-header h3, .challenge-content h3, .advantage-content h3, .option-content h4 {
+    font-size: var(--text-subheading-size-mobile);
+  }
+  
+  /* Основной текст на мобильных */
+  p, .text-body, .step-description, .challenge-content p, .advantage-content p, .option-content p, .criteria-text, .benefits-list li, .subtext-list li {
+    font-size: var(--text-body-size-mobile);
+  }
+  
+  /* Специальные заголовки на мобильных */
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+  
+  .challenges-title {
+    font-size: 2.2rem;
+  }
+  
+  .company-text h2,
+  .advantages-header h2,
+  .benefits-text h2,
+  .criteria-header h2,
+  .feedback-header h2 {
+    font-size: 2.2rem;
+  }
+  
+  .calculator-header h2 {
+    font-size: 2rem;
+  }
+  
+  .confidential-primary {
+    font-size: 1.6rem;
+  }
+  
+  .confidential-secondary {
+    font-size: var(--text-body-size-mobile);
+  }
+  
+  /* Футер на мобильных */
   .footer-grid {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 2rem;
+    gap: var(--spacing-lg-mobile);
   }
 
   .footer-brand p {
     margin: 0 auto;
+  }
+  
+  /* Адаптивные отступы секций на мобильных */
+  .problems-section,
+  .challenges-section,
+  .company-section,
+  .advantages-section,
+  .calculator-section,
+  .benefits-section,
+  .criteria-section,
+  .confidential-section,
+  .feedback-section {
+    padding: var(--section-padding-mobile);
+  }
+  
+  /* Адаптивные отступы карточек на мобильных */
+  .problem-card,
+  .challenge-item,
+  .company-text,
+  .advantage-column,
+  .calculator-form-side,
+  .calculator-result-side,
+  .benefits-subtext,
+  .feedback-form {
+    padding: var(--card-padding-mobile);
+  }
+  
+  /* Адаптивные отступы между элементами на мобильных */
+  .problems-grid,
+  .challenges-grid,
+  .advantages-row,
+  .benefits-content,
+  .criteria-list {
+    gap: var(--element-gap-mobile);
   }
 }
 
@@ -881,10 +1043,6 @@ h1, h2, h3, h4 {
     justify-content: center;
   }
   
-  .section-title {
-    font-size: 2.5rem;
-  }
-  
   .problems-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -903,21 +1061,86 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 480px) {
+  /* Еще меньшие размеры для очень маленьких экранов */
+  .hero-title {
+    font-size: clamp(2rem, 10vw, 2.8rem);
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(1rem, 5vw, 1.3rem);
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .challenges-title {
+    font-size: 1.8rem;
+  }
+  
+  .company-text h2,
+  .advantages-header h2,
+  .benefits-text h2,
+  .criteria-header h2,
+  .feedback-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .calculator-header h2 {
+    font-size: 1.6rem;
+  }
+  
+  .confidential-primary {
+    font-size: 1.4rem;
+  }
+  
+  /* Адаптивные отступы для очень маленьких экранов */
+  .problems-section,
+  .challenges-section,
+  .company-section,
+  .advantages-section,
+  .calculator-section,
+  .benefits-section,
+  .criteria-section,
+  .confidential-section,
+  .feedback-section {
+    padding: var(--spacing-xxxl-mobile) 0;
+  }
+  
+  .problem-card,
+  .challenge-item,
+  .company-text,
+  .advantage-column,
+  .calculator-form-side,
+  .calculator-result-side,
+  .benefits-subtext,
+  .feedback-form {
+    padding: var(--spacing-md-mobile);
+  }
+  
+  .problems-grid,
+  .challenges-grid,
+  .advantages-row,
+  .benefits-content,
+  .criteria-list {
+    gap: var(--spacing-sm-mobile);
+  }
+  
   .hero {
     background-position: 60% center;
   }
   
   .btn {
-    padding: 1rem 2rem;
+    padding: var(--spacing-sm-mobile) var(--spacing-lg-mobile);
     width: 100%;
     max-width: 300px;
-    font-size: 1rem;
+    font-size: var(--text-body-size-mobile);
   }
   
   .cta-buttons {
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: var(--spacing-sm-mobile);
   }
   
   .problems-section,
@@ -985,7 +1208,7 @@ h1, h2, h3, h4 {
 }
 
    .challenges-section {
-    padding: 1.1rem 0;
+    padding: var(--section-padding);
     background: var(--bg-light);
     position: relative;
   }
@@ -994,8 +1217,8 @@ h1, h2, h3, h4 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 2.75rem;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-xl);
   }
   
   .challenges-header h2 {
@@ -1046,17 +1269,17 @@ h1, h2, h3, h4 {
   .challenges-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: var(--spacing-md);
     align-items: stretch;
   }
   
   /* Карточка */
   .challenge-item {
     display: flex;
-    gap: 1.25rem;
+    gap: var(--spacing-md);
     align-items: center;
     background: linear-gradient(180deg, rgba(255,255,255,0.98), var(--bg-card));
-    padding: 1.2rem; /* Увеличили паддинг */
+    padding: var(--spacing-md); /* Увеличили паддинг */
     border-radius: 12px;
     border: 1px solid rgba(62,52,40,0.08);
     box-shadow: 0 12px 35px rgba(62,52,40,0.1); /* Более выраженная тень */
@@ -1157,19 +1380,19 @@ h1, h2, h3, h4 {
   .challenge-content h3 {
     font-family: 'Playfair Display', serif;
     margin: 0;
-    font-size: 1.15rem; /* Увеличили размер */
+    font-size: var(--text-subheading-size); /* Используем унифицированный размер */
     color: var(--text-dark);
     letter-spacing: -0.01em;
-    font-weight: 700; /* Более жирный */
-    line-height: 1.3;
+    font-weight: var(--text-subheading-weight);
+    line-height: var(--text-subheading-line-height);
   }
   
   .challenge-content p {
     margin: 0;
     color: var(--text-muted);
-    font-size: 1.05rem; /* Увеличили размер */
-    line-height: 1.6; /* Увеличили межстрочный */
-    font-weight: 400;
+    font-size: var(--text-body-size); /* Используем унифицированный размер */
+    line-height: var(--text-body-line-height);
+    font-weight: var(--text-body-weight);
     max-width: 48rem;
   }
   
@@ -1269,7 +1492,7 @@ h1, h2, h3, h4 {
 
   /* ---------- СЕКЦИЯ О КОМПАНИИ ---------- */
 .company-section {
-  padding: 8rem 0 6rem;
+  padding: var(--section-padding);
   background: linear-gradient(135deg, #F5F0E8 0%, #E8DFD1 100%);
   position: relative;
   overflow: hidden;
@@ -1281,15 +1504,14 @@ h1, h2, h3, h4 {
   gap: 0;
   align-items: start;
   position: relative;
-  margin-bottom: 4rem;
 }
 
 .company-text {
   background: rgba(255, 255, 255, 0.85); /* Уменьшил прозрачность для более мягкого вида */
-  padding: 3rem 2.5rem; /* Немного уменьшил отступы */
+  padding: var(--card-padding); /* Используем унифицированные отступы */
   position: relative;
   z-index: 3;
-  margin-top: 1rem;
+  margin-top: var(--spacing-sm);
   border: 1px solid rgba(193, 156, 111, 0.15); /* Более тонкая и прозрачная рамка */
   box-shadow: 
     0 15px 35px rgba(62, 52, 40, 0.08), /* Более мягкая тень */
@@ -1300,15 +1522,15 @@ h1, h2, h3, h4 {
 }
 
 .company-text h2 {
-  font-size: 2.5rem;
+  font-size: 3rem; /* Увеличили размер заголовка */
   color: #3A2F25;
-  margin-bottom: 1.5rem;
-  font-weight: 400; /* Слегка уменьшил толщину */
+  margin-bottom: var(--spacing-md);
+  font-weight: 700; /* Более жирный */
   letter-spacing: -0.01em;
 }
 
 .company-text .title-underline {
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-lg);
   background: linear-gradient(90deg, var(--gold), var(--accent-red));
   height: 2px; /* Тонче */
   width: 60px; /* Короче */
@@ -1316,10 +1538,10 @@ h1, h2, h3, h4 {
 
 .company-text p {
   color: #5A4E42;
-  font-size: 1.1rem;
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
-  font-weight: 400;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
+  line-height: var(--text-body-line-height);
+  margin-bottom: var(--spacing-md);
+  font-weight: var(--text-body-weight);
 }
 
 /* Убрал резкий белый фон, заменил на градиент */
@@ -1350,19 +1572,6 @@ h1, h2, h3, h4 {
   z-index: 2;
   margin-top: -2.5rem; /* Немного опустил изображение */
   height: 100%;
-}
-
-.company-image::before {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: -15px;
-  right: 15px;
-  bottom: 15px;
-  background: linear-gradient(45deg, var(--gold-light), transparent);
-  z-index: -1;
-  opacity: 0.08; /* Еще более прозрачный */
-  border-radius: 6px;
 }
 
 .company-image img {
@@ -1499,7 +1708,7 @@ h1, h2, h3, h4 {
 
 /* ---------- СЕКЦИЯ ПРЕИМУЩЕСТВ ПРОГРАММЫ ---------- */
 .advantages-section {
-  padding: 6rem 0;
+  padding: var(--section-padding);
   background: 
     linear-gradient(135deg, rgba(242, 233, 213, 0.92) 0%, rgba(232, 217, 195, 0.90) 100%),
     url('img/anna-hunko-CUcX5mdDZvE-unsplash.jpg');
@@ -1524,24 +1733,24 @@ h1, h2, h3, h4 {
 
 .advantages-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: var(--spacing-xxl);
   position: relative;
   z-index: 2;
 }
 
 .advantages-header h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
+  font-size: 3rem; /* Увеличили размер заголовка */
   color: var(--text-dark);
-  margin-bottom: 1rem;
-  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 700; /* Более жирный */
 }
 
 .advantages-row {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 4rem;
+  gap: var(--spacing-xxl);
   max-width: 1000px;
   margin: 0 auto;
   position: relative;
@@ -1555,7 +1764,7 @@ h1, h2, h3, h4 {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 2rem 1.5rem;
+  padding: var(--spacing-lg) var(--spacing-md);
   transition: all 0.3s ease;
   position: relative;
 }
@@ -1577,7 +1786,7 @@ h1, h2, h3, h4 {
   justify-content: center;
   background: rgba(255, 255, 255, 0.9);
   border-radius: 50%;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-md);
   border: 1px solid rgba(193, 156, 111, 0.3);
   box-shadow: 0 6px 20px rgba(193, 156, 111, 0.1);
   transition: all 0.3s ease;
@@ -1597,11 +1806,11 @@ h1, h2, h3, h4 {
 
 .advantage-content h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
+  font-size: var(--text-subheading-size); /* Используем унифицированный размер */
   color: var(--text-dark);
-  margin-bottom: 1rem;
-  font-weight: 600;
-  line-height: 1.3;
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--text-subheading-weight);
+  line-height: var(--text-subheading-line-height);
 }
 
 .advantage-column:hover .advantage-content h3 {
@@ -1610,10 +1819,10 @@ h1, h2, h3, h4 {
 
 .advantage-content p {
   color: var(--text-muted);
-  line-height: 1.5;
-  font-size: 1rem;
+  line-height: var(--text-body-line-height);
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
   margin: 0;
-  font-weight: 300;
+  font-weight: var(--text-body-weight);
 }
 
 /* Адаптивность */
@@ -1717,16 +1926,16 @@ h1, h2, h3, h4 {
 .divider-triangle::after {
   content: '';
   position: absolute;
-  bottom: 1; /* Смещаем внизу */
+  bottom: 1;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 8px solid var(--bg-card); /* Золотистый цвет */
-  z-index: 2; /* Над разделителем, но под контентом следующей секции */
-  display: block; /* Постоянно видимый */
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 8px solid #f2e9d5;
+  z-index: 2;
+  display: block;
 }
 
 /* Адаптивность для угла */
@@ -1764,7 +1973,7 @@ h1, h2, h3, h4 {
 }
 /* ---------- СЕКЦИЯ КАЛЬКУЛЯТОРА В СТИЛЕ OLD MONEY ---------- */
 .calculator-section {
-  padding: 4rem 0;
+  padding: var(--section-padding);
   background: linear-gradient(135deg, #F5F0E8 0%, #E8DFD1 100%);
   position: relative;
 }
@@ -1784,33 +1993,33 @@ h1, h2, h3, h4 {
 
 .calculator-header {
   text-align: center;
-  margin-bottom: 3rem;
-  padding: 0 1rem;
+  margin-bottom: var(--spacing-xl);
+  padding: 0 var(--spacing-sm);
 }
 
 .calculator-header h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
+  font-size: 2.8rem; /* Увеличили размер заголовка */
   color: var(--text-dark);
-  margin-bottom: 0.8rem;
-  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  font-weight: 700; /* Более жирный */
   letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
 .calculator-subtitle {
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
   max-width: 500px;
   margin: 0 auto;
-  line-height: 1.4;
-  font-weight: 300;
+  line-height: var(--text-body-line-height);
+  font-weight: var(--text-body-weight);
 }
 
 .calculator-wrapper {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 var(--spacing-sm);
 }
 
 .calculator-card {
@@ -1829,7 +2038,7 @@ h1, h2, h3, h4 {
 
 /* Убираем полоску и заменяем на более тонкое разделение */
 .calculator-form-side {
-  padding: 2.5rem;
+  padding: var(--card-padding);
   background: rgba(255, 255, 255, 0.98);
   position: relative;
   border-right: 1px solid rgba(193, 156, 111, 0.08);
@@ -1840,7 +2049,7 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-md);
   gap: 0.25rem;
 }
 
@@ -1884,7 +2093,7 @@ h1, h2, h3, h4 {
 }
 
 .step-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .step-number {
@@ -1898,26 +2107,26 @@ h1, h2, h3, h4 {
 
 .step-header h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
+  font-size: var(--text-subheading-size); /* Используем унифицированный размер */
   color: var(--text-dark);
-  font-weight: 600;
+  font-weight: var(--text-subheading-weight);
   margin: 0 0 0.25rem 0;
-  line-height: 1.2;
+  line-height: var(--text-subheading-line-height);
 }
 
 .step-description {
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
   margin: 0;
-  line-height: 1.3;
+  line-height: var(--text-body-line-height);
 }
 
 /* Опции программ - еще компактнее */
 .program-options {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  margin-bottom: 1.5rem;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
 }
 
 .program-option {
@@ -1927,7 +2136,7 @@ h1, h2, h3, h4 {
 .option-card {
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: var(--spacing-sm);
   border: 1.5px solid rgba(62, 52, 40, 0.1);
   border-radius: 8px;
   transition: all 0.2s ease;
@@ -1955,7 +2164,7 @@ h1, h2, h3, h4 {
   justify-content: center;
   background: rgba(193, 156, 111, 0.08);
   border-radius: 6px;
-  margin-right: 1rem;
+  margin-right: var(--spacing-sm);
   color: var(--accent-green);
   transition: all 0.3s ease;
   flex-shrink: 0;
@@ -1972,35 +2181,35 @@ h1, h2, h3, h4 {
 
 .option-content h4 {
   font-family: 'Playfair Display', serif;
-  font-size: 0.95rem;
+  font-size: var(--text-subheading-size); /* Используем унифицированный размер */
   color: var(--text-dark);
   margin: 0 0 0.15rem 0;
-  font-weight: 600;
-  line-height: 1.2;
+  font-weight: var(--text-subheading-weight);
+  line-height: var(--text-subheading-line-height);
 }
 
 .option-content p {
   color: var(--text-muted);
   margin: 0;
-  font-size: 0.8rem;
-  line-height: 1.2;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
+  line-height: var(--text-body-line-height);
 }
 
 /* Секция детей - компактнее */
 .children-section {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-md);
 }
 
 .children-counter {
   display: inline-flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: var(--spacing-md);
   background: rgba(255, 255, 255, 0.8);
-  padding: 1.2rem 1.5rem;
+  padding: var(--spacing-md) var(--spacing-md);
   border-radius: 10px;
   border: 1.5px solid rgba(193, 156, 111, 0.1);
-  margin-bottom: 0.8rem;
+  margin-bottom: var(--spacing-xs);
 }
 
 .counter-btn {
@@ -2057,15 +2266,15 @@ h1, h2, h3, h4 {
   background: rgba(193, 156, 111, 0.03);
   border: 1px solid rgba(193, 156, 111, 0.08);
   border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
 }
 
 .summary-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
+  padding: var(--spacing-xs) 0;
 }
 
 .summary-item:not(:last-child) {
@@ -2086,8 +2295,8 @@ h1, h2, h3, h4 {
 /* Кнопки действий */
 .step-actions {
   display: flex;
-  gap: 0.7rem;
-  margin-top: 1.2rem;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-md);
 }
 
 .step-actions button {
@@ -2145,7 +2354,7 @@ h1, h2, h3, h4 {
 /* Правая часть - результат */
 .calculator-result-side {
   background: linear-gradient(135deg, #3E3428 0%, #2A231C 100%);
-  padding: 2.5rem;
+  padding: var(--card-padding);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -2238,13 +2447,13 @@ h1, h2, h3, h4 {
 }
 
 .result-active .result-graphic {
-  margin-bottom: 2rem;
-  padding: 1rem 0;
+  /* margin-bottom: 2rem;
+  padding: 1rem 0; */
 }
 
 
 .result-graphic {
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
 }
 
 .graphic-circle {
@@ -2354,7 +2563,6 @@ h1, h2, h3, h4 {
 @media (max-width: 768px) {
   .calculator-result-side {
     padding: 2rem 1.5rem;
-    min-height: 220px; /* Увеличиваем минимальную высоту для лучшей читаемости */
   }
 
   .result-placeholder h4 {
@@ -2402,7 +2610,6 @@ h1, h2, h3, h4 {
 @media (max-width: 480px) {
   .calculator-result-side {
     padding: 1.8rem 1rem;
-    min-height: 200px;
   }
 
   .result-placeholder h4 {
@@ -2432,7 +2639,6 @@ h1, h2, h3, h4 {
 @media (max-width: 375px) {
   .calculator-result-side {
     padding: 1.5rem 0.8rem;
-    min-height: 180px;
   }
 
   .result-placeholder h4 {
@@ -2480,7 +2686,7 @@ h1, h2, h3, h4 {
 }
 
 .result-graphic {
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.5rem; */
 }
 
 .graphic-circle {
@@ -2637,7 +2843,6 @@ h1, h2, h3, h4 {
   .calculator-result-side {
     padding: 2rem 1.5rem;
     order: 1; /* Результат показывается первым на мобильных */
-    min-height: 200px; /* Гарантируем достаточную высоту */
   }
   
   /* Убедимся, что результат виден сразу */
@@ -2733,7 +2938,6 @@ h1, h2, h3, h4 {
   
   .calculator-result-side {
     padding: 1.5rem 1rem;
-    min-height: 180px;
   }
   
   .step-header {
@@ -2906,7 +3110,7 @@ h1, h2, h3, h4 {
 
 /* ---------- СЕКЦИЯ "ЧТО ВЫ ПОЛУЧАЕТЕ?" ---------- */
 .benefits-section {
-  padding: 8rem 0;
+  padding: var(--section-padding);
   background: linear-gradient(135deg, #F5F0E8 0%, #E8DFD1 100%);
   position: relative;
 }
@@ -2927,7 +3131,7 @@ h1, h2, h3, h4 {
 .benefits-content {
   display: grid;
   grid-template-columns: 45% 55%;
-  gap: 4rem;
+  gap: var(--spacing-xxl);
   align-items: start;
   position: relative;
   z-index: 2;
@@ -2938,19 +3142,6 @@ h1, h2, h3, h4 {
   height: 100%;
   display: flex;
   align-items: center;
-}
-
-.benefits-image::before {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: -15px;
-  right: 15px;
-  bottom: 15px;
-  background: linear-gradient(45deg, var(--gold-light), transparent);
-  z-index: -1;
-  opacity: 0.08;
-  border-radius: 6px;
 }
 
 .benefits-image img {
@@ -2977,20 +3168,20 @@ h1, h2, h3, h4 {
 .benefits-right {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: var(--spacing-xl);
 }
 
 .benefits-text h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
+  font-size: 3rem; /* Увеличили размер заголовка */
   color: var(--text-dark);
-  margin-bottom: 1.5rem;
-  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  font-weight: 700; /* Более жирный */
   letter-spacing: -0.01em;
 }
 
 .benefits-text .title-underline {
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--spacing-xl);
   background: linear-gradient(90deg, var(--gold), var(--accent-red));
   height: 3px;
   width: 80px;
@@ -3005,11 +3196,11 @@ h1, h2, h3, h4 {
 .benefits-list li {
   position: relative;
   padding-left: 2.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--spacing-md);
   color: var(--text-dark);
-  font-size: 1.15rem; /* Увеличили размер */
-  line-height: 1.7; /* Увеличили межстрочный */
-  font-weight: 500; /* Средняя жирность для лучшей читаемости */
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
+  line-height: var(--text-body-line-height);
+  font-weight: var(--text-body-weight);
 }
 
 .benefits-list li::before {
@@ -3030,18 +3221,18 @@ h1, h2, h3, h4 {
 
 .benefits-subtext {
   background: rgba(255, 255, 255, 0.7);
-  padding: 2rem;
+  padding: var(--spacing-lg);
   border-radius: 8px;
   border: 1px solid rgba(193, 156, 111, 0.1);
   backdrop-filter: blur(5px);
-  margin-top: 1rem;
+  margin-top: var(--spacing-sm);
 }
 
 .muted-text {
   color: var(--text-dark); /* Было слишком бледно */
-  font-size: 1.15rem;      /* Крупнее */
-  margin-bottom: 1rem;
-  font-weight: 600;        /* Более выразительно */
+  font-size: var(--text-subheading-size); /* Используем унифицированный размер */
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--text-subheading-weight); /* Более выразительно */
   letter-spacing: 0.3px;
 }
 
@@ -3054,11 +3245,11 @@ h1, h2, h3, h4 {
 .subtext-list li {
   position: relative;
   padding-left: 1.8rem;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-sm);
   color: var(--text-dark); /* Был muted, делаем тёмнее */
-  font-size: 1.05rem;      /* Увеличено с 0.95rem */
-  line-height: 1.65;       /* Больше воздуха */
-  font-weight: 400;        /* Читается легче */
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
+  line-height: var(--text-body-line-height);
+  font-weight: var(--text-body-weight);
 }
 
 .subtext-list li::before {
@@ -3159,7 +3350,7 @@ h1, h2, h3, h4 {
 
 /* ---------- СЕКЦИЯ КРИТЕРИЕВ СОИСКАТЕЛЯ ---------- */
 .criteria-section {
-  padding: 8rem 0;
+  padding: var(--section-padding);
   background: linear-gradient(135deg, #F5F0E8 0%, #E8DFD1 100%);
   position: relative;
 }
@@ -3186,15 +3377,15 @@ h1, h2, h3, h4 {
 
 .criteria-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: var(--spacing-xxl);
 }
 
 .criteria-header h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
+  font-size: 3rem; /* Увеличили размер заголовка */
   color: var(--text-dark);
-  margin-bottom: 1.5rem;
-  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  font-weight: 700; /* Более жирный */
   letter-spacing: -0.01em;
 }
 
@@ -3211,14 +3402,14 @@ h1, h2, h3, h4 {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--spacing-md);
 }
 
 .criteria-item {
   display: flex;
   align-items: flex-start;
-  gap: 1.5rem;
-  padding: 0.5rem 0;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xs) 0;
   transition: all 0.3s ease;
 }
 
@@ -3253,9 +3444,9 @@ h1, h2, h3, h4 {
 
 .criteria-text {
   color: var(--text-dark);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  font-weight: 400;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
+  line-height: var(--text-body-line-height);
+  font-weight: var(--text-body-weight);
   flex: 1;
 }
 
@@ -3304,7 +3495,7 @@ h1, h2, h3, h4 {
 
 /* ---------- СЕКЦИЯ КОНФИДЕНЦИАЛЬНОСТИ С ПАРАЛЛАКСОМ ---------- */
 .confidential-section {
-  padding: 8rem 0;
+  padding: var(--section-padding);
   position: relative;
   overflow: hidden;
   background: var(--bg-card);
@@ -3337,7 +3528,7 @@ h1, h2, h3, h4 {
 
 .confidential-text {
   background: transparent;
-  padding: 3rem;
+  padding: var(--spacing-xl);
   border: none;
   box-shadow: none;
   backdrop-filter: none;
@@ -3346,22 +3537,22 @@ h1, h2, h3, h4 {
 
 .confidential-primary {
   font-family: 'Playfair Display', serif;
-  font-size: 1.8rem; /* Увеличили размер */
+  font-size: 2.2rem; /* Еще больше для основного текста */
   line-height: 1.8; /* Увеличили межстрочный */
   color: var(--bg-light);
-  margin-bottom: 2rem;
-  font-weight: 600; /* Более жирный */
+  margin-bottom: var(--spacing-lg);
+  font-weight: 700; /* Более жирный */
   text-align: center;
   text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6); /* Более выраженная тень */
 }
 
 .confidential-secondary {
-  font-size: 1.3rem;
-  line-height: 1.6;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
+  line-height: var(--text-body-line-height);
   color: var(--bg-light); /* Светлый текст */
-  font-weight: 400;
+  font-weight: var(--text-body-weight);
   text-align: center;
-  padding-top: 2rem;
+  padding-top: var(--spacing-lg);
   margin: 0;
   border-top: 1px solid rgba(193, 156, 111, 0.5); /* Золотистая линия */
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -3414,7 +3605,7 @@ h1, h2, h3, h4 {
 
 /* ---------- СЕКЦИЯ ФОРМЫ ОБРАТНОЙ СВЯЗИ ---------- */
 .feedback-section {
-  padding: 8rem 0;
+  padding: var(--section-padding);
   background: linear-gradient(135deg, #F5F0E8 0%, #E8DFD1 100%);
   position: relative;
 }
@@ -3441,20 +3632,20 @@ h1, h2, h3, h4 {
 
 .feedback-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: var(--spacing-xxl);
 }
 
 .feedback-header h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
+  font-size: 3rem; /* Увеличили размер заголовка */
   color: var(--text-dark);
-  margin-bottom: 1.5rem;
-  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  font-weight: 700; /* Более жирный */
   letter-spacing: -0.01em;
 }
 
 .feedback-header .title-underline {
-  margin: 0 auto 2rem;
+  margin: 0 auto var(--spacing-lg);
   background: linear-gradient(90deg, var(--gold), var(--accent-red));
   height: 3px;
   width: 80px;
@@ -3462,16 +3653,16 @@ h1, h2, h3, h4 {
 
 .feedback-subtitle {
   color: var(--text-muted);
-  font-size: 1.2rem;
-  line-height: 1.6;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
+  line-height: var(--text-body-line-height);
   max-width: 500px;
   margin: 0 auto;
-  font-weight: 300;
+  font-weight: var(--text-body-weight);
 }
 
 .feedback-form {
   background: rgba(255, 255, 255, 0.95);
-  padding: 3rem;
+  padding: var(--spacing-xl);
   border-radius: 16px;
   box-shadow: 
     0 20px 40px rgba(62, 52, 40, 0.1),
@@ -3481,19 +3672,19 @@ h1, h2, h3, h4 {
 }
 
 .form-group {
-  margin-bottom: 2rem;
+  margin-bottom: var(--spacing-lg);
   position: relative;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 1.2rem 1.5rem;
+  padding: var(--spacing-md) var(--spacing-md);
   border: 1px solid rgba(62, 52, 40, 0.2);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.9);
   font-family: 'Lato', sans-serif;
-  font-size: 1rem;
+  font-size: var(--text-body-size); /* Используем унифицированный размер */
   color: var(--text-dark);
   transition: all 0.3s ease;
   resize: vertical;
