@@ -344,42 +344,46 @@ document.addEventListener('DOMContentLoaded', () => {
   [...revealUpElements, ...revealUpSoftElements].forEach(el => observer.observe(el));
 });
 
+// --- РАСКРЫВАЮЩИЕСЯ КАРТОЧКИ ПРОБЛЕМ ---
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.challenge-content p').forEach(p => {
-    const regex = /\((.*?)\)/;
-    const match = p.textContent.match(regex);
-
-    if (match) {
-      const hiddenText = match[1];
-
-      // основной текст без скобок
-      p.innerHTML = p.textContent.replace(regex, '').trim();
-
-      // скрытый блок
-      const extra = document.createElement('span');
-      extra.textContent = ' ' + hiddenText;
-      extra.style.display = 'none';
-      extra.classList.add('extra-text');
-      p.appendChild(extra);
-
-      // контейнер для текста + стрелки
-      const wrapper = document.createElement('div');
-      wrapper.classList.add('challenge-row');
-      p.parentNode.insertBefore(wrapper, p);
-      wrapper.appendChild(p);
-
-      // кнопка-стрелка
-      const btn = document.createElement('button');
-      btn.innerHTML = '›'; // изначально вправо
-      btn.classList.add('toggle-arrow');
-
-      btn.addEventListener('click', () => {
-        const isVisible = extra.style.display === 'inline';
-        extra.style.display = isVisible ? 'none' : 'inline';
-        btn.innerHTML = isVisible ? '›' : '⌄'; // вправо / вниз
+  const toggleButtons = document.querySelectorAll('.toggle-arrow');
+  
+  toggleButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const card = this.closest('.challenge-item');
+      const hiddenContent = card.querySelector('.hidden-content');
+      
+      // Переключаем классы активности
+      hiddenContent.classList.toggle('active');
+      this.classList.toggle('active');
+      
+      // Обновляем aria-атрибут для доступности
+      const isExpanded = hiddenContent.classList.contains('active');
+      this.setAttribute('aria-expanded', isExpanded);
+      
+      // Прокручиваем к карточке если она не полностью видна
+      if (isExpanded) {
+        const rect = card.getBoundingClientRect();
+        if (rect.bottom > window.innerHeight || rect.top < 0) {
+          card.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'nearest' 
+          });
+        }
+      }
+    });
+  });
+  
+  // Закрытие карточек при клике вне области
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.challenge-item.expandable')) {
+      document.querySelectorAll('.hidden-content.active').forEach(content => {
+        content.classList.remove('active');
       });
-
-      wrapper.appendChild(btn);
+      document.querySelectorAll('.toggle-arrow.active').forEach(button => {
+        button.classList.remove('active');
+        button.setAttribute('aria-expanded', 'false');
+      });
     }
   });
 });
