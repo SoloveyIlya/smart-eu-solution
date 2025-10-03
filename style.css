@@ -1285,7 +1285,6 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
     background: linear-gradient(180deg, rgba(255,255,255,0.98), var(--bg-card));
     padding: var(--spacing-md); /* Увеличили паддинг */
     border-radius: 12px;
-    border: 1px solid rgba(62,52,40,0.08);
     box-shadow: 0 12px 35px rgba(62,52,40,0.1); /* Более выраженная тень */
     transition: transform .35s cubic-bezier(.2,.9,.3,1), box-shadow .35s ease;
     min-height: 90px; /* Увеличили высоту */
@@ -1365,8 +1364,8 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   
   /* Размер иконок */
   .icon-circle svg {
-    width: 41px;
-    height: 41px;
+    width: 55px;
+    height: 55px;
   }
   
   /* Контент карточки — центрируем вертикально */
@@ -1442,48 +1441,20 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   }
 
   .challenge-icon {
-    width: 40px;   
-    height: 40px;
+    width: 55px;   
+    height: 55px;
     object-fit: contain; 
     display: block;
   }
 
   /* Унификация всех SVG иконок в блоке problems */
   .icon-circle img.challenge-icon {
-    width: 36px;
-    height: 36px;
-    filter: brightness(0) saturate(100%) invert(27%) sepia(15%) saturate(1200%) hue-rotate(25deg) brightness(0.8) contrast(1.2);
+    width: 55px;
+    height: 55px;
     transition: all 0.3s ease;
     object-fit: contain;
     display: block;
     margin: 0 auto;
-  }
-
-  /* Hover эффект для иконок */
-  .challenge-item:hover .icon-circle img.challenge-icon {
-    filter: brightness(0) saturate(100%) invert(27%) sepia(15%) saturate(1200%) hue-rotate(25deg) brightness(1) contrast(1.4);
-  }
-
-  /* Адаптивные размеры для иконок */
-  @media (max-width: 1024px) {
-    .icon-circle img.challenge-icon {
-      width: 30px;
-      height: 30px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .icon-circle img.challenge-icon {
-      width: 26px;
-      height: 26px;
-    }
-  }
-
-  @media (max-width: 420px) {
-    .icon-circle img.challenge-icon {
-      width: 24px;
-      height: 24px;
-    }
   }
 
   /* ---------- СЕКЦИЯ О КОМПАНИИ ---------- */
