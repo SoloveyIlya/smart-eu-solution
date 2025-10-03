@@ -173,6 +173,20 @@
   <!-- Новый контейнер для угла -->
   <div class="divider-triangle"></div>
 
+  <!-- Секция с формой обратной связи -->
+  <section class="feedback-section">
+    <div class="container">
+      <div class="feedback-content">
+        <div class="pre-feedback-header">
+          <h2 style="color: var(--bg-light); text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); margin-bottom: 3rem;">Получить решение проблемы прямо сейчас</h2>
+          <button class="phone-btn" type="button" onclick="window.location.href='tel:+74951234567'" style="display: inline-block; background: linear-gradient(90deg, var(--gold), var(--accent-red)); color: #fff; border: none; border-radius: 8px; padding: 1.2rem 1.2rem; font-size: 1.3rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+            Позвонить: +7 (495) 123-45-67
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Секция о компании -->
   <section id="company-section" class="company-section">
     <div class="container">
@@ -586,8 +600,8 @@
         </div>
         
         <div class="form-group">
-          <label>Email или телефон</label>
-          <input type="text" name="contact" required>
+          <label>Email</label>
+          <input type="email" name="contact" required>
         </div>
         
         <div class="form-group">
