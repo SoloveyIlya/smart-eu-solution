@@ -3808,6 +3808,16 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   box-shadow: 0 8px 25px rgba(193, 156, 111, 0.4);
 }
 
+/* Светлая версия секции feedback */
+.feedback-section-light {
+  background: linear-gradient(135deg, #F5F0E8 0%, #E8DFD1 100%) !important;
+}
+
+.feedback-section-light .feedback-header h2 {
+  color: var(--text-dark) !important;
+  text-shadow: none !important;
+}
+
 /* Базовое состояние для reveal up анимации */
 .reveal-up {
   opacity: 0;
