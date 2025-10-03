@@ -1342,14 +1342,11 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   /* Круглая иконка */
   .icon-circle {
     flex: 0 0 84px; /* Увеличили размер */
-    height: 84px;
+    min-height: 41px;
     border-radius: 999px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(180deg, #ffffff, rgba(245,240,233,0.95));
-    border: 2px solid rgba(62,52,40,0.08); /* Более толстая рамка */
-    box-shadow: 0 10px 30px rgba(193,156,111,0.12); /* Более выраженная тень */
     transition: all 0.3s ease;
   }
   
@@ -1368,8 +1365,8 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   
   /* Размер иконок */
   .icon-circle svg {
-    width: 36px;
-    height: 36px;
+    width: 41px;
+    height: 41px;
   }
   
   /* Контент карточки — центрируем вертикально */
@@ -1418,8 +1415,6 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
     .challenges-grid {
       grid-template-columns: repeat(2, 1fr);
     }
-    .icon-circle { flex: 0 0 64px; height: 64px; }
-    .icon-circle svg { width: 30px; height: 30px; }
   }
   
   @media (max-width: 768px) {
@@ -1434,13 +1429,10 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
       font-size: 1.65rem;
     }
 
-    .icon-circle { flex: 0 0 56px; height: 56px; }
-    .icon-circle svg { width: 26px; height: 26px; }
     .challenge-content p { font-size: 0.98rem; }
   }
   
   @media (max-width: 420px) {
-    .icon-circle { flex: 0 0 48px; height: 48px; }
     .challenge-content h3 { font-size: 1rem; }
     .challenge-content p { font-size: 0.95rem; }
   }
@@ -1947,17 +1939,9 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
 /* Адаптивность для угла */
 @media (max-width: 768px) {
   .divider-triangle::after {
-    border-left-width: 8px;
-    border-right-width: 8px;
-    border-top-width: 6px;
-  }
-}
-
-@media (max-width: 480px) { 
-  .divider-triangle::after {
-    border-left-width: 6px;
-    border-right-width: 6px;
-    border-top-width: 4px;
+    border-left-width: 10px;
+    border-right-width: 10px;
+    border-top-width: 8px;
   }
 }
 
