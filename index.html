@@ -571,30 +571,33 @@
 </section>
 
 <!-- Секция "Станьте одним из них!" -->
-<section id="contacts"  class="feedback-section">
+<section id="contacts" class="feedback-section">
   <div class="container">
     <div class="feedback-content">
       <div class="feedback-header">
-        <h2>Станьте одним из них!</h2>
+        <h2>Получить выгодное предложение прямо сейчас</h2>
         <div class="title-underline" aria-hidden="true"></div>
-        <p class="feedback-subtitle">Присоединитесь к нашим клиентам, которые уже получили резидентство в ЕС</p>
       </div>
-
 
       <form class="feedback-form">
         <div class="form-group">
-          <input type="tel" name="phone" placeholder="Телефон*" required>
+          <label>Имя</label>
+          <input type="text" name="name" required>
         </div>
         
         <div class="form-group">
-          <textarea name="message" placeholder="написать письмо" rows="4"></textarea>
+          <label>Email или телефон</label>
+          <input type="text" name="contact" required>
         </div>
         
-        <button type="submit" class="btn btn-primary feedback-btn">
-          <span>Форма обратной связи</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 8h14M8 1l7 7-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="form-group">
+          <label>Детали</label>
+          <textarea name="details" rows="3"></textarea>
+        </div>
+        
+        <!-- Убрал классы btn btn-primary -->
+        <button type="submit" class="feedback-btn">
+          <span>Отправить</span>
         </button>
       </form>
     </div>
