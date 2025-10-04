@@ -1022,7 +1022,6 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   .problems-section,
   .challenges-section,
   .company-section,
-  .advantages-section,
   .calculator-section,
   .benefits-section,
   .criteria-section,
@@ -1168,7 +1167,6 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   .problems-section,
   .challenges-section,
   .company-section,
-  .advantages-section,
   .calculator-section,
   .benefits-section,
   .criteria-section,
@@ -1760,25 +1758,6 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   background: transparent;
 }
 
-/* ТЕМНЫЙ градиент для лучшей читаемости заголовка */
-.advantages-section::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, 
-    rgba(100, 70, 50, 0.8),    /* Темный коричневый */
-    rgba(90, 60, 40, 0.6),     /* Более темный коричневый */
-    rgba(80, 50, 30, 0.4),     /* Еще темнее */
-    rgba(70, 40, 20, 0.2),     /* Очень темный */
-    rgba(60, 30, 10, 0.1)      /* Почти черный */
-  );
-  z-index: 2;
-  pointer-events: none;
-}
-
 /* Комбо блок - фон + карточка */
 .advantage-combo {
   position: absolute;
@@ -1821,15 +1800,33 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
 
 /* Индивидуальные фоны */
 .advantage-combo-1 .advantage-bg {
-  background-image: url('img/andrew-varnum-QMzs6erjVvk-unsplash.jpg');
+  background-image: linear-gradient(135deg, 
+  rgba(100, 70, 50, 0.8),    /* Темный коричневый */
+  rgba(90, 60, 40, 0.6),     /* Более темный коричневый */
+  rgba(80, 50, 30, 0.4),     /* Еще темнее */
+  rgba(70, 40, 20, 0.2),     /* Очень темный */
+  rgba(60, 30, 10, 0.1)      /* Почти черный */
+  ), url('img/andrew-varnum-QMzs6erjVvk-unsplash.jpg');
 }
 
 .advantage-combo-2 .advantage-bg {
-  background-image: url('img/spencer-davis-0QcSnCM0aMc-unsplash.jpg');
+  background-image: linear-gradient(135deg, 
+  rgba(100, 70, 50, 0.8),    /* Темный коричневый */
+  rgba(90, 60, 40, 0.6),     /* Более темный коричневый */
+  rgba(80, 50, 30, 0.4),     /* Еще темнее */
+  rgba(70, 40, 20, 0.2),     /* Очень темный */
+  rgba(60, 30, 10, 0.1)      /* Почти черный */
+  ), url('img/spencer-davis-0QcSnCM0aMc-unsplash.jpg');
 }
 
 .advantage-combo-3 .advantage-bg {
-  background-image: url('img/charlesdeluvio-rRWiVQzLm7k-unsplash.jpg');
+  background-image: linear-gradient(135deg, 
+  rgba(100, 70, 50, 0.8),    /* Темный коричневый */
+  rgba(90, 60, 40, 0.6),     /* Более темный коричневый */
+  rgba(80, 50, 30, 0.4),     /* Еще темнее */
+  rgba(70, 40, 20, 0.2),     /* Очень темный */
+  rgba(60, 30, 10, 0.1)      /* Почти черный */
+  ), url('img/charlesdeluvio-rRWiVQzLm7k-unsplash.jpg');
   background-position: center right;
 }
 
@@ -1880,16 +1877,15 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   height: 400px;
   display: flex;
   flex-direction: column;
-  background: rgba(20, 20, 20, 0.7);
+  background: rgba(58, 47, 37, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   backdrop-filter: none;
-  z-index: 3;
+  z-index: 10;
 }
 
 .advantage-card:hover {
   transform: translateY(-8px);
-  background: rgba(25, 25, 25, 0.8);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
   border-color: rgba(255, 255, 255, 0.2);
 }
@@ -1897,7 +1893,7 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
 /* Контент карточки */
 .advantage-card-content {
   position: relative;
-  z-index: 2;
+  z-index: 11;
   padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
@@ -1925,6 +1921,7 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   overflow: hidden;
   flex-shrink: 0;
   position: relative;
+  z-index: 8;
   margin-bottom: var(--spacing-sm);
 }
 
@@ -1939,6 +1936,8 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   height: 30px;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   color: rgba(188, 158, 109, 0.9);
+  position: relative;
+  z-index: 9;
 }
 
 .advantage-card:hover .advantage-icon svg {
@@ -1957,7 +1956,7 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   justify-content: center;
   gap: var(--spacing-sm);
   position: relative;
-  z-index: 3;
+  z-index: 12;
   width: 100%;
 }
 
@@ -1969,6 +1968,8 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   margin: 0;
   font-weight: 700;
   text-align: center;
+  position: relative;
+  z-index: 8;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
@@ -1983,6 +1984,8 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   color: rgba(255, 255, 255, 0.95);
   margin: 0;
   font-weight: 500;
+  position: relative;
+  z-index: 8;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
   max-height: none;
@@ -2006,6 +2009,7 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
     transparent 100%);
   margin: var(--spacing-sm) auto;
   position: relative;
+  z-index: 8;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -2031,7 +2035,8 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
     }
   
   /* Темный градиент для мобильной версии */
-  .advantages-section::after {
+  .advantages-section::before {
+    height: 100%;
     background: linear-gradient(135deg, 
       rgba(100, 70, 50, 0.7),
       rgba(90, 60, 40, 0.5),
