@@ -1523,7 +1523,7 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
 
   .challenges-sub {
     color: var(--text-muted);
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     max-width: 820px;
     text-align: center;
     font-weight: 500; /* Чуть жирный */
@@ -3900,7 +3900,6 @@ advantage-combo:not(.advantage-combo-1) {
   text-align: center;
   padding-top: var(--spacing-lg);
   margin: 0;
-  border-top: 1px solid rgba(193, 156, 111, 0.5);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -3950,6 +3949,96 @@ advantage-combo:not(.advantage-combo-1) {
   }
 }
 
+.why-container {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+}
+
+.why-button {
+  background: transparent;
+  border: 1px solid rgba(193, 156, 111, 0.7);
+  color: var(--bg-light);
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.why-button:hover {
+  background: rgba(193, 156, 111, 0.1);
+  border-color: rgba(193, 156, 111, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.why-arrow {
+  transition: transform 0.3s ease;
+}
+
+.why-button[aria-expanded="true"] .why-arrow {
+  transform: rotate(180deg);
+}
+
+.confidential-secondary.hidden {
+  display: none;
+}
+
+.confidential-secondary:not(.hidden) {
+  display: block;
+  animation: fadeInUp 0.5s ease;
+  font-size: 1.25rem;
+  line-height: var(--text-body-line-height);
+  color: var(--bg-light);
+  font-weight: 650;
+  text-align: center;
+  padding-top: var(--spacing-lg);
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Адаптивность для кнопки */
+@media (max-width: 768px) {
+  .why-button {
+    font-size: 1rem;
+    padding: 0.7rem 1.3rem;
+  }
+  
+  .confidential-secondary:not(.hidden) {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
+  }
+  
+  .confidential-secondary:not(.hidden) {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+}
 
 /* ---------- СЕКЦИЯ ФОРМЫ ОБРАТНОЙ СВЯЗИ ---------- */
 .feedback-section {
@@ -4386,4 +4475,52 @@ advantage-combo:not(.advantage-combo-1) {
     width: 20px;
     height: 20px;
   }
+}
+
+.desktop-phone {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .desktop-phone {
+    display: inline;
+    margin-left: 8px;
+    font-weight: 500;
+  }
+}
+
+/* Номер телефона для десктопной версии */
+.header-phone {
+  display: none;
+  color: var(--bg-card);
+  text-decoration: none;
+  font-weight: 650;
+  margin-right: 40px;
+  transition: color 0.3s ease;
+  background: transparent;
+}
+
+
+/* Показываем только на десктопе */
+@media (min-width: 1024px) {
+  .header-phone {
+    display: block;
+    position: absolute;
+    right: 60px; /* позиционируем слева от бургер-меню */
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  /* Сдвигаем бургер-меню немного правее чтобы освободить место */
+  .burger-menu {
+    margin-left: auto;
+  }
+}
+
+/* Для корректного позиционирования header-inner */
+.header-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

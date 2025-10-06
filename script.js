@@ -412,3 +412,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Обработчик для кнопки "Почему?"
+document.addEventListener('DOMContentLoaded', () => {
+  const whyButton = document.querySelector('.why-button');
+  const confidentialSecondary = document.querySelector('.confidential-secondary');
+  
+  if (whyButton && confidentialSecondary) {
+    whyButton.addEventListener('click', function() {
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      
+      // Переключаем состояние
+      this.setAttribute('aria-expanded', !isExpanded);
+      confidentialSecondary.classList.toggle('hidden');
+      
+      // Плавная прокрутка к раскрытому контенту
+      if (!isExpanded) {
+        setTimeout(() => {
+          confidentialSecondary.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'nearest',
+            inline: 'nearest'
+          });
+        }, 300);
+      }
+    });
+  }
+});
