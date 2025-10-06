@@ -4273,3 +4273,117 @@ advantage-combo:not(.advantage-combo-1) {
 .hidden-content p {
   font-size: 0.95rem;
 }
+
+/* Контактные кнопки внутри калькулятора */
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xxxl);
+  align-items: center;
+  margin-top: var(--spacing-xxxl); /* Увеличено с xxl на xxxl */
+}
+
+.elegant-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 1.2rem 1.5rem;
+  background: linear-gradient(90deg, var(--gold), var(--accent-red));
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--bg-light);
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px rgba(176, 141, 95, 0.3);
+}
+
+.elegant-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.elegant-btn:hover::before {
+  left: 100%;
+}
+
+.elegant-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(176, 141, 95, 0.5);
+  background: linear-gradient(90deg, var(--accent-red), var(--gold));
+}
+
+.elegant-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+}
+
+.elegant-btn:hover .elegant-icon {
+  transform: scale(1.1);
+}
+
+.elegant-icon svg {
+  stroke: var(--bg-light);
+  transition: stroke 0.3s ease;
+  width: 24px;
+  height: 24px;
+}
+
+.elegant-btn span {
+  transition: all 0.3s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .contact-buttons {
+    gap: var(--spacing-xxl);
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-buttons {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xxl); /* Увеличено с xl на xxl */
+  }
+  
+  .elegant-btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+    padding: 1rem 1.2rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-buttons {
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl); /* Увеличено с lg на xl */
+  }
+  
+  .elegant-btn {
+    padding: 0.8rem 1rem;
+    font-size: 1.1rem;
+  }
+  
+  .elegant-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}
