@@ -1501,7 +1501,7 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   }
 
   .challenges-header h2{
-    font-size: 1.8rem;
+    font-size: 3rem;
   }
 
   .challenge-icon {
@@ -1519,6 +1519,16 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
     object-fit: contain;
     display: block;
     margin: 0 auto;
+  }
+
+  .challenges-sub {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    max-width: 820px;
+    text-align: center;
+    font-weight: 500; /* Чуть жирный */
+    line-height: 1.5;
+    margin-top: var(--spacing-sm);
   }
 
   /* ---------- СЕКЦИЯ О КОМПАНИИ ---------- */
@@ -1839,10 +1849,6 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   justify-content: center;
 }
 
-/* ========================================
-   ЗАГОЛОВОК СЕКЦИИ - БЕЖЕВЫЙ ЦВЕТ (теперь лучше виден)
-   ======================================== */
-
 .advantages-header {
   position: absolute;
   top: 0;
@@ -1863,10 +1869,6 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   line-height: 1.1;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6); /* Усиленная тень для контраста */
 }
-
-/* ========================================
-   КАРТОЧКИ - АБСОЛЮТНО ОДИНАКОВЫЕ
-   ======================================== */
 
 .advantage-card {
   position: relative;
@@ -1996,10 +1998,6 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   color: white;
 }
 
-/* ========================================
-   РАЗДЕЛИТЕЛЬ ПОД ТЕКСТОМ - БЕЗ КРУГА
-   ======================================== */
-
 .advantage-divider {
   width: 60px;
   height: 2px;
@@ -2022,228 +2020,244 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   height: 3px;
 }
 
-/* ========================================
-   МОБИЛЬНАЯ ВЕРСИЯ - ТЕМНЫЙ ГРАДИЕНТ
-   ======================================== */
-
-   @media (max-width: 768px) {
-    .advantages-section {
-      min-height: 300vh;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
+@media (max-width: 768px) {
+  .advantages-section {
+    min-height: 200vh; /* Уменьшено только это */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    .advantage-combo:not(.advantage-combo-1) {
+      --section-padding-mobile: var(--spacing-xxxl-mobile) 0;
     }
-  
-  /* Темный градиент для мобильной версии */
-  .advantages-section::before {
-    height: 100%;
-    background: linear-gradient(135deg, 
-      rgba(100, 70, 50, 0.7),
-      rgba(90, 60, 40, 0.5),
-      rgba(80, 50, 30, 0.3),
-      rgba(70, 40, 20, 0.15),
-      rgba(60, 30, 10, 0.05)
-    );
+    
   }
   
-  /* Заголовок - БЕЖЕВЫЙ цвет в мобильной версии */
-  .advantages-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 4;
-    padding: var(--spacing-xl) 0;
-    text-align: center;
-    pointer-events: none;
+  .advantage-combo:not(.advantage-combo-1) > .container {
+    padding: var(--section-padding-mobile);
+    height: calc(100% - (2 * var(--spacing-xxxl-mobile)));
+    align-items: flex-start; /* или center в зависимости от нужного выравнивания */
   }
-  
-  .advantages-header h2 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #d2b48c; /* Бежевый цвет */
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); /* Усиленная тень */
-    margin: 0;
-  }
-  
-  /* Мобильная версия - В КОЛОНКУ, БЕЗ ОТСТУПОВ СВЕРХУ */
-  .advantage-combo {
-    position: relative;
-    width: 100% !important;
-    left: 0 !important;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .advantage-combo-1 {
-    margin-top: 0;
-    height: 100vh;
-  }
-  
-  .advantage-combo .advantage-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  
-  .advantage-combo-1 .advantage-bg {
-    height: 100vh;
-    background-position: center top;
-  }
-  
-  .advantage-combo > .container {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .advantage-card {
-    width: 320px;
-    height: 400px;
-    margin: 0;
-  }
-  
-  .advantage-card-content {
-    padding: var(--spacing-lg);
-  }
-  
-  .advantage-divider {
-    width: 50px;
-    margin: var(--spacing-xs) auto;
-  }
-  
-  .advantage-card:hover .advantage-divider {
-    width: 60px;
-  }
+
+
+/* Темный градиент для мобильной версии */
+.advantages-section::before {
+  height: 100%;
+  background: linear-gradient(135deg, 
+    rgba(100, 70, 50, 0.7),
+    rgba(90, 60, 40, 0.5),
+    rgba(80, 50, 30, 0.3),
+    rgba(70, 40, 20, 0.15),
+    rgba(60, 30, 10, 0.05)
+  );
+}
+
+/* Заголовок - БЕЖЕВЫЙ цвет в мобильной версии */
+.advantages-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 4;
+  padding: var(--spacing-xl) 0;
+  text-align: center;
+  pointer-events: none;
+}
+
+.advantages-header h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #d2b48c; /* Бежевый цвет */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); /* Усиленная тень */
+  margin: 0;
+}
+
+
+.advantage-combo {
+  position: relative;
+  width: 100% !important;
+  left: 0 !important;
+  height: 80vh; /* Уменьшено только это */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.advantage-combo-1 {
+  margin-top: 0;
+  height: 80vh; /* Уменьшено только это */
+}
+
+.advantage-combo .advantage-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.advantage-combo-1 .advantage-bg {
+  height: 80vh; /* Уменьшено только это */
+  background-position: center top;
+}
+
+.advantage-combo > .container {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.advantage-card {
+  width: 320px;
+  height: 400px;
+  margin: 0;
+}
+
+.advantage-card-content {
+  padding: var(--spacing-lg);
+}
+
+.advantage-divider {
+  width: 50px;
+  margin: var(--spacing-xs) auto;
+}
+
+.advantage-card:hover .advantage-divider {
+  width: 60px;
+}
 }
 
 @media (max-width: 480px) {
-  .advantages-section {
-    padding: 0;
-    min-height: 300vh;
-  }
-  
-  .advantages-header {
-    padding: var(--spacing-lg) 0;
-  }
-  
-  .advantages-header h2 {
-    font-size: 2.1rem;
-    font-weight: 800;
-    color: #d2b48c;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
-  }
-  
-  .advantage-combo {
-    height: 100vh;
-    margin: 0;
-  }
-  
-  .advantage-combo .advantage-bg {
-    height: 100%;
-  }
-  
-  .advantage-combo-1 .advantage-bg {
-    height: 100vh;
-  }
-  
-  .advantage-combo > .container {
-    height: 100%;
-  }
-  
-  .advantage-card {
-    width: 300px;
-    height: 380px;
-  }
-  
-  .advantage-card-content {
-    padding: var(--spacing-md);
-    gap: var(--spacing-sm);
-  }
-  
-  .advantage-icon {
-    width: 70px;
-    height: 70px;
-  }
-  
-  .advantage-icon svg {
-    width: 28px;
-    height: 28px;
-  }
-  
-  .advantage-content h3 {
-    font-size: 1.7rem;
-  }
-  
-  .advantage-content p {
-    font-size: 1.05rem;
-  }
-  
-  .advantage-divider {
-    width: 45px;
-  }
-  
-  .advantage-card:hover .advantage-divider {
-    width: 55px;
-  }
+advantage-combo:not(.advantage-combo-1) {
+  --section-padding-mobile: var(--spacing-xxxl-mobile) 0;
+}
+.advantages-section {
+  padding: 0;
+  min-height: 200vh; /* Уменьшено только это */
+}
+
+.advantage-combo:not(.advantage-combo-1) > .container {
+  padding: var(--section-padding-mobile);
+  height: calc(100% - (2 * var(--spacing-xxxl-mobile)));
+  align-items: flex-start; /* или center в зависимости от нужного выравнивания */
+}
+
+.advantages-header {
+  padding: var(--spacing-lg) 0;
+}
+
+.advantages-header h2 {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #d2b48c;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.advantage-combo {
+  height: 75vh; /* Уменьшено только это */
+  margin: 0;
+}
+
+.advantage-combo .advantage-bg {
+  height: 100%;
+}
+
+.advantage-combo-1 .advantage-bg {
+  height: 75vh; /* Уменьшено только это */
+}
+
+.advantage-combo > .container {
+  height: 100%;
+}
+
+.advantage-card {
+  width: 300px;
+  height: 380px;
+}
+
+.advantage-card-content {
+  padding: var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+.advantage-icon {
+  width: 70px;
+  height: 70px;
+}
+
+.advantage-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.advantage-content h3 {
+  font-size: 1.7rem;
+}
+
+.advantage-content p {
+  font-size: 1.05rem;
+}
+
+.advantage-divider {
+  width: 45px;
+}
+
+.advantage-card:hover .advantage-divider {
+  width: 55px;
+}
 }
 
 /* Ультра-маленькие экраны */
 @media (max-width: 360px) {
-  .advantages-header h2 {
-    font-size: 1.9rem;
-    font-weight: 800;
-    color: #d2b48c;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-  }
-  
-  .advantage-card {
-    width: 280px;
-    height: 360px;
-  }
-  
-  .advantage-card-content {
-    padding: var(--spacing-sm);
-  }
-  
-  .advantage-content h3 {
-    font-size: 1.6rem;
-  }
-  
-  .advantage-content p {
-    font-size: 1rem;
-  }
-  
-  .advantage-icon {
-    width: 65px;
-    height: 65px;
-  }
-  
-  .advantage-icon svg {
-    width: 26px;
-    height: 26px;
-  }
-  
-  .advantage-divider {
-    width: 40px;
-  }
-  
-  .advantage-card:hover .advantage-divider {
-    width: 50px;
-  }
+.advantages-header h2 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #d2b48c;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.advantage-card {
+  width: 280px;
+  height: 360px;
+}
+
+.advantage-card-content {
+  padding: var(--spacing-sm);
+}
+
+.advantage-content h3 {
+  font-size: 1.6rem;
+}
+
+.advantage-content p {
+  font-size: 1rem;
+}
+
+.advantage-icon {
+  width: 65px;
+  height: 65px;
+}
+
+.advantage-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.advantage-divider {
+  width: 40px;
+}
+
+.advantage-card:hover .advantage-divider {
+  width: 50px;
+}
 }
 
 /* Отключение анимаций */
@@ -2325,6 +2339,7 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
     grid-template-columns: 1fr;
   }
 }
+
 /* ---------- СЕКЦИЯ КАЛЬКУЛЯТОРА В СТИЛЕ OLD MONEY ---------- */
 .calculator-section {
   padding: var(--section-padding);
@@ -3907,14 +3922,14 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
 }
 
 .confidential-secondary {
-  font-size: var(--text-body-size); /* Используем унифицированный размер */
+  font-size: 1.25rem; /* Увеличиваем размер шрифта */
   line-height: var(--text-body-line-height);
-  color: var(--bg-light); /* Светлый текст */
-  font-weight: var(--text-body-weight);
+  color: var(--bg-light);
+  font-weight: 650; /* Делаем жирным (650 - semi-bold) */
   text-align: center;
   padding-top: var(--spacing-lg);
   margin: 0;
-  border-top: 1px solid rgba(193, 156, 111, 0.5); /* Золотистая линия */
+  border-top: 1px solid rgba(193, 156, 111, 0.5);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -3925,8 +3940,9 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
     min-height: 50vh;
   }
   
+  
   .parallax-bg {
-    background-attachment: scroll; /* Отключаем параллакс на мобильных */
+    background-attachment: scroll;
   }
   
   .confidential-text {
@@ -3939,7 +3955,8 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   }
   
   .confidential-secondary {
-    font-size: 1.1rem;
+    font-size: 1.1rem; /* Увеличиваем для планшетов */
+    font-weight: 600; /* Добавляем жирность */
   }
 }
 
@@ -3957,11 +3974,11 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
   }
   
   .confidential-secondary {
-    font-size: 1rem;
+    font-size: 1rem; /* Увеличиваем для мобильных */
+    font-weight: 600; /* Добавляем жирность */
   }
 }
 
-/* Добавьте эти стили в ваш style.css */
 
 /* ---------- СЕКЦИЯ ФОРМЫ ОБРАТНОЙ СВЯЗИ ---------- */
 .feedback-section {
@@ -4255,6 +4272,7 @@ p, .text-body, .step-description, .challenge-content p, .advantage-content p, .o
 
 .hidden-content p {
   color: var(--text-muted);
+  font-weight: 600;
   font-size: 1rem;
   line-height: 1.5;
   margin: 0;
