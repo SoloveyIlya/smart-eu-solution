@@ -99,11 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeMenu();
   });
-});
 
-// --- ПРЕМИАЛЬНЫЙ КАЛЬКУЛЯТОР С КНОПКОЙ И ОТКАТОМ ---
-document.addEventListener('DOMContentLoaded', () => {
-  // Элементы
+  // --- ПРЕМИАЛЬНЫЙ КАЛЬКУЛЯТОР С КНОПКОЙ И ОТКАТОМ ---
   const programOptions = document.querySelectorAll('.program-option');
   const counterValue = document.querySelector('.counter-value');
   const minusBtn = document.querySelector('.counter-btn.minus');
@@ -133,85 +130,99 @@ document.addEventListener('DOMContentLoaded', () => {
   const CHILD_COST = 20;
   
   // Инициализация
-  updateCounterDisplay();
-  updateNextButton();
+  if (counterValue) updateCounterDisplay();
+  if (btnNext) updateNextButton();
   
   // Обработчики выбора программы
-  programOptions.forEach(option => {
-    option.addEventListener('click', () => {
-      // Снимаем выделение со всех опций
-      programOptions.forEach(opt => {
-        opt.querySelector('.option-card').classList.remove('selected');
+  if (programOptions) {
+    programOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        // Снимаем выделение со всех опций
+        programOptions.forEach(opt => {
+          opt.querySelector('.option-card').classList.remove('selected');
+        });
+        
+        // Выделяем выбранную опцию
+        option.querySelector('.option-card').classList.add('selected');
+        selectedProgram = parseInt(option.dataset.value);
+        
+        // Активируем кнопку "Продолжить"
+        updateNextButton();
       });
-      
-      // Выделяем выбранную опцию
-      option.querySelector('.option-card').classList.add('selected');
-      selectedProgram = parseInt(option.dataset.value);
-      
-      // Активируем кнопку "Продолжить"
-      updateNextButton();
     });
-  });
+  }
   
   // Обработчики счетчика детей
-  minusBtn.addEventListener('click', () => {
-    if (childrenCount > 0) {
-      childrenCount--;
-      updateCounterDisplay();
-    }
-  });
+  if (minusBtn) {
+    minusBtn.addEventListener('click', () => {
+      if (childrenCount > 0) {
+        childrenCount--;
+        updateCounterDisplay();
+      }
+    });
+  }
   
-  plusBtn.addEventListener('click', () => {
-    childrenCount++;
-    updateCounterDisplay();
-  });
+  if (plusBtn) {
+    plusBtn.addEventListener('click', () => {
+      childrenCount++;
+      updateCounterDisplay();
+    });
+  }
   
   // Обработчики навигации
-  btnNext.addEventListener('click', () => {
-    if (selectedProgram !== null) {
-      showStep(2);
-    }
-  });
-  
-  btnCalculate.addEventListener('click', () => {
-    calculateAndShowResult();
-  });
-  
-  btnBack.forEach(button => {
-    button.addEventListener('click', () => {
-      if (currentStep === 2) {
-        showStep(1);
-      } else if (currentStep === 3) {
+  if (btnNext) {
+    btnNext.addEventListener('click', () => {
+      if (selectedProgram !== null) {
         showStep(2);
       }
     });
-  });
+  }
   
-  btnConsultation.addEventListener('click', (e) => {
-    e.preventDefault(); // Предотвращаем стандартное поведение ссылки
-    
-    // Плавная прокрутка к секции feedback-section
-    const feedbackSection = document.getElementById('contacts');
-    if (feedbackSection) {
-      const header = document.querySelector('.site-header');
-      const navHeight = header ? header.offsetHeight : 0;
-      const targetPosition = feedbackSection.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
-      
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
+  if (btnCalculate) {
+    btnCalculate.addEventListener('click', () => {
+      calculateAndShowResult();
+    });
+  }
+  
+  if (btnBack) {
+    btnBack.forEach(button => {
+      button.addEventListener('click', () => {
+        if (currentStep === 2) {
+          showStep(1);
+        } else if (currentStep === 3) {
+          showStep(2);
+        }
       });
-    }
-  });
+    });
+  }
   
-  // Функции
+  if (btnConsultation) {
+    btnConsultation.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Плавная прокрутка к секции feedback-section
+      const feedbackSection = document.getElementById('contacts');
+      if (feedbackSection) {
+        const header = document.querySelector('.site-header');
+        const navHeight = header ? header.offsetHeight : 0;
+        const targetPosition = feedbackSection.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  }
+  
+  // Функции калькулятора
   function updateCounterDisplay() {
-    counterValue.textContent = childrenCount;
-    minusBtn.disabled = childrenCount === 0;
+    if (counterValue) counterValue.textContent = childrenCount;
+    if (minusBtn) minusBtn.disabled = childrenCount === 0;
   }
   
   function updateNextButton() {
-    btnNext.disabled = selectedProgram === null;
+    if (btnNext) btnNext.disabled = selectedProgram === null;
   }
   
   function showStep(stepNumber) {
@@ -221,7 +232,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Показываем нужный шаг
-    document.querySelector(`.form-step[data-step="${stepNumber}"]`).classList.add('active');
+    const targetStep = document.querySelector(`.form-step[data-step="${stepNumber}"]`);
+    if (targetStep) targetStep.classList.add('active');
     currentStep = stepNumber;
     
     // Обновляем сводку на шаге 3
@@ -236,14 +248,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function hideResult() {
-    resultPlaceholder.style.display = 'block';
-    resultActive.style.display = 'none';
+    if (resultPlaceholder) resultPlaceholder.style.display = 'block';
+    if (resultActive) resultActive.style.display = 'none';
   }
   
   function updateSummary() {
-    const programName = selectedProgram === 150 ? 'Обычная программа' : 'Ускоренная программа';
-    summaryProgram.textContent = programName;
-    summaryChildren.textContent = childrenCount;
+    if (summaryProgram) {
+      const programName = selectedProgram === 150 ? 'Обычная программа' : 'Ускоренная программа';
+      summaryProgram.textContent = programName;
+    }
+    if (summaryChildren) summaryChildren.textContent = childrenCount;
   }
   
   function calculateAndShowResult() {
@@ -253,56 +267,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const totalCost = baseCost + childrenCost;
       
       // Обновляем значения
-      detailBase.textContent = `${baseCost} 000 €`;
-      detailChildren.textContent = `${childrenCost} 000 €`;
-      detailTotal.textContent = `${totalCost} 000 €`;
-      resultAmount.textContent = totalCost;
+      if (detailBase) detailBase.textContent = `${baseCost} 000 €`;
+      if (detailChildren) detailChildren.textContent = `${childrenCost} 000 €`;
+      if (detailTotal) detailTotal.textContent = `${totalCost} 000 €`;
+      if (resultAmount) resultAmount.textContent = totalCost;
       
       // Анимация прогресс-круга
-      const circumference = 2 * Math.PI * 54;
-      const offset = circumference - (totalCost / 350) * circumference;
-      circleProgress.style.strokeDashoffset = offset;
+      if (circleProgress) {
+        const circumference = 2 * Math.PI * 54;
+        const offset = circumference - (totalCost / 350) * circumference;
+        circleProgress.style.strokeDashoffset = offset;
+      }
       
       // Показываем активный результат
-      resultPlaceholder.style.display = 'none';
-      resultActive.style.display = 'block';
+      if (resultPlaceholder) resultPlaceholder.style.display = 'none';
+      if (resultActive) resultActive.style.display = 'block';
       
       // Переходим к шагу 3
       showStep(3);
     }
   }
-});
 
-// Обработчик формы обратной связи
-document.addEventListener('DOMContentLoaded', () => {
-  const feedbackForm = document.querySelector('.feedback-form');
-  
-  if (feedbackForm) {
-    feedbackForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      // Получаем данные формы
-      const formData = new FormData(feedbackForm);
-      const phone = formData.get('phone');
-      const message = formData.get('message');
-      
-      // Валидация телефона (базовая)
-      if (!phone || phone.trim() === '') {
-        alert('Пожалуйста, введите номер телефона');
-        return;
-      }
-      
-      // Временно показываем сообщение об успехе
-      alert('Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.');
-      
-      // Очищаем форму
-      feedbackForm.reset();
-    }); }
-});
-
-// --- Reveal Up анимация при скролле ---
-document.addEventListener('DOMContentLoaded', () => {
-  // Элементы для анимации с разными эффектами
+  // --- Reveal Up анимация при скролле ---
   const revealUpElements = document.querySelectorAll(
     '.challenge-item, .advantage-column, .program-option, .criteria-item'
   );
@@ -336,16 +322,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, {
-    threshold: 0.15, // элемент должен быть виден на 15%
-    rootMargin: '0px 0px -50px 0px' // анимация начинается немного раньше
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
   });
 
   // Наблюдаем за всеми элементами
   [...revealUpElements, ...revealUpSoftElements].forEach(el => observer.observe(el));
-});
 
-// --- РАСКРЫВАЮЩИЕСЯ КАРТОЧКИ ПРОБЛЕМ ---
-document.addEventListener('DOMContentLoaded', () => {
+  // --- РАСКРЫВАЮЩИЕСЯ КАРТОЧКИ ПРОБЛЕМ ---
   const toggleButtons = document.querySelectorAll('.toggle-arrow');
   
   toggleButtons.forEach(button => {
@@ -386,10 +370,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
-});
 
-// Плавная прокрутка для стрелочки
-document.addEventListener('DOMContentLoaded', () => {
+  // Плавная прокрутка для стрелочки
   const scrollArrow = document.querySelector('.scroll-arrow');
   
   if (scrollArrow) {
@@ -411,10 +393,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-});
 
-// Обработчик для кнопки "Почему?"
-document.addEventListener('DOMContentLoaded', () => {
+  // Обработчик для кнопки "Почему?"
   const whyButton = document.querySelector('.why-button');
   const confidentialSecondary = document.querySelector('.confidential-secondary');
   
@@ -438,4 +418,134 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // --- reCAPTCHA v3 и обработка формы ---
+  const feedbackForm = document.querySelector('.feedback-form');
+  const submitBtn = document.querySelector('.feedback-btn');
+  const formMessage = document.getElementById('formMessage');
+  
+  if (!feedbackForm) return;
+
+  // Загрузка reCAPTCHA v3
+  function loadRecaptcha() {
+    // Проверяем, не загружен ли уже скрипт
+    if (document.querySelector('script[src*="recaptcha"]')) return;
+    
+    const script = document.createElement('script');
+    script.src = 'https://www.google.com/recaptcha/api.js?render=6LdpWeErAAAAAEECRPZ1lu-L-9Ln_JsQMfE7QDn4'; 
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+
+  // Получение токена reCAPTCHA
+  function getRecaptchaToken() {
+    return new Promise((resolve) => {
+      if (typeof grecaptcha === 'undefined') {
+        console.warn('reCAPTCHA not loaded');
+        resolve(null);
+        return;
+      }
+      
+      grecaptcha.ready(() => {
+        grecaptcha.execute('6LdpWeErAAAAAEECRPZ1lu-L-9Ln_JsQMfE7QDn4', { action: 'submit' }) 
+          .then((token) => {
+            resolve(token);
+          })
+          .catch((error) => {
+            console.error('reCAPTCHA error:', error);
+            resolve(null);
+          });
+      });
+    });
+  }
+
+  // Показать сообщение формы
+  function showMessage(text, type = 'success') {
+    if (!formMessage) return;
+    
+    formMessage.textContent = text;
+    formMessage.style.display = 'block';
+    formMessage.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
+    formMessage.style.color = type === 'success' ? '#155724' : '#721c24';
+    formMessage.style.border = type === 'success' ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
+    
+    setTimeout(() => {
+      if (formMessage) formMessage.style.display = 'none';
+    }, 5000);
+  }
+
+  // Валидация формы
+  function validateForm(formData) {
+    const name = formData.get('name')?.trim() || '';
+    const email = formData.get('contact')?.trim() || '';
+    
+    if (!name) {
+      throw new Error('Пожалуйста, введите ваше имя');
+    }
+    
+    if (!email) {
+      throw new Error('Пожалуйста, введите email');
+    }
+    
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      throw new Error('Пожалуйста, введите корректный email');
+    }
+    
+    return true;
+  }
+
+  // Обработка отправки формы
+  feedbackForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const originalText = submitBtn?.innerHTML || '';
+    if (submitBtn) {
+      submitBtn.innerHTML = '<span>Отправка...</span>';
+      submitBtn.disabled = true;
+    }
+    
+    try {
+      const formData = new FormData(feedbackForm);
+      
+      // Валидация
+      validateForm(formData);
+      
+      // Получаем токен reCAPTCHA
+      const recaptchaToken = await getRecaptchaToken();
+      
+      if (!recaptchaToken) {
+        throw new Error('Ошибка проверки безопасности. Пожалуйста, попробуйте еще раз.');
+      }
+      
+      // Создаем скрытое поле для токена, если его нет
+      let recaptchaField = document.getElementById('recaptchaResponse');
+      if (!recaptchaField) {
+        recaptchaField = document.createElement('input');
+        recaptchaField.type = 'hidden';
+        recaptchaField.name = 'recaptcha_response';
+        recaptchaField.id = 'recaptchaResponse';
+        feedbackForm.appendChild(recaptchaField);
+      }
+      recaptchaField.value = recaptchaToken;
+      
+      // Имитация успешной отправки
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      showMessage('Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.', 'success');
+      feedbackForm.reset();
+      
+    } catch (error) {
+      console.error('Form submission error:', error);
+      showMessage(error.message || 'Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.', 'error');
+    } finally {
+      if (submitBtn) {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
+    }
+  });
+
+  // Загружаем reCAPTCHA при загрузке страницы
+  loadRecaptcha();
 });

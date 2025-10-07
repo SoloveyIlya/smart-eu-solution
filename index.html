@@ -685,7 +685,7 @@
         <div class="title-underline" aria-hidden="true"></div>
       </div>
 
-      <form class="feedback-form">
+      <form class="feedback-form" id="feedbackForm">
         <div class="form-group">
           <label>Имя</label>
           <input type="text" name="name" required>
@@ -701,10 +701,15 @@
           <textarea name="details" rows="3"></textarea>
         </div>
         
-        <!-- Убрал классы btn btn-primary -->
-        <button type="submit" class="feedback-btn">
+        <!-- Капча reCAPTCHA v3 -->
+        <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+        
+        <button type="submit" class="feedback-btn" id="submitBtn">
           <span>Отправить</span>
         </button>
+        
+        <!-- Сообщение о статусе отправки -->
+        <div id="formMessage" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 4px;"></div>
       </form>
     </div>
   </div>
