@@ -273,33 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Обработчик формы обратной связи
-document.addEventListener('DOMContentLoaded', () => {
-  const feedbackForm = document.querySelector('.feedback-form');
-  
-  if (feedbackForm) {
-    feedbackForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      // Получаем данные формы
-      const formData = new FormData(feedbackForm);
-      const phone = formData.get('phone');
-      const message = formData.get('message');
-      
-      // Валидация телефона (базовая)
-      if (!phone || phone.trim() === '') {
-        alert('Пожалуйста, введите номер телефона');
-        return;
-      }
-      
-      // Временно показываем сообщение об успехе
-      alert('Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.');
-      
-      // Очищаем форму
-      feedbackForm.reset();
-    }); }
-});
-
 // --- Reveal Up анимация при скролле ---
 document.addEventListener('DOMContentLoaded', () => {
   // Элементы для анимации с разными эффектами
