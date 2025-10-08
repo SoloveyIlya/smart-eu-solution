@@ -288,7 +288,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // --- Reveal Up анимация при скролле ---
+// --- Reveal Up анимация при скролле ---
+document.addEventListener('DOMContentLoaded', () => {
+  // Элементы для анимации с разными эффектами
   const revealUpElements = document.querySelectorAll(
     '.challenge-item, .advantage-column, .program-option, .criteria-item'
   );

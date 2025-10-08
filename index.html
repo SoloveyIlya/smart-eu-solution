@@ -685,7 +685,10 @@
         <div class="title-underline" aria-hidden="true"></div>
       </div>
 
-      <form class="feedback-form" id="feedbackForm">
+      <form id="contactForm" action="/contact-submit.php" class="feedback-form">
+        <input type="hidden" name="form_ts" id="form_ts">
+        <input type="text" name="website" id="website" style="display:none">
+
         <div class="form-group">
           <label>Имя</label>
           <input type="text" name="name" required>
@@ -693,12 +696,12 @@
         
         <div class="form-group">
           <label>Email</label>
-          <input type="email" name="contact" required>
+          <input type="email" name="email" required>
         </div>
         
         <div class="form-group">
           <label>Детали</label>
-          <textarea name="details" rows="3"></textarea>
+          <textarea name="message" rows="3"></textarea>
         </div>
         
         <!-- Капча reCAPTCHA v3 -->
@@ -750,5 +753,6 @@
 
   <!-- Подключение внешнего JavaScript -->
   <script src="./script.js" defer></script>
+  <script src="./sendForm.js" defer></script>
 </body>
 </html>
