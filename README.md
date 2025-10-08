@@ -42,3 +42,8 @@ docker-compose exec db sh -lc 'mariadb -uapp -papp -e "USE demo_contact; SHOW TA
 Перейдите в браузере:
 
 http://localhost:8089
+
+Admin panel http://localhost:8089/admin/index.php
+
+login: admin
+password: sesadmin123
