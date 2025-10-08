@@ -551,3 +551,155 @@ document.addEventListener('DOMContentLoaded', () => {
   // Загружаем reCAPTCHA при загрузке страницы
   loadRecaptcha();
 });
+});
+
+(function(){
+  fetch('/site_settings.json', {cache: 'no-store'}).then(function(res){
+    if (!res.ok) throw new Error('no settings');
+    return res.json();
+  }).then(function(s){
+    if (!s) return;
+
+    // ========= PHONE =========
+    if (s.phone) {
+      var digitsForHref = s.phone.replace(/[^\d+]/g, '');
+      // Обновляем href у всех ссылок, имеющих data-site="phone"
+      document.querySelectorAll('[data-site="phone"]').forEach(function(el){
+        try { el.setAttribute('href', 'tel:' + digitsForHref); } catch(e){}
+      });
+      // Обновляем текст в помеченных местах (не трогаем другие надписи)
+      document.querySelectorAll('[data-site-display="phone"]').forEach(function(el){
+        el.textContent = s.phone;
+      });
+      // Обновляем inline onclick с tel: если встречается
+      document.querySelectorAll('[onclick]').forEach(function(b){
+        var v = b.getAttribute('onclick');
+        if (v && v.indexOf("tel:") !== -1) {
+          b.setAttribute('onclick', "window.location.href='tel:" + digitsForHref + "'");
+        }
+      });
+    }
+
+    // ========= EMAIL =========
+    if (s.email) {
+      document.querySelectorAll('[data-site="email"]').forEach(function(el){
+        try { el.setAttribute('href', 'mailto:' + s.email); } catch(e){}
+      });
+    }
+
+    // ========= WHATSAPP =========
+    if (s.whatsapp) {
+      var waDigits = s.whatsapp.replace(/\D/g,'');
+      if (waDigits.length) {
+        document.querySelectorAll('[data-site="wa"]').forEach(function(el){
+          try { el.setAttribute('href', 'https://wa.me/' + waDigits); } catch(e){}
+        });
+      }
+    }
+
+  }).catch(function(){ /* fallback: ничего не делаем, остаются статические значения */ });
+})();
+
+// Управление видимостью кнопок на основе настроек
+class ButtonVisibilityManager {
+  constructor() {
+      this.settings = null;
+      this.init();
+  }
+
+  async init() {
+      try {
+          // Загружаем настройки из JSON файла
+          const response = await fetch('/site_settings.json');
+          if (!response.ok) {
+              throw new Error('Failed to load settings');
+          }
+          this.settings = await response.json();
+          this.applyButtonVisibility();
+      } catch (error) {
+          console.warn('Could not load button visibility settings:', error);
+          // Если файл не загрузился, показываем все кнопки по умолчанию
+          this.showAllButtons();
+      }
+  }
+
+  applyButtonVisibility() {
+      if (!this.settings) return;
+
+      const buttonsContainer = document.querySelector('.contact-buttons');
+      if (!buttonsContainer) return;
+
+      let visibleButtons = [];
+
+      // Управление кнопкой телефона
+      const phoneBtn = document.querySelector('.elegant-btn[data-button-type="phone"]');
+      if (phoneBtn) {
+          const isVisible = this.settings.show_phone_btn !== 0;
+          phoneBtn.style.display = isVisible ? 'flex' : 'none';
+          if (isVisible) visibleButtons.push(phoneBtn);
+      }
+
+      // Управление кнопкой email
+      const emailBtn = document.querySelector('.elegant-btn[data-button-type="email"]');
+      if (emailBtn) {
+          const isVisible = this.settings.show_email_btn !== 0;
+          emailBtn.style.display = isVisible ? 'flex' : 'none';
+          if (isVisible) visibleButtons.push(emailBtn);
+      }
+
+      // Управление кнопкой WhatsApp
+      const waBtn = document.querySelector('.elegant-btn[data-button-type="wa"]');
+      if (waBtn) {
+          const isVisible = this.settings.show_wa_btn !== 0;
+          waBtn.style.display = isVisible ? 'flex' : 'none';
+          if (isVisible) visibleButtons.push(waBtn);
+      }
+
+      // Обновляем классы контейнера в зависимости от количества видимых кнопок
+      this.updateContainerLayout(visibleButtons.length);
+  }
+
+  updateContainerLayout(visibleCount) {
+      const buttonsContainer = document.querySelector('.contact-buttons');
+      if (!buttonsContainer) return;
+
+      // Удаляем все существующие классы компоновки
+      buttonsContainer.classList.remove('hidden', 'one-button', 'two-buttons', 'three-buttons');
+
+      // Добавляем соответствующий класс в зависимости от количества видимых кнопок
+      switch (visibleCount) {
+          case 0:
+              buttonsContainer.classList.add('hidden');
+              break;
+          case 1:
+              buttonsContainer.classList.add('one-button');
+              break;
+          case 2:
+              buttonsContainer.classList.add('two-buttons');
+              break;
+          case 3:
+              buttonsContainer.classList.add('three-buttons');
+              break;
+      }
+  }
+
+  showAllButtons() {
+      const buttons = document.querySelectorAll('.elegant-btn');
+      buttons.forEach(btn => {
+          btn.style.display = 'flex';
+      });
+      this.updateContainerLayout(3);
+  }
+}
+
+// Инициализация менеджера видимости кнопок
+document.addEventListener('DOMContentLoaded', function() {
+  new ButtonVisibilityManager();
+  
+  // Также обновляем видимость при изменении настроек (если нужно в реальном времени)
+  if (typeof window.updateButtonVisibility === 'undefined') {
+      window.updateButtonVisibility = function() {
+          new ButtonVisibilityManager();
+      };
+  }
+});
