@@ -4524,3 +4524,124 @@ advantage-combo:not(.advantage-combo-1) {
   align-items: center;
   justify-content: space-between;
 }
+
+/* Стили для сообщений формы */
+#formMessage {
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Индикатор загрузки для кнопки */
+.feedback-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Анимация загрузки */
+.feedback-btn.loading {
+  position: relative;
+  color: transparent;
+}
+
+.feedback-btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-right-color: transparent;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Стили для контейнера кнопок с адаптивным позиционированием */
+.contact-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+  transition: all 0.3s ease;
+}
+
+/* Состояния для разного количества кнопок */
+.contact-buttons.one-button {
+  justify-content: center;
+}
+
+.contact-buttons.two-buttons {
+  justify-content: center;
+  gap: 3rem;
+}
+
+.contact-buttons.three-buttons {
+  justify-content: space-between;
+}
+
+.contact-buttons.hidden {
+  display: none;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .contact-buttons {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+  }
+  
+  .contact-buttons.two-buttons {
+      gap: 1rem;
+  }
+  
+  .elegant-btn {
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+  }
+}
+
+/* Улучшенные стили для самих кнопок */
+.elegant-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, var(--gold), #d4af37);
+  color: var(--bg-dark);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  flex: 0 1 auto;
+  min-width: fit-content;
+}
+
+.elegant-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(193, 156, 111, 0.3);
+  background: linear-gradient(135deg, #d4af37, var(--gold));
+}
+
+.elegant-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.desktop-phone {
+  font-weight: 500;
+  margin-left: 0.5rem;
+}

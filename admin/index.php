@@ -3,6 +3,86 @@ declare(strict_types=1);
 require __DIR__ . '/../config.php';
 requireAdmin();
 
+$settingsFile = __DIR__ . '/../site_settings.json';
+
+// CSRF токен нужен для POST — получим заранее
+$csrf = csrfToken();
+
+// Обработка сохранения параметров из модального окна (POST)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'save_settings') {
+    // Проверка CSRF
+    if (!isset($_POST['csrf']) || $_POST['csrf'] !== $csrf) {
+        http_response_code(400);
+        echo 'Invalid CSRF';
+        exit;
+    }
+
+    // Получаем и валидируем/очищаем поля
+    $phone = trim((string)($_POST['phone'] ?? ''));
+    $emailRaw = trim((string)($_POST['email'] ?? ''));
+    $whatsapp = trim((string)($_POST['whatsapp'] ?? ''));
+    
+    // Новые поля для управления кнопками
+    $show_phone_btn = isset($_POST['show_phone_btn']) ? 1 : 0;
+    $show_email_btn = isset($_POST['show_email_btn']) ? 1 : 0;
+    $show_wa_btn = isset($_POST['show_wa_btn']) ? 1 : 0;
+
+    // Небольшая валидация
+    $phone = mb_substr($phone, 0, 50);
+    $whatsapp = mb_substr($whatsapp, 0, 50);
+
+    $email = null;
+    if ($emailRaw !== '') {
+        $emailFiltered = filter_var($emailRaw, FILTER_VALIDATE_EMAIL);
+        if ($emailFiltered === false) {
+            // невалидный email — перенаправим с ошибкой
+            header('Location: /admin/index.php?settings_saved=0&err=bad_email');
+            exit;
+        }
+        $email = $emailFiltered;
+    }
+
+    $data = [
+        'phone' => $phone,
+        'email' => $email,
+        'whatsapp' => $whatsapp,
+        'show_phone_btn' => $show_phone_btn,
+        'show_email_btn' => $show_email_btn,
+        'show_wa_btn' => $show_wa_btn
+    ];
+
+    // Сохраняем в JSON-файл в корне сайта (чтобы публичная страница могла его запрашивать)
+    // ВАЖНО: убедитесь, что веб-сервер имеет права на запись в родительскую директорию.
+    $written = @file_put_contents($settingsFile, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    if ($written === false) {
+        header('Location: /admin/index.php?settings_saved=0&err=write_failed');
+        exit;
+    }
+
+    // PRG — редирект назад с успехом
+    header('Location: /admin/index.php?settings_saved=1');
+    exit;
+}
+
+// Подгружаем настройки для предварительного заполнения модалки
+$settings = [
+    'phone' => '', 
+    'email' => '', 
+    'whatsapp' => '',
+    'show_phone_btn' => 1,
+    'show_email_btn' => 1,
+    'show_wa_btn' => 1
+];
+if (file_exists($settingsFile)) {
+    $raw = @file_get_contents($settingsFile);
+    if ($raw !== false) {
+        $decoded = json_decode($raw, true);
+        if (is_array($decoded)) {
+            $settings = array_merge($settings, $decoded);
+        }
+    }
+}
+
 $pdo = pdo();
 
 // фильтры/пагинация
@@ -29,7 +109,7 @@ $stmtTotal = $pdo->prepare("SELECT COUNT(*) FROM contact_requests WHERE $where")
 $stmtTotal->execute($params);
 $total = (int)$stmtTotal->fetchColumn();
 
-$sql = "SELECT id, name, email, phone, message, user_agent, INET6_NTOA(ip) AS ip,
+$sql = "SELECT id, name, email, message, user_agent, INET6_NTOA(ip) AS ip,
                created_at, status
         FROM contact_requests
         WHERE $where
@@ -41,8 +121,6 @@ $stmt->bindValue(':lim', $perPage, PDO::PARAM_INT);
 $stmt->bindValue(':off', $offset, PDO::PARAM_INT);
 $stmt->execute();
 $rows = $stmt->fetchAll();
-
-$csrf = csrfToken();
 
 function urlKeep(array $extra): string {
     $base = array_merge($_GET, $extra);
@@ -60,6 +138,22 @@ function urlKeep(array $extra): string {
   <style>
     .msg{white-space:pre-wrap}
     .badge-status{font-size:0.75em}
+    .settings-section {
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        background: #f8f9fa;
+    }
+    .settings-section h6 {
+        margin-bottom: 1rem;
+        color: #495057;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 0.5rem;
+    }
+    .form-check-label {
+        font-weight: 500;
+    }
   </style>
 </head>
 <body class="bg-light">
@@ -69,11 +163,30 @@ function urlKeep(array $extra): string {
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h2 mb-0">
           <i class="bi bi-inbox me-2"></i>Заявки
+          <!-- Кнопка Параметры рядом со словом "Заявки" -->
+          <button class="btn btn-sm btn-outline-secondary ms-3" data-bs-toggle="modal" data-bs-target="#settingsModal" title="Параметры">
+            <i class="bi bi-gear"></i> Параметры
+          </button>
         </h1>
         <a href="/admin/logout.php" class="btn btn-outline-danger">
           <i class="bi bi-box-arrow-right me-1"></i>Выйти
         </a>
       </div>
+
+      <!-- Показываем уведомление об успехе/ошибке сохранения настроек -->
+      <?php if (isset($_GET['settings_saved'])): ?>
+        <?php if ((int)$_GET['settings_saved'] === 1): ?>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Параметры успешно сохранены.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+          </div>
+        <?php else: ?>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Ошибка при сохранении параметров. <?php if (!empty($_GET['err'])) echo h($_GET['err']); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+          </div>
+        <?php endif; ?>
+      <?php endif; ?>
 
       <div class="card mb-4">
         <div class="card-body">
@@ -137,11 +250,6 @@ function urlKeep(array $extra): string {
                     <?php if ($r['email']): ?>
                       <div class="small text-primary">
                         <i class="bi bi-envelope me-1"></i><?= h($r['email']) ?>
-                      </div>
-                    <?php endif; ?>
-                    <?php if ($r['phone']): ?>
-                      <div class="small text-success">
-                        <i class="bi bi-telephone me-1"></i><?= h($r['phone']) ?>
                       </div>
                     <?php endif; ?>
                   </td>
@@ -238,6 +346,75 @@ function urlKeep(array $extra): string {
   </div>
 </div>
 
+<!-- Modal: Параметры сайта -->
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form method="post" class="modal-content">
+      <input type="hidden" name="csrf" value="<?=$csrf?>">
+      <input type="hidden" name="action" value="save_settings">
+      <div class="modal-header">
+        <h5 class="modal-title" id="settingsModalLabel">Параметры сайта</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Секция контактных данных -->
+        <div class="settings-section">
+          <h6>Контактные данные</h6>
+          <div class="mb-3">
+            <label class="form-label">Номер телефона (публично отображаемый)</label>
+            <input type="text" name="phone" class="form-control" value="<?=h($settings['phone'] ?? '')?>" placeholder="+7 (495) 1-23-456">
+            <div class="form-text">Введите в любом удобном формате — он будет подставлен в ссылку <code>tel:</code>.</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" value="<?=h($settings['email'] ?? '')?>" placeholder="info@example.com">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">WhatsApp (номер для ссылки)</label>
+            <input type="text" name="whatsapp" class="form-control" value="<?=h($settings['whatsapp'] ?? '')?>" placeholder="+7 495 123-45-67">
+            <div class="form-text">Номер будет преобразован в формат для <code>https://wa.me/</code> (только цифры).</div>
+          </div>
+        </div>
+
+        <!-- Секция управления кнопками -->
+        <div class="settings-section">
+          <h6>Управление отображением кнопок</h6>
+          <p class="text-muted small mb-3">Управляйте видимостью кнопок связи в разделе после калькулятора</p>
+          
+          <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" name="show_phone_btn" id="show_phone_btn" <?= ($settings['show_phone_btn'] ?? 1) ? 'checked' : '' ?>>
+            <label class="form-check-label" for="show_phone_btn">
+              Показывать кнопку "Позвонить"
+            </label>
+            <div class="form-text">Отображает кнопку для звонка по указанному телефону</div>
+          </div>
+          
+          <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" name="show_email_btn" id="show_email_btn" <?= ($settings['show_email_btn'] ?? 1) ? 'checked' : '' ?>>
+            <label class="form-check-label" for="show_email_btn">
+              Показывать кнопку "Написать e-mail"
+            </label>
+            <div class="form-text">Отображает кнопку для отправки email на указанный адрес</div>
+          </div>
+          
+          <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" name="show_wa_btn" id="show_wa_btn" <?= ($settings['show_wa_btn'] ?? 1) ? 'checked' : '' ?>>
+            <label class="form-check-label" for="show_wa_btn">
+              Показывать кнопку "Написать в WhatsApp"
+            </label>
+            <div class="form-text">Отображает кнопку для связи через WhatsApp</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
