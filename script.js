@@ -129,8 +129,45 @@ document.addEventListener('DOMContentLoaded', () => {
   let childrenCount = 0;
   let currentStep = 1;
   
-  // Стоимость за ребенка
-  const CHILD_COST = 20;
+  // Цены по умолчанию (тыс. €), могут быть переопределены настройками сайта
+  let PRICE_BASE_REGULAR = 150;
+  let PRICE_BASE_FAST = 250;
+  let PRICE_CHILD = 20;
+
+  // Глобальный объект для сохранения выбора калькулятора
+  window.calcSelection = {
+    used: false,
+    program: null, // 'regular' | 'fast'
+    baseCost: null, // тыс. €
+    children: 0,
+    childCostPer: null, // тыс. €
+    total: null // тыс. €
+  };
+
+  function updateCalcSelectionPartial(partial) {
+    window.calcSelection = Object.assign(window.calcSelection || {}, partial);
+  }
+
+  // Загружаем цены из site_settings.json (если доступны)
+  fetch('/site_settings.json', { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null)
+    .then(s => {
+      if (!s) return;
+      if (Number.isFinite(+s.calc_base_regular)) PRICE_BASE_REGULAR = +s.calc_base_regular;
+      if (Number.isFinite(+s.calc_base_fast)) PRICE_BASE_FAST = +s.calc_base_fast;
+      if (Number.isFinite(+s.calc_child_cost)) PRICE_CHILD = +s.calc_child_cost;
+      // обновим выбранную программу, если уже выбрана, чтобы пересчет шел с новыми ценами
+      const selected = document.querySelector('.program-option .option-card.selected');
+      if (selected) {
+        const parent = selected.closest('.program-option');
+        if (parent) {
+          const val = parent.dataset.value;
+          if (val === 'regular') selectedProgram = PRICE_BASE_REGULAR;
+          if (val === 'fast') selectedProgram = PRICE_BASE_FAST;
+        }
+      }
+    })
+    .catch(() => {});
   
   // Инициализация
   updateCounterDisplay();
@@ -146,7 +183,18 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Выделяем выбранную опцию
       option.querySelector('.option-card').classList.add('selected');
-      selectedProgram = parseInt(option.dataset.value);
+      const datasetVal = option.dataset.value;
+      if (datasetVal === '150' || datasetVal === 'regular') {
+        selectedProgram = PRICE_BASE_REGULAR;
+        updateCalcSelectionPartial({ used: true, program: 'regular', baseCost: PRICE_BASE_REGULAR, childCostPer: PRICE_CHILD });
+      } else if (datasetVal === '250' || datasetVal === 'fast') {
+        selectedProgram = PRICE_BASE_FAST;
+        updateCalcSelectionPartial({ used: true, program: 'fast', baseCost: PRICE_BASE_FAST, childCostPer: PRICE_CHILD });
+      } else {
+        const parsed = parseInt(datasetVal);
+        selectedProgram = Number.isFinite(parsed) ? parsed : PRICE_BASE_REGULAR;
+        updateCalcSelectionPartial({ used: true, program: parsed === PRICE_BASE_FAST ? 'fast' : 'regular', baseCost: selectedProgram, childCostPer: PRICE_CHILD });
+      }
       
       // Активируем кнопку "Продолжить"
       updateNextButton();
@@ -158,12 +206,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (childrenCount > 0) {
       childrenCount--;
       updateCounterDisplay();
+      updateCalcSelectionPartial({ used: true, children: childrenCount });
     }
   });
   
   plusBtn.addEventListener('click', () => {
     childrenCount++;
     updateCounterDisplay();
+    updateCalcSelectionPartial({ used: true, children: childrenCount });
   });
   
   // Обработчики навигации
@@ -241,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function updateSummary() {
-    const programName = selectedProgram === 150 ? 'Обычная программа' : 'Ускоренная программа';
+    const programName = selectedProgram === PRICE_BASE_REGULAR ? 'Обычная программа' : 'Ускоренная программа';
     summaryProgram.textContent = programName;
     summaryChildren.textContent = childrenCount;
   }
@@ -249,8 +299,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function calculateAndShowResult() {
     if (selectedProgram !== null && childrenCount >= 0) {
       const baseCost = selectedProgram;
-      const childrenCost = childrenCount * CHILD_COST;
+      const childrenCost = childrenCount * PRICE_CHILD;
       const totalCost = baseCost + childrenCost;
+      updateCalcSelectionPartial({ used: true, baseCost, children: childrenCount, childCostPer: PRICE_CHILD, total: totalCost });
       
       // Обновляем значения
       detailBase.textContent = `${baseCost} 000 €`;

@@ -94,6 +94,25 @@ $meta = [
     'utm'      => $_POST['utm']             ?? null, // сюда можно класть массив UTM-меток
 ];
 
+// Данные калькулятора (если были переданы)
+$calcUsed = isset($_POST['calc_used']) ? (int)$_POST['calc_used'] : 0;
+if ($calcUsed === 1) {
+    $calcProgram = $_POST['calc_program'] ?? null; // 'regular' | 'fast'
+    $calcBase    = isset($_POST['calc_base_cost']) ? (int)$_POST['calc_base_cost'] : null; // тыс. €
+    $calcChildren= isset($_POST['calc_children']) ? (int)$_POST['calc_children'] : null;
+    $calcChildPer= isset($_POST['calc_child_cost_per']) ? (int)$_POST['calc_child_cost_per'] : null; // тыс. €
+    $calcTotal   = isset($_POST['calc_total']) ? (int)$_POST['calc_total'] : null; // тыс. €
+
+    $meta['calculator'] = [
+        'program'      => $calcProgram,
+        'base_cost'    => $calcBase,
+        'children'     => $calcChildren,
+        'child_cost'   => $calcChildPer,
+        'total'        => $calcTotal,
+        'currency'     => 'kEUR', // тысячи евро, чтобы не путать
+    ];
+}
+
 // Запись в БД
 $stmt = $pdo->prepare("
     INSERT INTO contact_requests (name, email, message, ip, user_agent, meta)
