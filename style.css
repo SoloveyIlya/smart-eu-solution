@@ -4615,8 +4615,8 @@ advantage-combo:not(.advantage-combo-1) {
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, var(--gold), #d4af37);
-  color: var(--bg-dark);
+  background: linear-gradient(135deg, var(--gold));
+  color: var(--bg-light);
   text-decoration: none;
   border-radius: 8px;
   font-weight: 600;
@@ -4630,7 +4630,7 @@ advantage-combo:not(.advantage-combo-1) {
 .elegant-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(193, 156, 111, 0.3);
-  background: linear-gradient(135deg, #d4af37, var(--gold));
+  background: linear-gradient(135deg,var(--gold));
 }
 
 .elegant-icon {
