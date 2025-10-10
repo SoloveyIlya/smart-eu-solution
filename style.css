@@ -4590,57 +4590,6 @@ advantage-combo:not(.advantage-combo-1) {
   display: none;
 }
 
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-  .contact-buttons {
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-  }
-  
-  .contact-buttons.two-buttons {
-      gap: 1rem;
-  }
-  
-  .elegant-btn {
-      width: 100%;
-      max-width: 300px;
-      justify-content: center;
-  }
-}
-
-/* Улучшенные стили для самих кнопок */
-.elegant-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, var(--gold));
-  color: var(--bg-light);
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  flex: 0 1 auto;
-  min-width: fit-content;
-}
-
-.elegant-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(193, 156, 111, 0.3);
-  background: linear-gradient(135deg,var(--gold));
-}
-
-.elegant-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-}
-
 .desktop-phone {
   font-weight: 500;
   margin-left: 0.5rem;

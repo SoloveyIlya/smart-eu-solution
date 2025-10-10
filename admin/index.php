@@ -27,6 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'save_
     $show_email_btn = isset($_POST['show_email_btn']) ? 1 : 0;
     $show_wa_btn = isset($_POST['show_wa_btn']) ? 1 : 0;
 
+    // Параметры цен калькулятора (в тысячах евро)
+    $calc_base_regular = (int)($_POST['calc_base_regular'] ?? 150);
+    $calc_base_fast = (int)($_POST['calc_base_fast'] ?? 250);
+    $calc_child_cost = (int)($_POST['calc_child_cost'] ?? 20);
+
+    // Простая валидация значений (границы и целые числа)
+    $calc_base_regular = max(0, min(10000, $calc_base_regular));
+    $calc_base_fast = max(0, min(10000, $calc_base_fast));
+    $calc_child_cost = max(0, min(10000, $calc_child_cost));
+
     // Небольшая валидация
     $phone = mb_substr($phone, 0, 50);
     $whatsapp = mb_substr($whatsapp, 0, 50);
@@ -48,7 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'save_
         'whatsapp' => $whatsapp,
         'show_phone_btn' => $show_phone_btn,
         'show_email_btn' => $show_email_btn,
-        'show_wa_btn' => $show_wa_btn
+        'show_wa_btn' => $show_wa_btn,
+        'calc_base_regular' => $calc_base_regular,
+        'calc_base_fast' => $calc_base_fast,
+        'calc_child_cost' => $calc_child_cost
     ];
 
     // Сохраняем в JSON-файл в корне сайта (чтобы публичная страница могла его запрашивать)
@@ -71,7 +84,10 @@ $settings = [
     'whatsapp' => '',
     'show_phone_btn' => 1,
     'show_email_btn' => 1,
-    'show_wa_btn' => 1
+    'show_wa_btn' => 1,
+    'calc_base_regular' => 150,
+    'calc_base_fast' => 250,
+    'calc_child_cost' => 20
 ];
 if (file_exists($settingsFile)) {
     $raw = @file_get_contents($settingsFile);
@@ -110,7 +126,7 @@ $stmtTotal->execute($params);
 $total = (int)$stmtTotal->fetchColumn();
 
 $sql = "SELECT id, name, email, message, user_agent, INET6_NTOA(ip) AS ip,
-               created_at, status
+               created_at, status, meta
         FROM contact_requests
         WHERE $where
         ORDER BY created_at DESC
@@ -253,7 +269,34 @@ function urlKeep(array $extra): string {
                       </div>
                     <?php endif; ?>
                   </td>
-                  <td class="msg"><?= h($r['message']) ?></td>
+                  <td class="msg">
+                    <?= h($r['message']) ?>
+                    <?php 
+                      // Вывод данных калькулятора, если есть в meta
+                      $calcHtml = '';
+                      if (!empty($r['meta'])) {
+                        $metaArr = json_decode((string)$r['meta'], true);
+                        if (is_array($metaArr) && isset($metaArr['calculator']) && is_array($metaArr['calculator'])) {
+                          $c = $metaArr['calculator'];
+                          $program = ($c['program'] ?? '') === 'fast' ? 'Ускоренная' : 'Обычная';
+                          $base = isset($c['base_cost']) ? (int)$c['base_cost'] : null;
+                          $children = isset($c['children']) ? (int)$c['children'] : null;
+                          $childPer = isset($c['child_cost']) ? (int)$c['child_cost'] : null;
+                          $total = isset($c['total']) ? (int)$c['total'] : null;
+                          $currencyLabel = 'тыс. €';
+                          $calcHtml = '<div class="mt-2 p-2 border rounded bg-light">'
+                                   . '<div class="small text-muted mb-1">Калькулятор</div>'
+                                   . '<div class="small">Программа: <strong>' . h($program) . '</strong></div>'
+                                   . ($base !== null ? '<div class="small">База: <strong>' . h((string)$base) . ' ' . $currencyLabel . '</strong></div>' : '')
+                                   . ($children !== null ? '<div class="small">Детей: <strong>' . h((string)$children) . '</strong></div>' : '')
+                                   . ($childPer !== null ? '<div class="small">За ребенка: <strong>' . h((string)$childPer) . ' ' . $currencyLabel . '</strong></div>' : '')
+                                   . ($total !== null ? '<div class="small">Итого: <strong>' . h((string)$total) . ' ' . $currencyLabel . '</strong></div>' : '')
+                                   . '</div>';
+                        }
+                      }
+                      echo $calcHtml;
+                    ?>
+                  </td>
                   <td>
                     <div class="small">
                       <div><strong>IP:</strong> <?= h($r['ip'] ?? '') ?></div>
@@ -403,6 +446,35 @@ function urlKeep(array $extra): string {
               Показывать кнопку "Написать в WhatsApp"
             </label>
             <div class="form-text">Отображает кнопку для связи через WhatsApp</div>
+          </div>
+        </div>
+
+        <!-- Секция цен калькулятора -->
+        <div class="settings-section">
+          <h6>Цены калькулятора</h6>
+          <p class="text-muted small mb-3">Все значения указываются в тысячах евро</p>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Базовая стоимость — Обычная программа</label>
+              <div class="input-group">
+                <input type="number" min="0" step="1" name="calc_base_regular" class="form-control" value="<?= (int)($settings['calc_base_regular'] ?? 150) ?>">
+                <span class="input-group-text">тыс. €</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Базовая стоимость — Ускоренная программа</label>
+              <div class="input-group">
+                <input type="number" min="0" step="1" name="calc_base_fast" class="form-control" value="<?= (int)($settings['calc_base_fast'] ?? 250) ?>">
+                <span class="input-group-text">тыс. €</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Доплата за ребенка</label>
+              <div class="input-group">
+                <input type="number" min="0" step="1" name="calc_child_cost" class="form-control" value="<?= (int)($settings['calc_child_cost'] ?? 20) ?>">
+                <span class="input-group-text">тыс. €</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

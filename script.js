@@ -99,8 +99,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeMenu();
   });
+});
 
-  // --- ПРЕМИАЛЬНЫЙ КАЛЬКУЛЯТОР С КНОПКОЙ И ОТКАТОМ ---
+// --- ПРЕМИАЛЬНЫЙ КАЛЬКУЛЯТОР С КНОПКОЙ И ОТКАТОМ ---
+document.addEventListener('DOMContentLoaded', () => {
+  // Элементы
   const programOptions = document.querySelectorAll('.program-option');
   const counterValue = document.querySelector('.counter-value');
   const minusBtn = document.querySelector('.counter-btn.minus');
@@ -126,103 +129,139 @@ document.addEventListener('DOMContentLoaded', () => {
   let childrenCount = 0;
   let currentStep = 1;
   
-  // Стоимость за ребенка
-  const CHILD_COST = 20;
+  // Цены по умолчанию (тыс. €), могут быть переопределены настройками сайта
+  let PRICE_BASE_REGULAR = 150;
+  let PRICE_BASE_FAST = 250;
+  let PRICE_CHILD = 20;
+
+  // Глобальный объект для сохранения выбора калькулятора
+  window.calcSelection = {
+    used: false,
+    program: null, // 'regular' | 'fast'
+    baseCost: null, // тыс. €
+    children: 0,
+    childCostPer: null, // тыс. €
+    total: null // тыс. €
+  };
+
+  function updateCalcSelectionPartial(partial) {
+    window.calcSelection = Object.assign(window.calcSelection || {}, partial);
+  }
+
+  // Загружаем цены из site_settings.json (если доступны)
+  fetch('/site_settings.json', { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null)
+    .then(s => {
+      if (!s) return;
+      if (Number.isFinite(+s.calc_base_regular)) PRICE_BASE_REGULAR = +s.calc_base_regular;
+      if (Number.isFinite(+s.calc_base_fast)) PRICE_BASE_FAST = +s.calc_base_fast;
+      if (Number.isFinite(+s.calc_child_cost)) PRICE_CHILD = +s.calc_child_cost;
+      // обновим выбранную программу, если уже выбрана, чтобы пересчет шел с новыми ценами
+      const selected = document.querySelector('.program-option .option-card.selected');
+      if (selected) {
+        const parent = selected.closest('.program-option');
+        if (parent) {
+          const val = parent.dataset.value;
+          if (val === 'regular') selectedProgram = PRICE_BASE_REGULAR;
+          if (val === 'fast') selectedProgram = PRICE_BASE_FAST;
+        }
+      }
+    })
+    .catch(() => {});
   
   // Инициализация
-  if (counterValue) updateCounterDisplay();
-  if (btnNext) updateNextButton();
+  updateCounterDisplay();
+  updateNextButton();
   
   // Обработчики выбора программы
-  if (programOptions) {
-    programOptions.forEach(option => {
-      option.addEventListener('click', () => {
-        // Снимаем выделение со всех опций
-        programOptions.forEach(opt => {
-          opt.querySelector('.option-card').classList.remove('selected');
-        });
-        
-        // Выделяем выбранную опцию
-        option.querySelector('.option-card').classList.add('selected');
-        selectedProgram = parseInt(option.dataset.value);
-        
-        // Активируем кнопку "Продолжить"
-        updateNextButton();
+  programOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      // Снимаем выделение со всех опций
+      programOptions.forEach(opt => {
+        opt.querySelector('.option-card').classList.remove('selected');
       });
+      
+      // Выделяем выбранную опцию
+      option.querySelector('.option-card').classList.add('selected');
+      const datasetVal = option.dataset.value;
+      if (datasetVal === '150' || datasetVal === 'regular') {
+        selectedProgram = PRICE_BASE_REGULAR;
+        updateCalcSelectionPartial({ used: true, program: 'regular', baseCost: PRICE_BASE_REGULAR, childCostPer: PRICE_CHILD });
+      } else if (datasetVal === '250' || datasetVal === 'fast') {
+        selectedProgram = PRICE_BASE_FAST;
+        updateCalcSelectionPartial({ used: true, program: 'fast', baseCost: PRICE_BASE_FAST, childCostPer: PRICE_CHILD });
+      } else {
+        const parsed = parseInt(datasetVal);
+        selectedProgram = Number.isFinite(parsed) ? parsed : PRICE_BASE_REGULAR;
+        updateCalcSelectionPartial({ used: true, program: parsed === PRICE_BASE_FAST ? 'fast' : 'regular', baseCost: selectedProgram, childCostPer: PRICE_CHILD });
+      }
+      
+      // Активируем кнопку "Продолжить"
+      updateNextButton();
     });
-  }
+  });
   
   // Обработчики счетчика детей
-  if (minusBtn) {
-    minusBtn.addEventListener('click', () => {
-      if (childrenCount > 0) {
-        childrenCount--;
-        updateCounterDisplay();
-      }
-    });
-  }
-  
-  if (plusBtn) {
-    plusBtn.addEventListener('click', () => {
-      childrenCount++;
+  minusBtn.addEventListener('click', () => {
+    if (childrenCount > 0) {
+      childrenCount--;
       updateCounterDisplay();
-    });
-  }
+      updateCalcSelectionPartial({ used: true, children: childrenCount });
+    }
+  });
+  
+  plusBtn.addEventListener('click', () => {
+    childrenCount++;
+    updateCounterDisplay();
+    updateCalcSelectionPartial({ used: true, children: childrenCount });
+  });
   
   // Обработчики навигации
-  if (btnNext) {
-    btnNext.addEventListener('click', () => {
-      if (selectedProgram !== null) {
+  btnNext.addEventListener('click', () => {
+    if (selectedProgram !== null) {
+      showStep(2);
+    }
+  });
+  
+  btnCalculate.addEventListener('click', () => {
+    calculateAndShowResult();
+  });
+  
+  btnBack.forEach(button => {
+    button.addEventListener('click', () => {
+      if (currentStep === 2) {
+        showStep(1);
+      } else if (currentStep === 3) {
         showStep(2);
       }
     });
-  }
+  });
   
-  if (btnCalculate) {
-    btnCalculate.addEventListener('click', () => {
-      calculateAndShowResult();
-    });
-  }
-  
-  if (btnBack) {
-    btnBack.forEach(button => {
-      button.addEventListener('click', () => {
-        if (currentStep === 2) {
-          showStep(1);
-        } else if (currentStep === 3) {
-          showStep(2);
-        }
-      });
-    });
-  }
-  
-  if (btnConsultation) {
-    btnConsultation.addEventListener('click', (e) => {
-      e.preventDefault();
+  btnConsultation.addEventListener('click', (e) => {
+    e.preventDefault(); // Предотвращаем стандартное поведение ссылки
+    
+    // Плавная прокрутка к секции feedback-section
+    const feedbackSection = document.getElementById('contacts');
+    if (feedbackSection) {
+      const header = document.querySelector('.site-header');
+      const navHeight = header ? header.offsetHeight : 0;
+      const targetPosition = feedbackSection.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
       
-      // Плавная прокрутка к секции feedback-section
-      const feedbackSection = document.getElementById('contacts');
-      if (feedbackSection) {
-        const header = document.querySelector('.site-header');
-        const navHeight = header ? header.offsetHeight : 0;
-        const targetPosition = feedbackSection.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
-        
-        window.scrollTo({
-          top: targetPosition,
-          behavior: 'smooth'
-        });
-      }
-    });
-  }
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  });
   
-  // Функции калькулятора
+  // Функции
   function updateCounterDisplay() {
-    if (counterValue) counterValue.textContent = childrenCount;
-    if (minusBtn) minusBtn.disabled = childrenCount === 0;
+    counterValue.textContent = childrenCount;
+    minusBtn.disabled = childrenCount === 0;
   }
   
   function updateNextButton() {
-    if (btnNext) btnNext.disabled = selectedProgram === null;
+    btnNext.disabled = selectedProgram === null;
   }
   
   function showStep(stepNumber) {
@@ -232,8 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Показываем нужный шаг
-    const targetStep = document.querySelector(`.form-step[data-step="${stepNumber}"]`);
-    if (targetStep) targetStep.classList.add('active');
+    document.querySelector(`.form-step[data-step="${stepNumber}"]`).classList.add('active');
     currentStep = stepNumber;
     
     // Обновляем сводку на шаге 3
@@ -248,45 +286,43 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function hideResult() {
-    if (resultPlaceholder) resultPlaceholder.style.display = 'block';
-    if (resultActive) resultActive.style.display = 'none';
+    resultPlaceholder.style.display = 'block';
+    resultActive.style.display = 'none';
   }
   
   function updateSummary() {
-    if (summaryProgram) {
-      const programName = selectedProgram === 150 ? 'Обычная программа' : 'Ускоренная программа';
-      summaryProgram.textContent = programName;
-    }
-    if (summaryChildren) summaryChildren.textContent = childrenCount;
+    const programName = selectedProgram === PRICE_BASE_REGULAR ? 'Обычная программа' : 'Ускоренная программа';
+    summaryProgram.textContent = programName;
+    summaryChildren.textContent = childrenCount;
   }
   
   function calculateAndShowResult() {
     if (selectedProgram !== null && childrenCount >= 0) {
       const baseCost = selectedProgram;
-      const childrenCost = childrenCount * CHILD_COST;
+      const childrenCost = childrenCount * PRICE_CHILD;
       const totalCost = baseCost + childrenCost;
+      updateCalcSelectionPartial({ used: true, baseCost, children: childrenCount, childCostPer: PRICE_CHILD, total: totalCost });
       
       // Обновляем значения
-      if (detailBase) detailBase.textContent = `${baseCost} 000 €`;
-      if (detailChildren) detailChildren.textContent = `${childrenCost} 000 €`;
-      if (detailTotal) detailTotal.textContent = `${totalCost} 000 €`;
-      if (resultAmount) resultAmount.textContent = totalCost;
+      detailBase.textContent = `${baseCost} 000 €`;
+      detailChildren.textContent = `${childrenCost} 000 €`;
+      detailTotal.textContent = `${totalCost} 000 €`;
+      resultAmount.textContent = totalCost;
       
       // Анимация прогресс-круга
-      if (circleProgress) {
-        const circumference = 2 * Math.PI * 54;
-        const offset = circumference - (totalCost / 350) * circumference;
-        circleProgress.style.strokeDashoffset = offset;
-      }
+      const circumference = 2 * Math.PI * 54;
+      const offset = circumference - (totalCost / 350) * circumference;
+      circleProgress.style.strokeDashoffset = offset;
       
       // Показываем активный результат
-      if (resultPlaceholder) resultPlaceholder.style.display = 'none';
-      if (resultActive) resultActive.style.display = 'block';
+      resultPlaceholder.style.display = 'none';
+      resultActive.style.display = 'block';
       
       // Переходим к шагу 3
       showStep(3);
     }
   }
+});
 
 // --- Reveal Up анимация при скролле ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -324,14 +360,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -50px 0px'
+    threshold: 0.15, // элемент должен быть виден на 15%
+    rootMargin: '0px 0px -50px 0px' // анимация начинается немного раньше
   });
 
   // Наблюдаем за всеми элементами
   [...revealUpElements, ...revealUpSoftElements].forEach(el => observer.observe(el));
+});
 
-  // --- РАСКРЫВАЮЩИЕСЯ КАРТОЧКИ ПРОБЛЕМ ---
+// --- РАСКРЫВАЮЩИЕСЯ КАРТОЧКИ ПРОБЛЕМ ---
+document.addEventListener('DOMContentLoaded', () => {
   const toggleButtons = document.querySelectorAll('.toggle-arrow');
   
   toggleButtons.forEach(button => {
@@ -372,8 +410,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+});
 
-  // Плавная прокрутка для стрелочки
+// Плавная прокрутка для стрелочки
+document.addEventListener('DOMContentLoaded', () => {
   const scrollArrow = document.querySelector('.scroll-arrow');
   
   if (scrollArrow) {
@@ -395,8 +435,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+});
 
-  // Обработчик для кнопки "Почему?"
+// Обработчик для кнопки "Почему?"
+document.addEventListener('DOMContentLoaded', () => {
   const whyButton = document.querySelector('.why-button');
   const confidentialSecondary = document.querySelector('.confidential-secondary');
   
@@ -420,137 +462,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  // --- reCAPTCHA v3 и обработка формы ---
-  const feedbackForm = document.querySelector('.feedback-form');
-  const submitBtn = document.querySelector('.feedback-btn');
-  const formMessage = document.getElementById('formMessage');
-  
-  if (!feedbackForm) return;
-
-  // Загрузка reCAPTCHA v3
-  function loadRecaptcha() {
-    // Проверяем, не загружен ли уже скрипт
-    if (document.querySelector('script[src*="recaptcha"]')) return;
-    
-    const script = document.createElement('script');
-    script.src = 'https://www.google.com/recaptcha/api.js?render=6LdpWeErAAAAAEECRPZ1lu-L-9Ln_JsQMfE7QDn4'; 
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-  }
-
-  // Получение токена reCAPTCHA
-  function getRecaptchaToken() {
-    return new Promise((resolve) => {
-      if (typeof grecaptcha === 'undefined') {
-        console.warn('reCAPTCHA not loaded');
-        resolve(null);
-        return;
-      }
-      
-      grecaptcha.ready(() => {
-        grecaptcha.execute('6LdpWeErAAAAAEECRPZ1lu-L-9Ln_JsQMfE7QDn4', { action: 'submit' }) 
-          .then((token) => {
-            resolve(token);
-          })
-          .catch((error) => {
-            console.error('reCAPTCHA error:', error);
-            resolve(null);
-          });
-      });
-    });
-  }
-
-  // Показать сообщение формы
-  function showMessage(text, type = 'success') {
-    if (!formMessage) return;
-    
-    formMessage.textContent = text;
-    formMessage.style.display = 'block';
-    formMessage.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
-    formMessage.style.color = type === 'success' ? '#155724' : '#721c24';
-    formMessage.style.border = type === 'success' ? '1px solid #c3e6cb' : '1px solid #f5c6cb';
-    
-    setTimeout(() => {
-      if (formMessage) formMessage.style.display = 'none';
-    }, 5000);
-  }
-
-  // Валидация формы
-  function validateForm(formData) {
-    const name = formData.get('name')?.trim() || '';
-    const email = formData.get('contact')?.trim() || '';
-    
-    if (!name) {
-      throw new Error('Пожалуйста, введите ваше имя');
-    }
-    
-    if (!email) {
-      throw new Error('Пожалуйста, введите email');
-    }
-    
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      throw new Error('Пожалуйста, введите корректный email');
-    }
-    
-    return true;
-  }
-
-  // Обработка отправки формы
-  feedbackForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const originalText = submitBtn?.innerHTML || '';
-    if (submitBtn) {
-      submitBtn.innerHTML = '<span>Отправка...</span>';
-      submitBtn.disabled = true;
-    }
-    
-    try {
-      const formData = new FormData(feedbackForm);
-      
-      // Валидация
-      validateForm(formData);
-      
-      // Получаем токен reCAPTCHA
-      const recaptchaToken = await getRecaptchaToken();
-      
-      if (!recaptchaToken) {
-        throw new Error('Ошибка проверки безопасности. Пожалуйста, попробуйте еще раз.');
-      }
-      
-      // Создаем скрытое поле для токена, если его нет
-      let recaptchaField = document.getElementById('recaptchaResponse');
-      if (!recaptchaField) {
-        recaptchaField = document.createElement('input');
-        recaptchaField.type = 'hidden';
-        recaptchaField.name = 'recaptcha_response';
-        recaptchaField.id = 'recaptchaResponse';
-        feedbackForm.appendChild(recaptchaField);
-      }
-      recaptchaField.value = recaptchaToken;
-      
-      // Имитация успешной отправки
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      showMessage('Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.', 'success');
-      feedbackForm.reset();
-      
-    } catch (error) {
-      console.error('Form submission error:', error);
-      showMessage(error.message || 'Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз.', 'error');
-    } finally {
-      if (submitBtn) {
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-      }
-    }
-  });
-
-  // Загружаем reCAPTCHA при загрузке страницы
-  loadRecaptcha();
-});
 });
 
 (function(){
@@ -695,7 +606,7 @@ class ButtonVisibilityManager {
 // Инициализация менеджера видимости кнопок
 document.addEventListener('DOMContentLoaded', function() {
   new ButtonVisibilityManager();
-  
+
   // Также обновляем видимость при изменении настроек (если нужно в реальном времени)
   if (typeof window.updateButtonVisibility === 'undefined') {
       window.updateButtonVisibility = function() {

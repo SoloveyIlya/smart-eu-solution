@@ -19,7 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
   
     const res = await fetch(form.action, {
       method: 'POST',
-      body: fd,
+      body: (function(){
+        // Приложим данные калькулятора, если использовался
+        try {
+          if (window.calcSelection && window.calcSelection.used) {
+            fd.set('calc_used', '1');
+            fd.set('calc_program', String(window.calcSelection.program ?? ''));
+            fd.set('calc_base_cost', String(window.calcSelection.baseCost ?? ''));
+            fd.set('calc_children', String(window.calcSelection.children ?? ''));
+            fd.set('calc_child_cost_per', String(window.calcSelection.childCostPer ?? ''));
+            fd.set('calc_total', String(window.calcSelection.total ?? ''));
+          } else {
+            fd.set('calc_used', '0');
+          }
+        } catch (e) { /* ignore */ }
+        return fd;
+      })(),
       headers: { 'Accept': 'application/json' },
     });
     const data = await res.json();
