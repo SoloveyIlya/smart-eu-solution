@@ -135,3 +135,48 @@ if ($respondJson) {
     // Фолбэк для обычной формы без JS
     echo 'Спасибо! Ваша заявка принята.';
 }
+
+// Получаем настройки из site_settings.json
+$settingsFile = __DIR__ . '/site_settings.json';
+$settings = [];
+
+if (file_exists($settingsFile)) {
+    $raw = @file_get_contents($settingsFile);
+    if ($raw !== false) {
+        $decoded = json_decode($raw, true);
+        if (is_array($decoded)) {
+            $settings = $decoded;
+        }
+    }
+}
+
+// Кому отправлять - берем из настроек или используем fallback
+$to = $settings['email'] ?? "you@example.com";
+
+// Тема письма
+$subject = "Новая заявка с сайта";
+
+// Данные из формы
+$name = htmlspecialchars($_POST['name'] ?? '');
+$email = htmlspecialchars($_POST['email'] ?? '');
+$message = htmlspecialchars($_POST['message'] ?? '');
+
+// Проверка заполненности
+if (empty($name) || empty($email) || empty($message)) {
+    die("Ошибка: заполните все поля.");
+}
+
+// Формирование письма
+$body = "Имя: $name\nEmail: $email\n\nСообщение:\n$message";
+
+// Заголовки
+$headers = "From: $email\r\n";
+$headers .= "Reply-To: $email\r\n";
+$headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+
+// Отправка
+if (mail($to, $subject, $body, $headers)) {
+    echo "Сообщение успешно отправлено!";
+} else {
+    echo "Ошибка при отправке.";
+}
