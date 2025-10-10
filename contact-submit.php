@@ -128,6 +128,28 @@ $stmt->execute([
     ':meta'    => json_encode($meta, JSON_UNESCAPED_UNICODE),
 ]);
 
+// Кому отправлять
+$to = "smart-eu-decision@proton.me";
+
+// Тема письма
+$subject = "Новая заявка с сайта";
+
+// Проверка заполненности
+if (empty($name) || empty($email) || empty($message)) {
+    die("Ошибка: заполните все поля.");
+}
+
+// Формирование письма
+$body = "Имя: $name\nEmail: $email\n\nСообщение:\n$message";
+
+// Заголовки
+$headers = "From: $email\r\n";
+$headers .= "Reply-To: $email\r\n";
+$headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+
+// Отправка
+mail($to, $subject, $body, $headers);
+
 // Успех
 if ($respondJson) {
     jsonOut(200, ['ok' => true, 'id' => (int)$pdo->lastInsertId()]);
