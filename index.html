@@ -22,6 +22,7 @@
 
   <!-- Подключение внешних стилей -->
   <link rel="stylesheet" href="./style.css">
+  <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
   <!-- Шапка в стиле Old Money -->
@@ -706,8 +707,9 @@
           <textarea name="message" rows="3"></textarea>
         </div>
         
-        <!-- Капча reCAPTCHA v3 -->
-        <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+        <div class="form-group" style="display: flex; justify-content: center;">
+            <div class="g-recaptcha" data-sitekey="6LcALuUrAAAAABgRYDwize1kMCRp3yoOxP_Vyi48"></div>
+        </div>
         
         <button type="submit" class="feedback-btn" id="submitBtn">
           <span>Отправить</span>

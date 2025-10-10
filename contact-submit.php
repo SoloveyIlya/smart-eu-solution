@@ -37,6 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     }
 }
 
+// reCaptcha v2
+$error = true; $secret = '6LcALuUrAAAAABA-Ye804wUjVi9LoU6W6-uIMa0r'; if (!empty($_POST['g-recaptcha-response'])) { $curl = curl_init('https://www.google.com/recaptcha/api/siteverify'); curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); curl_setopt($curl, CURLOPT_POST, true); curl_setopt($curl, CURLOPT_POSTFIELDS, 'secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']); $out = curl_exec($curl); curl_close($curl); $out = json_decode($out); if ($out->success == true) { $error = false; } } if ($error) { echo 'Ошибка заполнения капчи.'; }
+
 // --- Ввод ---
 $name    = trim((string)($_POST['name']    ?? ''));
 $email   = trim((string)($_POST['email']   ?? ''));
