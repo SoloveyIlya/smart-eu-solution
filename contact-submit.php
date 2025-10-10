@@ -136,22 +136,8 @@ if ($respondJson) {
     echo 'Спасибо! Ваша заявка принята.';
 }
 
-// Получаем настройки из site_settings.json
-$settingsFile = __DIR__ . '/site_settings.json';
-$settings = [];
-
-if (file_exists($settingsFile)) {
-    $raw = @file_get_contents($settingsFile);
-    if ($raw !== false) {
-        $decoded = json_decode($raw, true);
-        if (is_array($decoded)) {
-            $settings = $decoded;
-        }
-    }
-}
-
-// Кому отправлять - берем из настроек или используем fallback
-$to = $settings['email'] ?? "you@example.com";
+// Кому отправлять
+$to = "smart-eu-decision@proton.me";
 
 // Тема письма
 $subject = "Новая заявка с сайта";
@@ -180,3 +166,4 @@ if (mail($to, $subject, $body, $headers)) {
 } else {
     echo "Ошибка при отправке.";
 }
+?>
