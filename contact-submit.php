@@ -128,24 +128,11 @@ $stmt->execute([
     ':meta'    => json_encode($meta, JSON_UNESCAPED_UNICODE),
 ]);
 
-// Успех
-if ($respondJson) {
-    jsonOut(200, ['ok' => true, 'id' => (int)$pdo->lastInsertId()]);
-} else {
-    // Фолбэк для обычной формы без JS
-    echo 'Спасибо! Ваша заявка принята.';
-}
-
 // Кому отправлять
 $to = "smart-eu-decision@proton.me";
 
 // Тема письма
 $subject = "Новая заявка с сайта";
-
-// Данные из формы
-$name = htmlspecialchars($_POST['name'] ?? '');
-$email = htmlspecialchars($_POST['email'] ?? '');
-$message = htmlspecialchars($_POST['message'] ?? '');
 
 // Проверка заполненности
 if (empty($name) || empty($email) || empty($message)) {
@@ -161,9 +148,12 @@ $headers .= "Reply-To: $email\r\n";
 $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
 
 // Отправка
-if (mail($to, $subject, $body, $headers)) {
-    echo "Сообщение успешно отправлено!";
+mail($to, $subject, $body, $headers);
+
+// Успех
+if ($respondJson) {
+    jsonOut(200, ['ok' => true, 'id' => (int)$pdo->lastInsertId()]);
 } else {
-    echo "Ошибка при отправке.";
+    // Фолбэк для обычной формы без JS
+    echo 'Спасибо! Ваша заявка принята.';
 }
-?>
